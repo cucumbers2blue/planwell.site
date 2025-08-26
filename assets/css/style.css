@@ -279,6 +279,17 @@ body {
   margin-top: 2px;
 }
 
+.btn-coming-soon {
+  background: var(--gray-400) !important;
+  cursor: not-allowed !important;
+  opacity: 0.8;
+}
+
+.btn-coming-soon:hover {
+  transform: none !important;
+  background: var(--gray-400) !important;
+}
+
 /* Sections */
 section {
   padding: var(--section-padding);
