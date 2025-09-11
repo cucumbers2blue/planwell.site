@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                     // If we still have the complex structure, simplify it
                     if (btn.innerHTML.includes('span')) {
-                        btn.innerHTML = 'Download<span class="btn-subtitle">Code-signed and ready to install</span>';
+                        btn.innerHTML = 'Download';
                     }
                         
                     btn.dataset.downloadUrl = zipAsset.browser_download_url;
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                 // If we still have the complex structure, simplify it
                 if (btn.innerHTML.includes('span')) {
-                    btn.innerHTML = 'Download<span class="btn-subtitle">Code-signed and ready to install</span>';
+                    btn.innerHTML = 'Download';
                 }
                     
                 btn.dataset.downloadUrl = githubReleasesUrl;
