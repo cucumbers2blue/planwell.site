@@ -135,17 +135,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     btn.disabled = false;
                     btn.classList.remove('btn-coming-soon');
                     
-                    // Handle the specific HTML structure with icon spans
+                    // Remove icon span and replace with clean text
                     const iconSpan = btn.querySelector('.btn-icon');
                     if (iconSpan) {
-                        iconSpan.textContent = '⬇️';
+                        iconSpan.remove();
                     }
                     
-                    // Replace the text content after the icon
+                    // Replace with clean "Download" text only
                     btn.innerHTML = btn.innerHTML
-                        .replace('Coming Soon - Final Testing', 'Download PlanWell')
-                        .replace('Coming Soon', 'Download PlanWell')
-                        .replace('🔧', '⬇️');
+                        .replace('Coming Soon - Final Testing', 'Download')
+                        .replace('Coming Soon', 'Download')
+                        .replace('🔧', '');
+                        
+                    // If we still have the complex structure, simplify it
+                    if (btn.innerHTML.includes('span')) {
+                        btn.innerHTML = 'Download<span class="btn-subtitle">Code-signed and ready to install</span>';
+                    }
                         
                     btn.dataset.downloadUrl = zipAsset.browser_download_url;
                     btn.dataset.fileName = zipAsset.name;
@@ -206,17 +211,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.disabled = false;
                 btn.classList.remove('btn-coming-soon');
                 
-                // Handle the specific HTML structure with icon spans
+                // Remove icon span and replace with clean text
                 const iconSpan = btn.querySelector('.btn-icon');
                 if (iconSpan) {
-                    iconSpan.textContent = '⬇️';
+                    iconSpan.remove();
                 }
                 
-                // Replace the text content after the icon
+                // Replace with clean "Download" text only
                 btn.innerHTML = btn.innerHTML
-                    .replace('Coming Soon - Final Testing', 'Download PlanWell')
-                    .replace('Coming Soon', 'Download PlanWell')
-                    .replace('🔧', '⬇️');
+                    .replace('Coming Soon - Final Testing', 'Download')
+                    .replace('Coming Soon', 'Download')
+                    .replace('🔧', '');
+                    
+                // If we still have the complex structure, simplify it
+                if (btn.innerHTML.includes('span')) {
+                    btn.innerHTML = 'Download<span class="btn-subtitle">Code-signed and ready to install</span>';
+                }
                     
                 btn.dataset.downloadUrl = githubReleasesUrl;
                 btn.dataset.fileName = 'PlanWell.md-0.1.0-arm64-mac.zip';
