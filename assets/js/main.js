@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         downloadButtons.forEach(btn => {
             if (btn) {
+                console.log('Updating button:', btn.id, btn);
                 btn.disabled = false;
                 btn.classList.remove('btn-coming-soon');
                 
@@ -230,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                 btn.dataset.downloadUrl = githubReleasesUrl;
                 btn.dataset.fileName = 'PlanWell.md-0.1.0-arm64-mac.zip';
+                console.log('Button updated:', btn.id, 'URL:', btn.dataset.downloadUrl);
             }
         });
         
