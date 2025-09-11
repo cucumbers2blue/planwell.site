@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hideLoadingState();
             
         } catch (error) {
-            console.warn('Could not fetch latest release:', error);
+            console.warn('Could not fetch latest release, using direct download:', error);
             handleFallbackDownload();
             hideLoadingState();
         }
@@ -172,18 +172,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Handle fallback when GitHub API is not available
     function handleFallbackDownload() {
-        // Create a manual download URL or show instructions
-        const fallbackUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest`;
+        // Direct download from assets folder
+        const directDownloadUrl = 'assets/downloads/PlanWell.md-0.1.0-arm64-mac.zip';
         
-        showMessage('Please visit our releases page to download PlanWell manually.', 'info');
+        // Enable download buttons and point to direct file
+        const downloadButtons = [
+            document.getElementById('download-btn'),
+            document.getElementById('main-download-btn')
+        ];
         
-        // Optionally redirect to releases page
-        setTimeout(() => {
-            window.open(fallbackUrl, '_blank');
-        }, 2000);
+        downloadButtons.forEach(btn => {
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('btn-coming-soon');
+                btn.textContent = btn.textContent.replace('Coming Soon', 'Download PlanWell ⬇️');
+                btn.dataset.downloadUrl = directDownloadUrl;
+                btn.dataset.fileName = 'PlanWell.md-0.1.0-arm64-mac.zip';
+            }
+        });
         
-        trackEvent('download_fallback', {
-            redirect_url: fallbackUrl,
+        // Update file size and version info
+        const versionElement = document.getElementById('version');
+        const fileSizeElement = document.getElementById('file-size');
+        
+        if (versionElement) versionElement.textContent = '0.1.0';
+        if (fileSizeElement) fileSizeElement.textContent = '~168MB';
+        
+        trackEvent('direct_download_enabled', {
+            download_url: directDownloadUrl,
             timestamp: new Date().toISOString()
         });
     }
