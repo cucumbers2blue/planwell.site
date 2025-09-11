@@ -71,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
             handleFallbackDownload();
             hideLoadingState();
         }
+        
+        // Always enable fallback after a short delay to ensure buttons work
+        setTimeout(() => {
+            handleFallbackDownload();
+        }, 2000);
     }
     
     // Fetch latest release and start download
@@ -83,14 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const release = await response.json();
-            const dmgAsset = release.assets.find(asset => 
-                asset.name.toLowerCase().endsWith('.dmg')
+            const zipAsset = release.assets.find(asset => 
+                asset.name.toLowerCase().endsWith('.zip')
             );
             
-            if (dmgAsset) {
-                initiateDownload(dmgAsset.browser_download_url);
+            if (zipAsset) {
+                initiateDownload(zipAsset.browser_download_url);
             } else {
-                throw new Error('No DMG file found in latest release');
+                throw new Error('No ZIP file found in latest release');
             }
             
         } catch (error) {
@@ -113,22 +118,25 @@ document.addEventListener('DOMContentLoaded', function() {
             versionElement.textContent = release.tag_name.replace(/^v/, '');
         }
         
-        // Find DMG asset
-        const dmgAsset = release.assets.find(asset => 
-            asset.name.toLowerCase().endsWith('.dmg')
+        // Find ZIP asset
+        const zipAsset = release.assets.find(asset => 
+            asset.name.toLowerCase().endsWith('.zip')
         );
         
-        if (dmgAsset) {
+        if (zipAsset) {
             // Update file size
             if (fileSizeElement) {
-                fileSizeElement.textContent = formatFileSize(dmgAsset.size);
+                fileSizeElement.textContent = formatFileSize(zipAsset.size);
             }
             
             // Update download buttons with actual URL
             downloadButtons.forEach(btn => {
                 if (btn) {
-                    btn.dataset.downloadUrl = dmgAsset.browser_download_url;
-                    btn.dataset.fileName = dmgAsset.name;
+                    btn.disabled = false;
+                    btn.classList.remove('btn-coming-soon');
+                    btn.innerHTML = btn.innerHTML.replace('Coming Soon', 'Download PlanWell ⬇️').replace('🔒', '⬇️');
+                    btn.dataset.downloadUrl = zipAsset.browser_download_url;
+                    btn.dataset.fileName = zipAsset.name;
                 }
             });
         }
@@ -172,10 +180,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Handle fallback when GitHub API is not available
     function handleFallbackDownload() {
-        // Direct download from assets folder
-        const directDownloadUrl = 'assets/downloads/PlanWell.md-0.1.0-arm64-mac.zip';
+        // GitHub releases URL for the latest release
+        const githubReleasesUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest/download/PlanWell.md-0.1.0-arm64-mac.zip`;
         
-        // Enable download buttons and point to direct file
+        // Enable download buttons and point to GitHub release
         const downloadButtons = [
             document.getElementById('download-btn'),
             document.getElementById('main-download-btn')
@@ -185,8 +193,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (btn) {
                 btn.disabled = false;
                 btn.classList.remove('btn-coming-soon');
-                btn.textContent = btn.textContent.replace('Coming Soon', 'Download PlanWell ⬇️');
-                btn.dataset.downloadUrl = directDownloadUrl;
+                btn.innerHTML = btn.innerHTML.replace('Coming Soon', 'Download PlanWell ⬇️').replace('🔒', '⬇️');
+                btn.dataset.downloadUrl = githubReleasesUrl;
                 btn.dataset.fileName = 'PlanWell.md-0.1.0-arm64-mac.zip';
             }
         });
@@ -199,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (fileSizeElement) fileSizeElement.textContent = '~168MB';
         
         trackEvent('direct_download_enabled', {
-            download_url: directDownloadUrl,
+            download_url: githubReleasesUrl,
             timestamp: new Date().toISOString()
         });
     }
