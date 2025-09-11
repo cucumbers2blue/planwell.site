@@ -104,24 +104,45 @@
     <section id="demo" class="demo">
         <div class="container">
             <div class="demo-content">
-                <h2 class="section-title">See PlanWell in Action</h2>
+                <h2 class="section-title">Two Modes, One Workflow</h2>
                 <p class="section-description">
                     Built by a teacher with 15 years of experience, for teachers who are tired of juggling multiple planning tools.
                 </p>
                 
+                <div class="screenshot-tabs">
+                    <button class="tab-btn active" data-tab="planwell">PlanWell Mode</button>
+                    <button class="tab-btn" data-tab="obsidian">Obsidian Mode</button>
+                </div>
+                
                 <div class="video-container">
-                    <!-- YouTube video embedded -->
-                    <div class="video-wrapper">
-                        <iframe 
-                            width="560" 
-                            height="315" 
-                            src="https://www.youtube.com/embed/3MRZ623E65U?si=Wd2RTJIcWQbmaMEq" 
-                            title="YouTube video player" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin" 
-                            allowfullscreen>
-                        </iframe>
+                    <div class="tab-content active" id="planwell-tab">
+                        <div class="video-wrapper">
+                            <iframe 
+                                width="560" 
+                                height="315" 
+                                src="https://www.youtube.com/embed/3MRZ623E65U?si=Wd2RTJIcWQbmaMEq" 
+                                title="PlanWell Mode - Visual Planning Demo" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="obsidian-tab">
+                        <div class="video-wrapper">
+                            <iframe 
+                                width="560" 
+                                height="315" 
+                                src="https://www.youtube.com/embed/v9bZLUfKz_A?si=luBY605XLVbO7rGm" 
+                                title="Obsidian Mode - Markdown Integration Demo" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,41 +196,6 @@
         </div>
     </section>
 
-    <!-- Screenshots Section -->
-    <section class="screenshots">
-        <div class="container">
-            <div class="screenshots-content">
-                <h2 class="section-title">Two Modes, One Workflow</h2>
-                
-                <div class="screenshot-tabs">
-                    <button class="tab-btn active" data-tab="planwell">PlanWell Mode</button>
-                    <button class="tab-btn" data-tab="obsidian">Obsidian Mode</button>
-                </div>
-                
-                <div class="screenshot-container">
-                    <div class="tab-content active" id="planwell-tab">
-                        <div class="screenshot-card">
-                            <img src="assets/images/planwell-mode.png" alt="PlanWell visual interface showing timeline and sidebar" loading="lazy">
-                            <div class="screenshot-caption">
-                                <h4>Visual Interface</h4>
-                                <p>Drag-and-drop timeline with integrated sidebar for lesson plans and notes</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="obsidian-tab">
-                        <div class="screenshot-card">
-                            <img src="assets/images/obsidian-mode.png" alt="Obsidian integration showing dual-mode settings" loading="lazy">
-                            <div class="screenshot-caption">
-                                <h4>Obsidian Integration</h4>
-                                <p>Direct vault integration with full markdown editing control</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Download Section -->
     <section id="download" class="download">
@@ -317,6 +303,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="assets/js/main.js?v=7"></script>
+    <script src="assets/js/main.js?v=8"></script>
 </body>
 </html>
