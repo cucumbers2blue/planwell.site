@@ -241,7 +241,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                 btn.dataset.downloadUrl = githubReleasesUrl;
                 btn.dataset.fileName = 'PlanWell.md-0.1.0-arm64-mac.zip';
-                console.log('Button updated:', btn.id, 'URL:', btn.dataset.downloadUrl);
+                
+                // ENSURE click listener is attached when button is updated
+                btn.removeEventListener('click', handleDownloadClick); // Remove any existing
+                btn.addEventListener('click', handleDownloadClick); // Add fresh listener
+                console.log('Button updated with click listener:', btn.id, 'URL:', btn.dataset.downloadUrl);
             }
         });
         
