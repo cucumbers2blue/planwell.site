@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Always enable fallback after a short delay to ensure buttons work
         setTimeout(() => {
             handleFallbackDownload();
-        }, 2000);
+        }, 500);
     }
     
     // Fetch latest release and start download
@@ -134,7 +134,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (btn) {
                     btn.disabled = false;
                     btn.classList.remove('btn-coming-soon');
-                    btn.innerHTML = btn.innerHTML.replace('Coming Soon', 'Download PlanWell ⬇️').replace('🔒', '⬇️');
+                    
+                    // Handle the specific HTML structure with icon spans
+                    const iconSpan = btn.querySelector('.btn-icon');
+                    if (iconSpan) {
+                        iconSpan.textContent = '⬇️';
+                    }
+                    
+                    // Replace the text content after the icon
+                    btn.innerHTML = btn.innerHTML
+                        .replace('Coming Soon - Final Testing', 'Download PlanWell')
+                        .replace('Coming Soon', 'Download PlanWell')
+                        .replace('🔧', '⬇️');
+                        
                     btn.dataset.downloadUrl = zipAsset.browser_download_url;
                     btn.dataset.fileName = zipAsset.name;
                 }
@@ -193,7 +205,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (btn) {
                 btn.disabled = false;
                 btn.classList.remove('btn-coming-soon');
-                btn.innerHTML = btn.innerHTML.replace('Coming Soon', 'Download PlanWell ⬇️').replace('🔒', '⬇️');
+                
+                // Handle the specific HTML structure with icon spans
+                const iconSpan = btn.querySelector('.btn-icon');
+                if (iconSpan) {
+                    iconSpan.textContent = '⬇️';
+                }
+                
+                // Replace the text content after the icon
+                btn.innerHTML = btn.innerHTML
+                    .replace('Coming Soon - Final Testing', 'Download PlanWell')
+                    .replace('Coming Soon', 'Download PlanWell')
+                    .replace('🔧', '⬇️');
+                    
                 btn.dataset.downloadUrl = githubReleasesUrl;
                 btn.dataset.fileName = 'PlanWell.md-0.1.0-arm64-mac.zip';
             }
