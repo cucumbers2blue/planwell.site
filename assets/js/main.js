@@ -22,24 +22,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const downloadBtn = document.getElementById('download-btn');
         const mainDownloadBtn = document.getElementById('main-download-btn');
         
-        console.log('Setting up download buttons:');
-        console.log('download-btn found:', downloadBtn);
-        console.log('main-download-btn found:', mainDownloadBtn);
-        
         if (downloadBtn) {
             downloadBtn.addEventListener('click', handleDownloadClick);
-            console.log('Added click listener to download-btn');
         }
         
         if (mainDownloadBtn) {
             mainDownloadBtn.addEventListener('click', handleDownloadClick);
-            console.log('Added click listener to main-download-btn');
         }
     }
     
     // Handle download button clicks
     function handleDownloadClick(event) {
-        console.log('Download button clicked:', event.target.id);
         event.preventDefault();
         
         // Track download attempt
@@ -50,13 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Get the download URL from the button's data attribute or fetch latest
         const downloadUrl = event.target.dataset.downloadUrl;
-        console.log('Download URL:', downloadUrl);
         
         if (downloadUrl) {
-            console.log('Initiating download...');
             initiateDownload(downloadUrl);
         } else {
-            console.log('No download URL, fetching from GitHub...');
             fetchLatestReleaseAndDownload();
         }
     }
@@ -218,7 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         downloadButtons.forEach(btn => {
             if (btn) {
-                console.log('Updating button:', btn.id, btn);
                 btn.disabled = false;
                 btn.classList.remove('btn-coming-soon');
                 
@@ -245,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // ENSURE click listener is attached when button is updated
                 btn.removeEventListener('click', handleDownloadClick); // Remove any existing
                 btn.addEventListener('click', handleDownloadClick); // Add fresh listener
-                console.log('Button updated with click listener:', btn.id, 'URL:', btn.dataset.downloadUrl);
             }
         });
         
