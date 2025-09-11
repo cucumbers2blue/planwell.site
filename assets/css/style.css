@@ -354,6 +354,21 @@ section {
   box-shadow: none;
 }
 
+/* Hero Screenshot Styling */
+.hero-screenshot {
+  max-width: 900px;
+  margin: 0 auto 32px auto;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-screenshot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .video-placeholder {
   aspect-ratio: 16/9;
   background: var(--gray-100);
