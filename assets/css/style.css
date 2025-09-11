@@ -342,6 +342,18 @@ section {
   border: none;
 }
 
+/* Fix for video tabs - override screenshot styles */
+.demo .tab-content {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.demo .tab-content .video-wrapper {
+  background: none;
+  box-shadow: none;
+}
+
 .video-placeholder {
   aspect-ratio: 16/9;
   background: var(--gray-100);
