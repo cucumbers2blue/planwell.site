@@ -4,7 +4,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Configuration
     const REPO_OWNER = 'cucumbers2blue';
-    const REPO_NAME = 'planwell.site';
+    // Fetch releases from the app repo, not the website repo
+    const REPO_NAME = 'planwell.md';
     const GITHUB_API_BASE = 'https://api.github.com/repos';
     
     // Initialize the page
@@ -198,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle fallback when GitHub API is not available
     function handleFallbackDownload() {
         // GitHub releases URL for the latest release
-        const githubReleasesUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest/download/PlanWell.md-0.1.0-arm64-mac.zip`;
+        const githubReleasesUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest/download/PlanWell.md-macOS-arm64.zip`;
         
         // Enable download buttons and point to GitHub release
         const downloadButtons = [
@@ -229,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                     
                 btn.dataset.downloadUrl = githubReleasesUrl;
-                btn.dataset.fileName = 'PlanWell.md-0.1.0-arm64-mac.zip';
+                btn.dataset.fileName = 'PlanWell.md-macOS-arm64.zip';
                 
                 // ENSURE click listener is attached when button is updated
                 btn.removeEventListener('click', handleDownloadClick); // Remove any existing
