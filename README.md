@@ -1,104 +1,47 @@
-# PlanWell Landing Page
+# PlanWell.md Landing Page
 
-This repository contains the production landing page for PlanWell.md - a visual planning tool for teachers with full Obsidian integration.
+This repository hosts the GitHub Pages site that distributes the latest PlanWell.md build. The page is intentionally minimal—one hero panel with the download CTA and a link to the YouTube build log.
 
-## About PlanWell
+## Page Overview
 
-PlanWell is a desktop application that bridges the gap between visual planning tools and markdown-based workflows. It offers two modes:
-
-- **PlanWell Mode**: Visual drag-and-drop interface for teachers who prefer guided workflows
-- **Obsidian Mode**: Direct vault integration for users who want full markdown control
-
-## Features
-
-- Period-based scheduling (not generic time slots)
-- Global configurability for any school schedule worldwide
-- Markdown-first storage with YAML frontmatter
-- Bidirectional sync between visual interface and Obsidian
-- Local storage, no cloud dependencies
-- Privacy-focused design
-
-## Production Status ✅
-
-**Current Version**: 0.1.0 (September 2025)
-- ✅ Fully functional download buttons
-- ✅ Responsive design with hero screenshot
-- ✅ Tabbed demo videos (PlanWell Mode + Obsidian Mode)
-- ✅ Direct download from GitHub Releases
-- ✅ Google Form contact integration
-- ✅ Production-ready code (debug logging removed)
-
-## Site Structure
-
-```
-├── index.html              # Main landing page
-├── assets/
-│   ├── css/style.css      # Responsive stylesheet with video tabs
-│   ├── js/main.js         # Download handling and GitHub API integration
-│   └── images/            # Hero screenshot and assets
-└── README.md
-```
-
-## Key Features
-
-### Download System
-- Automatic GitHub API integration for latest releases
-- Fallback direct download system
-- Real-time file size and version updates
-- Download tracking and analytics ready
-
-### Demo Integration
-- Hero screenshot above videos
-- Tabbed interface for PlanWell vs Obsidian modes
-- Responsive YouTube video embeds
-- Professional presentation layout
-
-### Contact System
-- Google Form integration for user feedback
-- No email handling required
-- Direct feedback loop for development
+- `index.html` renders the entire site (brand header, hero copy, download button, YouTube link, release metadata footer).
+- `assets/css/style.css` provides the macOS Tahoe–inspired glass UI for the hero layout. No additional sections exist.
+- `assets/js/main.js` fetches `releases/latest` from this repository, injects the current version + file size, and wires the fallback stable ZIP.
+- `assets/images/` stores the single screenshot used in the hero card.
 
 ## Local Development
 
 ```bash
-# Using Python 3
-python -m http.server 8000
-
-# Using Node.js (http-server)
+# Serve locally
+python3 -m http.server 8000
+# or
 npx http-server
-
-# Using PHP
-php -S localhost:8000
 ```
+
+Open `http://localhost:8000` and click the download button to confirm both the API and fallback URLs resolve.
 
 ## Release Workflow
 
-1. Generate the notarized Apple silicon ZIP from the app repository (`npm run mac:ship:zip`).
-2. Upload both the versioned archive `PlanWell.md-<ver>-macOS-arm64.zip` and the stable alias `PlanWell.md-macOS-arm64.zip` to this repo’s matching release tag (`gh release upload v<ver> … --repo cucumbers2blue/planwell.site --clobber`).
-3. Update `assets/js/main.js` if the stable filename or repo target changes; the script auto-refreshes version/size details from the latest release.
-4. Push any site changes to `main`; GitHub Pages deploys automatically.
+1. Produce the notarized Apple silicon ZIP from the app repository (`npm run mac:ship:zip`).
+2. Upload both the versioned archive `PlanWell.md-<ver>-macOS-arm64.zip` and the stable alias `PlanWell.md-macOS-arm64.zip` to this repo’s matching release tag:
+   ```bash
+   gh release upload v<ver> \
+     planwell.md/dist-electron/PlanWell.md-<ver>-macOS-arm64.zip \
+     planwell.md/PlanWell.md-macOS-arm64.zip \
+     --repo cucumbers2blue/planwell.site --clobber
+   ```
+3. Adjust `assets/js/main.js` only if the repo owner/name or stable filename ever changes. The script auto-refreshes version and file size values.
+4. Commit/push any site copy or styling changes to `main`; GitHub Pages redeploys automatically.
 
 ## Deployment
 
-Automatically deployed via GitHub Pages from main branch:
-- Cache busting with version parameters
-- Instant updates on git push
-- No build process required
+The site is served from `main` via GitHub Pages at https://cucumbers2blue.github.io/planwell.site/. Asset URLs include query params for basic cache busting.
 
-## Download
+## Download Behaviour
 
-Landing page: https://cucumbers2blue.github.io/planwell.site/
-
-Downloads resolve to assets on the [`cucumbers2blue/planwell.site` releases](https://github.com/cucumbers2blue/planwell.site/releases) page. The buttons first try the GitHub API for the newest tag, then fall back to the stable asset URL (`PlanWell.md-macOS-arm64.zip`).
-
-## Analytics & Tracking
-
-Built-in event tracking for:
-- Download button clicks
-- Video tab interactions  
-- Navigation usage
-- Ready for Google Analytics or Plausible integration
+- Primary: fetch latest release JSON (`/releases/latest`) and pull the first matching `.zip` asset, preferring the stable filename.
+- Fallback: direct link to `https://github.com/cucumbers2blue/planwell.site/releases/latest/download/PlanWell.md-macOS-arm64.zip` in case the API fails.
 
 ---
 
-Built with ♥ by a teacher, for teachers who value their data and workflow freedom.
+Built for technical educators who prefer owning their workflow.

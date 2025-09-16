@@ -1,35 +1,27 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
-- `index.html` is the single entry page; keep hero copy, CTA, and download module intact.
-- `assets/css/style.css` holds layout, tab, and responsive rules; consolidate custom styles here.
-- `assets/js/main.js` owns GitHub release fetching and fallback download logic; avoid duplicating API calls elsewhere.
-- `assets/images/` stores hero shots and icons; optimize new media before committing.
-- Place supporting docs beside this file; avoid adding build artifacts to the repo root.
+## Layout
+- `index.html` is the only HTML document; keep the hero copy, download CTA, and footer concise.
+- `assets/css/style.css` owns the Tahoe-inspired glass UI—stick to CSS custom properties and existing class names.
+- `assets/js/main.js` handles release discovery, button wiring, and fallback logic. Update the stable filename or repo constants only when distribution changes.
+- `assets/images/` contains the single hero screenshot. Compress replacements before committing.
 
-## Build, Test, and Development Commands
-- `python3 -m http.server 8000` — serve locally for quick smoke checks.
-- `npx http-server` — alternative static server, honors SPA-style routing.
-- `npm run lint` (if local tooling installed) — run your configured HTML/CSS lint setup before pushing.
-- Use `open http://localhost:8000` to verify download buttons resolve to both latest and stable assets.
+## Development
+- Serve locally with `python3 -m http.server 8000` (or `npx http-server`) and verify both download buttons initiate the ZIP.
+- Test the fallback by blocking `api.github.com` in devtools and ensuring the stable URL still triggers a download.
+- Keep the page single-screen; new sections should be justified in issues before implementation.
 
-## Coding Style & Naming Conventions
-- Follow existing 2-space indentation in HTML/CSS; use semicolon-terminated JS and `const`/`let` appropriately.
-- Keep classes kebab-case (e.g., `download-button`); camelCase JS functions aligned with current patterns.
-- Prefer declarative CSS selectors over inline styles; update `style.css` comments when reorganizing sections.
-- Run Prettier or EditorConfig defaults that match current formatting before committing.
+## Style & Copy
+- Maintain 2-space indentation in HTML/CSS; use semantic class names already in use (`hero-meta`, `glass-frame`, etc.).
+- Tone: technical, concise, aimed at early adopters. Avoid marketing filler and “coming soon” language.
+- Update the hero bullet list only when the product’s differentiators change.
 
-## Testing Guidelines
-- Execute manual regression by loading `index.html` and exercising video tabs, download buttons, and contact form.
-- When touching `main.js`, test API fallbacks by temporarily throttling or mocking the GitHub call in devtools.
-- Record observed version strings and file sizes in PR descriptions when altering download logic.
+## Release Flow
+- Distribution lives on this repo’s releases. Upload both the versioned `PlanWell.md-<ver>-macOS-arm64.zip` and stable `PlanWell.md-macOS-arm64.zip` (plus optional `.sha256`).
+- After uploading, run `curl https://api.github.com/repos/cucumbers2blue/planwell.site/releases/latest` to confirm asset names and sizes.
+- Remove local ZIP artifacts from the working tree after publishing (`rm PlanWell.md*.zip*`).
 
-## Commit & Pull Request Guidelines
-- Use concise, imperative commit subjects (e.g., `Update download fallback messaging`).
-- Squash cosmetic tweaks before opening a PR; reference Jira/GitHub issues in the first line of the body when relevant.
-- PRs must include: purpose summary, screenshots for visual changes, and reproduction steps for testing.
-- Tag reviewers familiar with release automation when touching `main.js` or deployment notes.
-
-## Release & Download Flow Tips
-- Host notarized artifacts on GitHub Releases for this repository (`cucumbers2blue/planwell.site`). Attach both the versioned `PlanWell.md-<ver>-macOS-arm64.zip` and the stable `PlanWell.md-macOS-arm64.zip` (plus optional `.sha256`).
-- After uploading, hit `https://api.github.com/repos/cucumbers2blue/planwell.site/releases/latest` to confirm metadata and spot typos before announcing the build.
+## Pull Requests
+- Include before/after screenshots or a short screen recording for visual tweaks.
+- Note the release tag you verified against and list manual tests (API fetch + fallback).
+- Tag reviewers familiar with release automation when touching `assets/js/main.js`.
