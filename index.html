@@ -3,312 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlanWell - Visual Planning for Teachers with Obsidian Integration</title>
-    <meta name="description" content="Professional teacher planning tool with full Obsidian integration. Visual timeline meets markdown workflow. Configure for any school schedule worldwide.">
-    <meta name="keywords" content="teacher planning, obsidian integration, markdown, lesson plans, school schedule, teacher tools">
-    
-    <!-- SEO optimization -->
+    <title>PlanWell.md — Visual Lesson Planning for macOS</title>
+    <meta name="description" content="PlanWell.md brings a calm, native macOS experience to teacher planning. Obsidian-compatible markdown, period-aware timelines, and notarized Apple silicon builds.">
     <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="PlanWell - Visual Planning for Teachers">
-    <meta property="og:description" content="Professional teacher planning with Obsidian integration. Your data, your files, your control.">
-    <meta property="og:type" content="website">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/style.css?v=5">
-    
-    <!-- Fonts -->
+    <link rel="icon" type="image/png" href="assets/images/planwell-hero-screenshot.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css?v=20240916">
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-icon">📅</span>
-                    <span class="logo-text">PlanWell</span>
-                </div>
-                <nav class="nav">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#download" class="nav-link">Download</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </nav>
-            </div>
+<body class="page" id="top">
+    <header class="top-bar">
+        <div class="wrap bar-content">
+            <a class="brand" href="#top">PlanWell.md</a>
+            <nav class="top-nav">
+                <a href="#tour">Tour</a>
+                <a href="#features">Highlights</a>
+                <a href="#download">Download</a>
+                <a href="#contact">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Visual Planning for Teachers
-                    <span class="hero-subtitle">with Full Obsidian Integration</span>
-                </h1>
-                <p class="hero-description">
-                    Professional teacher planning that respects your workflow. Works with your existing Obsidian vault or creates beautiful markdown files. Configure for any school schedule worldwide.
-                </p>
-                
-                <!-- Dual User Paths -->
-                <div class="user-paths">
-                    <div class="path-card teacher-path">
-                        <div class="path-icon">👩‍🏫</div>
-                        <h3>For Teachers</h3>
-                        <p>Visual drag-and-drop planning with integrated timeline and todo management</p>
-                        <ul class="path-features">
-                            <li>Period-based scheduling</li>
-                            <li>Visual timeline interface</li>
-                            <li>Integrated todo management</li>
-                            <li>Configurable for any school</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="path-card obsidian-path">
-                        <div class="path-icon">📝</div>
-                        <h3>For Obsidian Users</h3>
-                        <p>Visual timeline dashboard for your existing vault with full markdown control</p>
-                        <ul class="path-features">
-                            <li>Direct vault integration</li>
-                            <li>Markdown file editing</li>
-                            <li>Template compatibility</li>
-                            <li>Bidirectional sync</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- CTA Buttons -->
-                <div class="cta-buttons">
-                    <button id="download-btn" class="btn btn-primary btn-coming-soon" disabled>
-                        <span class="btn-icon">🔧</span>
-                        Coming Soon
-                        <span class="btn-subtitle">In final testing • Feedback welcome</span>
-                    </button>
-                    <a href="#demo" class="btn btn-secondary">
-                        <span class="btn-icon">▶️</span>
-                        Watch Demo
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="wrap hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow">macOS Tahoe 26 • Apple silicon native</p>
+                    <h1 id="hero-title">Lesson planning that feels like a native Mac app.</h1>
+                    <p class="lede">Plan period-based schedules, archive markdown notes, and sync with your Obsidian vault without wrestling another web dashboard. Everything stays on your Mac.</p>
 
-    <!-- Demo Video Section -->
-    <section id="demo" class="demo">
-        <div class="container">
-            <div class="demo-content">
-                <h2 class="section-title">Two Modes, One Workflow</h2>
-                <p class="section-description">
-                    Built by a teacher with 15 years of experience, for teachers who are tired of juggling multiple planning tools.
-                </p>
-                
-                <!-- Hero Screenshot -->
-                <div class="hero-screenshot">
-                    <img src="assets/images/planwell-hero-screenshot.png" alt="PlanWell.md visual timeline showing class schedules and lesson planning" loading="lazy">
-                </div>
-                
-                <div class="screenshot-tabs">
-                    <button class="tab-btn active" data-tab="planwell">PlanWell Mode</button>
-                    <button class="tab-btn" data-tab="obsidian">Obsidian Mode</button>
-                </div>
-                
-                <div class="video-container">
-                    <div class="tab-content active" id="planwell-tab">
-                        <div class="video-wrapper">
-                            <iframe 
-                                width="560" 
-                                height="315" 
-                                src="https://www.youtube.com/embed/3MRZ623E65U?si=Wd2RTJIcWQbmaMEq" 
-                                title="PlanWell Mode - Visual Planning Demo" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                referrerpolicy="strict-origin-when-cross-origin" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-content" id="obsidian-tab">
-                        <div class="video-wrapper">
-                            <iframe 
-                                width="560" 
-                                height="315" 
-                                src="https://www.youtube.com/embed/v9bZLUfKz_A?si=luBY605XLVbO7rGm" 
-                                title="Obsidian Mode - Markdown Integration Demo" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                referrerpolicy="strict-origin-when-cross-origin" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="features-content">
-                <h2 class="section-title">Built for How Teachers Actually Work</h2>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🗓️</div>
-                        <h3>Period-Based Scheduling</h3>
-                        <p>Organize by school periods, not generic time slots. Supports any schedule type worldwide.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📝</div>
-                        <h3>Markdown-First Storage</h3>
-                        <p>Your data stays yours. Plain text files that work with Obsidian and any text editor.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🔄</div>
-                        <h3>Dual Mode System</h3>
-                        <p>Visual interface OR direct Obsidian editing. Switch modes without losing data.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🌍</div>
-                        <h3>Global Configuration</h3>
-                        <p>Any school schedule, any term structure, any country. Configurable period times and dates.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h3>Desktop-First</h3>
-                        <p>Reliable, offline-capable app. No cloud dependencies or subscription required.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🔐</div>
-                        <h3>Privacy Focused</h3>
-                        <p>Local storage, no accounts, no tracking. Your lesson plans stay on your computer.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Download Section -->
-    <section id="download" class="download">
-        <div class="container">
-            <div class="download-content">
-                <h2 class="section-title">Ready to Try PlanWell?</h2>
-                <p class="section-description">
-                    Free download, no account required. Your data stays on your computer where it belongs.
-                </p>
-                
-                <div class="download-card">
-                    <div class="download-info">
-                        <h3>PlanWell for macOS</h3>
-                        <div class="download-details">
-                            <span class="detail-item">
-                                <span class="detail-icon">💻</span>
-                                macOS 11+ Compatible
-                            </span>
-                            <span class="detail-item">
-                                <span class="detail-icon">📦</span>
-                                <span id="file-size">~150MB</span>
-                            </span>
-                            <span class="detail-item">
-                                <span class="detail-icon">🔢</span>
-                                Version <span id="version">1.0.0</span>
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="download-actions">
-                        <button id="main-download-btn" class="btn btn-primary btn-large btn-coming-soon" disabled>
-                            <span class="btn-icon">🔧</span>
-                            Coming Soon - Final Testing
+                    <div class="hero-actions">
+                        <button id="main-download-btn" class="button button-primary" type="button">
+                            <span class="button-label">Download for macOS</span>
+                            <span class="button-meta">Version <span id="version">0.1.0</span> • <span id="file-size">~174MB</span></span>
                         </button>
-                        
-                        <div class="download-note">
-                            <p><strong>Installation:</strong> Drag PlanWell to your Applications folder.</p>
-                            <p><strong>First Launch:</strong> Right-click the app and select "Open" to bypass security warning.</p>
-                            <p><strong>Setup:</strong> Choose between PlanWell Mode or Obsidian Mode on first launch.</p>
-                        </div>
+                        <a class="button button-ghost" href="#tour">See the interface</a>
                     </div>
+
+                    <ul class="hero-meta">
+                        <li>Developer ID signed & notarized</li>
+                        <li>Works offline, stores plain markdown</li>
+                        <li>Dual Mode: PlanWell or Obsidian-first</li>
+                    </ul>
+                </div>
+
+                <figure class="hero-media">
+                    <div class="glass-frame">
+                        <img src="assets/images/planwell-hero-screenshot.png" alt="PlanWell.md timeline view on macOS" loading="lazy">
+                    </div>
+                    <figcaption>Plan your week visually, sync the same markdown files in Obsidian.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="tour" class="tour" aria-labelledby="tour-title">
+            <div class="wrap tour-grid">
+                <article class="tour-card">
+                    <img src="assets/images/planwell-mode.png" alt="PlanWell mode showing timeline" loading="lazy">
+                    <div>
+                        <h2 id="tour-title">PlanWell Mode</h2>
+                        <p>Drag-and-drop timeline with quick todo capture, tailored for the classroom rhythm. Change a period, drag a lesson, everything syncs instantly.</p>
+                    </div>
+                </article>
+                <article class="tour-card">
+                    <img src="assets/images/obsidian-mode.png" alt="Obsidian mode with markdown files" loading="lazy">
+                    <div>
+                        <h2 class="visually-hidden">Obsidian Mode</h2>
+                        <p>Point PlanWell at your vault and keep editing markdown where you like. YAML is clean, IDs stay consistent, filenames remain readable.</p>
+                    </div>
+                </article>
+                <article class="tour-card">
+                    <img src="assets/images/obsidian-settings.png" alt="Settings panel for schedule" loading="lazy">
+                    <div>
+                        <h2 class="visually-hidden">Schedule Settings</h2>
+                        <p>Configure periods, terms, and colours in seconds. Mac-style controls match the app screenshots so everything feels at home in Tahoe 26.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="features" class="features" aria-labelledby="features-title">
+            <div class="wrap">
+                <h2 id="features-title">Highlights for busy teachers</h2>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <h3>Markdown you can trust</h3>
+                        <p>Human-readable files with YAML frontmatter. No proprietary sync, no hidden database, just notes you already know how to maintain.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Period-aware timeline</h3>
+                        <p>Built specifically for rotating timetables. Plan by day cycle or block schedule and keep the structure consistent across terms.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Instant context switching</h3>
+                        <p>Toggle between PlanWell Mode and Obsidian Mode without migrating data. The app respects whatever workflow you bring.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Privacy by design</h3>
+                        <p>No accounts, no analytics scripts, no surprise network calls. Everything stays local unless you put it in iCloud or Dropbox.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title">Built by a Teacher, for Teachers</h2>
-                <p class="section-description">
-                    I'm building this tool based on real classroom needs. Your feedback shapes where PlanWell goes next.
-                </p>
-                
-                <div class="contact-card">
-                    <div class="contact-info">
-                        <h3>Share Your Experience</h3>
-                        <p>What works? What's missing? What would make this actually useful for your classroom?</p>
-                        
-                        <div class="contact-methods">
-                            <a href="https://forms.gle/ds9TmsDVdd1VuHbX6" target="_blank" rel="noopener noreferrer" class="contact-method">
-                                <span class="method-icon">📝</span>
-                                <span class="method-text">
-                                    <strong>Share Feedback</strong>
-                                    <span>Quick Google Form - 2 minutes</span>
-                                </span>
-                            </a>
-                            
-                            <a href="#" class="contact-method">
-                                <span class="method-icon">💬</span>
-                                <span class="method-text">
-                                    <strong>In-App Feedback</strong>
-                                    <span>Use "Send Feedback" button in PlanWell</span>
-                                </span>
-                            </a>
-                        </div>
+        <section id="download" class="download" aria-labelledby="download-title">
+            <div class="wrap download-card glass-panel">
+                <div class="download-copy">
+                    <h2 id="download-title">Download PlanWell.md</h2>
+                    <p>Notarized Apple silicon build. Drag into Applications and launch.</p>
+                    <div class="download-specs">
+                        <span>Requires macOS 12+</span>
+                        <span>Works great on Tahoe 26</span>
+                        <span>Offline by default</span>
                     </div>
                 </div>
+                <div class="download-action">
+                    <button id="download-btn" class="button button-primary button-large" type="button">
+                        <span class="button-label">Download</span>
+                        <span class="button-meta">Version <span id="version-secondary">0.1.0</span> • <span id="file-size-secondary">~174MB</span></span>
+                    </button>
+                    <p class="download-note">If the API is unreachable we fall back to the stable zip on GitHub Releases.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
+        <section id="contact" class="contact" aria-labelledby="contact-title">
+            <div class="wrap contact-card glass-panel">
+                <div>
+                    <h2 id="contact-title">Tell me how you teach.</h2>
+                    <p class="contact-lede">PlanWell.md is built by a classroom teacher. Your timetable quirks guide the roadmap.</p>
+                </div>
+                <div class="contact-actions">
+                    <a class="button button-ghost" href="https://forms.gle/ds9TmsDVdd1VuHbX6" target="_blank" rel="noopener noreferrer">Share feedback (2 min form)</a>
+                    <a class="button button-text" href="mailto:peter@planwell.md">Email peter@planwell.md</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <div class="logo">
-                        <span class="logo-icon">📅</span>
-                        <span class="logo-text">PlanWell</span>
-                    </div>
-                    <p class="footer-tagline">Visual planning for teachers who value their data</p>
-                </div>
-                
-                <div class="footer-right">
-                    <div class="footer-links">
-                        <a href="#features" class="footer-link">Features</a>
-                        <a href="#download" class="footer-link">Download</a>
-                        <a href="#contact" class="footer-link">Contact</a>
-                    </div>
-                    <p class="footer-note">Free • Local Storage • No Account Required</p>
-                </div>
-            </div>
+        <div class="wrap footer-content">
+            <span>&copy; <span id="year"></span> PlanWell.md</span>
+            <span>Built for teachers who care about their data.</span>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="assets/js/main.js?v=11"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const versionSecondary = document.getElementById('version-secondary');
+        const fileSizeSecondary = document.getElementById('file-size-secondary');
+        const syncMeta = () => {
+            const versionEl = document.getElementById('version');
+            const fileSizeEl = document.getElementById('file-size');
+            if (versionEl && versionEl.textContent && versionSecondary) {
+                versionSecondary.textContent = versionEl.textContent;
+            }
+            if (fileSizeEl && fileSizeEl.textContent && fileSizeSecondary) {
+                fileSizeSecondary.textContent = fileSizeEl.textContent;
+            }
+        };
+        document.addEventListener('release:updated', syncMeta);
+        syncMeta();
+    </script>
+    <script src="assets/js/main.js?v=20240916"></script>
 </body>
 </html>

@@ -119,8 +119,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update version
         if (versionElement && release.tag_name) {
-            versionElement.textContent = release.tag_name.replace(/^v/, '');
-            RELEASE_CONFIG.fallbackVersion = release.tag_name.replace(/^v/, '');
+            const cleanVersion = release.tag_name.replace(/^v/, '');
+            versionElement.textContent = cleanVersion;
+            RELEASE_CONFIG.fallbackVersion = cleanVersion;
         }
 
         // Find ZIP asset
@@ -129,8 +130,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (zipAsset) {
             // Update file size
             if (fileSizeElement) {
-                fileSizeElement.textContent = formatFileSize(zipAsset.size);
-                RELEASE_CONFIG.fallbackSize = formatFileSize(zipAsset.size);
+                const formattedSize = formatFileSize(zipAsset.size);
+                fileSizeElement.textContent = formattedSize;
+                RELEASE_CONFIG.fallbackSize = formattedSize;
             }
             
             // Update download buttons with actual URL
@@ -138,28 +140,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (btn) {
                     btn.disabled = false;
                     btn.classList.remove('btn-coming-soon');
-                    
-                    // Remove icon span and replace with clean text
-                    const iconSpan = btn.querySelector('.btn-icon');
-                    if (iconSpan) {
-                        iconSpan.remove();
-                    }
-                    
-                    // Replace with clean "Download" text only
-                    btn.innerHTML = btn.innerHTML
-                        .replace('Coming Soon - Final Testing', 'Download')
-                        .replace('Coming Soon', 'Download')
-                        .replace('🔧', '');
-                        
-                    // If we still have the complex structure, simplify it
-                    if (btn.innerHTML.includes('span')) {
-                        btn.innerHTML = 'Download';
-                    }
-                        
                     btn.dataset.downloadUrl = zipAsset.browser_download_url;
                     btn.dataset.fileName = zipAsset.name;
                 }
             });
+
+            document.dispatchEvent(new CustomEvent('release:updated'));
         }
         
         // Update any release notes or changelog if needed
@@ -220,30 +206,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (btn) {
                 btn.disabled = false;
                 btn.classList.remove('btn-coming-soon');
-                
-                // Remove icon span and replace with clean text
-                const iconSpan = btn.querySelector('.btn-icon');
-                if (iconSpan) {
-                    iconSpan.remove();
-                }
-                
-                // Replace with clean "Download" text only
-                btn.innerHTML = btn.innerHTML
-                    .replace('Coming Soon - Final Testing', 'Download')
-                    .replace('Coming Soon', 'Download')
-                    .replace('🔧', '');
-                    
-                // If we still have the complex structure, simplify it
-                if (btn.innerHTML.includes('span')) {
-                    btn.innerHTML = 'Download';
-                }
-                    
                 btn.dataset.downloadUrl = githubReleasesUrl;
                 btn.dataset.fileName = RELEASE_CONFIG.stableAssetName;
-                
-                // ENSURE click listener is attached when button is updated
-                btn.removeEventListener('click', handleDownloadClick); // Remove any existing
-                btn.addEventListener('click', handleDownloadClick); // Add fresh listener
+
+                btn.removeEventListener('click', handleDownloadClick);
+                btn.addEventListener('click', handleDownloadClick);
             }
         });
         
@@ -253,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (versionElement) versionElement.textContent = RELEASE_CONFIG.fallbackVersion;
         if (fileSizeElement) fileSizeElement.textContent = RELEASE_CONFIG.fallbackSize;
+        document.dispatchEvent(new CustomEvent('release:updated'));
         
         trackEvent('direct_download_enabled', {
             download_url: githubReleasesUrl,
@@ -325,18 +293,29 @@ document.addEventListener('DOMContentLoaded', function() {
         const downloadButtons = document.querySelectorAll('[id*="download"]');
         downloadButtons.forEach(btn => {
             btn.disabled = true;
-            const originalText = btn.innerHTML;
-            btn.dataset.originalText = originalText;
-            btn.innerHTML = btn.innerHTML.replace(/Download|⬇️/, 'Loading...');
+            const label = btn.querySelector('.button-label');
+            if (label) {
+                btn.dataset.originalLabel = label.textContent;
+                label.textContent = 'Loading...';
+            } else {
+                const originalText = btn.innerHTML;
+                btn.dataset.originalText = originalText;
+                btn.innerHTML = btn.innerHTML.replace(/Download|⬇️/, 'Loading...');
+            }
         });
     }
-    
+
     function hideLoadingState() {
         const downloadButtons = document.querySelectorAll('[id*="download"]');
         downloadButtons.forEach(btn => {
             btn.disabled = false;
-            if (btn.dataset.originalText) {
+            const label = btn.querySelector('.button-label');
+            if (label && btn.dataset.originalLabel) {
+                label.textContent = btn.dataset.originalLabel;
+                delete btn.dataset.originalLabel;
+            } else if (btn.dataset.originalText) {
                 btn.innerHTML = btn.dataset.originalText;
+                delete btn.dataset.originalText;
             }
         });
     }
