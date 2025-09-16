@@ -307,80 +307,6 @@ a:hover {
   font-size: 0.98rem;
 }
 
-.download {
-  padding: 40px 0 60px;
-}
-
-.glass-panel {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--surface-strong);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(24px);
-  box-shadow: var(--glass-shadow);
-}
-
-.download-copy {
-  max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.download-copy h2 {
-  font-size: 1.8rem;
-  color: var(--text-strong);
-}
-
-.download-copy p {
-  color: var(--text-muted);
-}
-
-.download-specs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 20px;
-  font-size: 0.92rem;
-  color: var(--text-muted);
-}
-
-.download-action {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.download-note {
-  font-size: 0.86rem;
-  color: var(--text-muted);
-  max-width: 260px;
-}
-
-.contact {
-  padding: 40px 0 80px;
-}
-
-.contact-card {
-  flex-direction: column;
-  gap: 18px;
-}
-
-.contact-lede {
-  color: var(--text-muted);
-  line-height: 1.6;
-  max-width: 420px;
-}
-
-.contact-actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
 
 .footer {
   padding: 32px 0 48px;
@@ -433,11 +359,5 @@ a:hover {
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
-  }
-  .download-specs {
-    flex-direction: column;
-  }
-  .glass-panel {
-    padding: 24px;
   }
 }

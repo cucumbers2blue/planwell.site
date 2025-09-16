@@ -20,13 +20,12 @@
                 <a href="#tour">Tour</a>
                 <a href="#features">Highlights</a>
                 <a href="#download">Download</a>
-                <a href="#contact">Contact</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero" aria-labelledby="hero-title">
+        <section class="hero" aria-labelledby="hero-title" id="download">
             <div class="wrap hero-grid">
                 <div class="hero-copy">
                     <p class="eyebrow">macOS Tahoe 26 • Apple silicon native</p>
@@ -107,39 +106,6 @@
             </div>
         </section>
 
-        <section id="download" class="download" aria-labelledby="download-title">
-            <div class="wrap download-card glass-panel">
-                <div class="download-copy">
-                    <h2 id="download-title">Download PlanWell.md</h2>
-                    <p>Notarized Apple silicon build. Drag into Applications and launch.</p>
-                    <div class="download-specs">
-                        <span>Requires macOS 12+</span>
-                        <span>Works great on Tahoe 26</span>
-                        <span>Offline by default</span>
-                    </div>
-                </div>
-                <div class="download-action">
-                    <button id="download-btn" class="button button-primary button-large" type="button">
-                        <span class="button-label">Download</span>
-                        <span class="button-meta">Version <span id="version-secondary">0.1.0</span> • <span id="file-size-secondary">~174MB</span></span>
-                    </button>
-                    <p class="download-note">If the API is unreachable we fall back to the stable zip on GitHub Releases.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact" aria-labelledby="contact-title">
-            <div class="wrap contact-card glass-panel">
-                <div>
-                    <h2 id="contact-title">Tell me how you teach.</h2>
-                    <p class="contact-lede">PlanWell.md is built by a classroom teacher. Your timetable quirks guide the roadmap.</p>
-                </div>
-                <div class="contact-actions">
-                    <a class="button button-ghost" href="https://forms.gle/ds9TmsDVdd1VuHbX6" target="_blank" rel="noopener noreferrer">Share feedback (2 min form)</a>
-                    <a class="button button-text" href="mailto:peter@planwell.md">Email peter@planwell.md</a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="footer">
@@ -151,20 +117,6 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
-        const versionSecondary = document.getElementById('version-secondary');
-        const fileSizeSecondary = document.getElementById('file-size-secondary');
-        const syncMeta = () => {
-            const versionEl = document.getElementById('version');
-            const fileSizeEl = document.getElementById('file-size');
-            if (versionEl && versionEl.textContent && versionSecondary) {
-                versionSecondary.textContent = versionEl.textContent;
-            }
-            if (fileSizeEl && fileSizeEl.textContent && fileSizeSecondary) {
-                fileSizeSecondary.textContent = fileSizeEl.textContent;
-            }
-        };
-        document.addEventListener('release:updated', syncMeta);
-        syncMeta();
     </script>
     <script src="assets/js/main.js?v=20240916"></script>
 </body>
