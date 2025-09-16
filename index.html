@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlanWell.md — Visual Lesson Planning for macOS</title>
-    <meta name="description" content="PlanWell.md brings a calm, native macOS experience to teacher planning. Obsidian-compatible markdown, period-aware timelines, and notarized Apple silicon builds.">
+    <title>PlanWell.md — macOS-native lesson planning</title>
+    <meta name="description" content="PlanWell.md is a notarized Apple silicon app for technical teachers who want markdown-first lesson planning with Obsidian compatibility.">
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/png" href="assets/images/planwell-hero-screenshot.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +16,7 @@
     <header class="top-bar">
         <div class="wrap bar-content">
             <a class="brand" href="#top">PlanWell.md</a>
-            <nav class="top-nav">
-                <a href="#tour">Tour</a>
-                <a href="#features">Highlights</a>
-                <a href="#download">Download</a>
-            </nav>
+            <span class="alpha-pill">Technical alpha • Apple silicon only</span>
         </div>
     </header>
 
@@ -28,22 +24,25 @@
         <section class="hero" aria-labelledby="hero-title" id="download">
             <div class="wrap hero-grid">
                 <div class="hero-copy">
-                    <p class="eyebrow">macOS Tahoe 26 • Apple silicon native</p>
-                    <h1 id="hero-title">Lesson planning that feels like a native Mac app.</h1>
-                    <p class="lede">Plan period-based schedules, archive markdown notes, and sync with your Obsidian vault without wrestling another web dashboard. Everything stays on your Mac.</p>
+                    <p class="eyebrow">macOS Tahoe 26 aesthetic • Built for markdown workflows</p>
+                    <h1 id="hero-title">Own your timetable without leaving your vault.</h1>
+                    <p class="lede">PlanWell.md is a notarized Apple silicon app that keeps lesson plans as plain Obsidian-compatible markdown. Designed for technical early adopters who want full control.</p>
 
                     <div class="hero-actions">
                         <button id="main-download-btn" class="button button-primary" type="button">
                             <span class="button-label">Download for macOS</span>
                             <span class="button-meta">Version <span id="version">0.1.0</span> • <span id="file-size">~174MB</span></span>
                         </button>
-                        <a class="button button-ghost" href="#tour">See the interface</a>
+                        <a class="button button-ghost" href="https://www.youtube.com/@PlanWell_app" target="_blank" rel="noopener noreferrer">
+                            <span class="button-label">Watch the build log</span>
+                            <span class="button-meta">YouTube · PlanWell.md channel</span>
+                        </a>
                     </div>
 
                     <ul class="hero-meta">
-                        <li>Developer ID signed & notarized</li>
-                        <li>Works offline, stores plain markdown</li>
-                        <li>Dual Mode: PlanWell or Obsidian-first</li>
+                        <li>Developer ID signed & notarized — no unsigned builds</li>
+                        <li>Markdown + YAML schema mirrors the production app</li>
+                        <li>Works offline, no telemetry, manual releases only</li>
                     </ul>
                 </div>
 
@@ -51,67 +50,16 @@
                     <div class="glass-frame">
                         <img src="assets/images/planwell-hero-screenshot.png" alt="PlanWell.md timeline view on macOS" loading="lazy">
                     </div>
-                    <figcaption>Plan your week visually, sync the same markdown files in Obsidian.</figcaption>
+                    <figcaption>Plan your week visually while editing the same markdown in Obsidian.</figcaption>
                 </figure>
             </div>
         </section>
-
-        <section id="tour" class="tour" aria-labelledby="tour-title">
-            <div class="wrap tour-grid">
-                <article class="tour-card">
-                    <img src="assets/images/planwell-mode.png" alt="PlanWell mode showing timeline" loading="lazy">
-                    <div>
-                        <h2 id="tour-title">PlanWell Mode</h2>
-                        <p>Drag-and-drop timeline with quick todo capture, tailored for the classroom rhythm. Change a period, drag a lesson, everything syncs instantly.</p>
-                    </div>
-                </article>
-                <article class="tour-card">
-                    <img src="assets/images/obsidian-mode.png" alt="Obsidian mode with markdown files" loading="lazy">
-                    <div>
-                        <h2 class="visually-hidden">Obsidian Mode</h2>
-                        <p>Point PlanWell at your vault and keep editing markdown where you like. YAML is clean, IDs stay consistent, filenames remain readable.</p>
-                    </div>
-                </article>
-                <article class="tour-card">
-                    <img src="assets/images/obsidian-settings.png" alt="Settings panel for schedule" loading="lazy">
-                    <div>
-                        <h2 class="visually-hidden">Schedule Settings</h2>
-                        <p>Configure periods, terms, and colours in seconds. Mac-style controls match the app screenshots so everything feels at home in Tahoe 26.</p>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section id="features" class="features" aria-labelledby="features-title">
-            <div class="wrap">
-                <h2 id="features-title">Highlights for busy teachers</h2>
-                <div class="feature-grid">
-                    <article class="feature-card">
-                        <h3>Markdown you can trust</h3>
-                        <p>Human-readable files with YAML frontmatter. No proprietary sync, no hidden database, just notes you already know how to maintain.</p>
-                    </article>
-                    <article class="feature-card">
-                        <h3>Period-aware timeline</h3>
-                        <p>Built specifically for rotating timetables. Plan by day cycle or block schedule and keep the structure consistent across terms.</p>
-                    </article>
-                    <article class="feature-card">
-                        <h3>Instant context switching</h3>
-                        <p>Toggle between PlanWell Mode and Obsidian Mode without migrating data. The app respects whatever workflow you bring.</p>
-                    </article>
-                    <article class="feature-card">
-                        <h3>Privacy by design</h3>
-                        <p>No accounts, no analytics scripts, no surprise network calls. Everything stays local unless you put it in iCloud or Dropbox.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <footer class="footer">
         <div class="wrap footer-content">
             <span>&copy; <span id="year"></span> PlanWell.md</span>
-            <span>Built for teachers who care about their data.</span>
+            <span>Built by a teacher for teachers who script their own workflows.</span>
         </div>
     </footer>
 
