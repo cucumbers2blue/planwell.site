@@ -3,9 +3,14 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Configuration
-    const REPO_OWNER = 'cucumbers2blue';
-    // Fetch releases from the app repo, not the website repo
-    const REPO_NAME = 'planwell.md';
+    const RELEASE_CONFIG = {
+        owner: 'cucumbers2blue',
+        // This repository hosts the notarized ZIP that the site serves.
+        repo: 'planwell.site',
+        stableAssetName: 'PlanWell.md-macOS-arm64.zip',
+        fallbackVersion: '0.1.0',
+        fallbackSize: '~174MB'
+    };
     const GITHUB_API_BASE = 'https://api.github.com/repos';
     
     // Initialize the page
@@ -57,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             showLoadingState();
             
-            const response = await fetch(`${GITHUB_API_BASE}/${REPO_OWNER}/${REPO_NAME}/releases/latest`);
+            const response = await fetch(`${GITHUB_API_BASE}/${RELEASE_CONFIG.owner}/${RELEASE_CONFIG.repo}/releases/latest`);
             
             if (!response.ok) {
                 throw new Error(`GitHub API error: ${response.status}`);
@@ -82,16 +87,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch latest release and start download
     async function fetchLatestReleaseAndDownload() {
         try {
-            const response = await fetch(`${GITHUB_API_BASE}/${REPO_OWNER}/${REPO_NAME}/releases/latest`);
+            const response = await fetch(`${GITHUB_API_BASE}/${RELEASE_CONFIG.owner}/${RELEASE_CONFIG.repo}/releases/latest`);
             
             if (!response.ok) {
                 throw new Error(`GitHub API error: ${response.status}`);
             }
             
             const release = await response.json();
-            const zipAsset = release.assets.find(asset => 
-                asset.name.toLowerCase().endsWith('.zip')
-            );
+            const zipAsset = selectZipAsset(release);
             
             if (zipAsset) {
                 initiateDownload(zipAsset.browser_download_url);
@@ -113,21 +116,21 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('download-btn'),
             document.getElementById('main-download-btn')
         ];
-        
+
         // Update version
         if (versionElement && release.tag_name) {
             versionElement.textContent = release.tag_name.replace(/^v/, '');
+            RELEASE_CONFIG.fallbackVersion = release.tag_name.replace(/^v/, '');
         }
-        
+
         // Find ZIP asset
-        const zipAsset = release.assets.find(asset => 
-            asset.name.toLowerCase().endsWith('.zip')
-        );
-        
+        const zipAsset = selectZipAsset(release);
+
         if (zipAsset) {
             // Update file size
             if (fileSizeElement) {
                 fileSizeElement.textContent = formatFileSize(zipAsset.size);
+                RELEASE_CONFIG.fallbackSize = formatFileSize(zipAsset.size);
             }
             
             // Update download buttons with actual URL
@@ -161,6 +164,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update any release notes or changelog if needed
         updateReleaseNotes(release);
+    }
+
+    function selectZipAsset(release) {
+        if (!release || !Array.isArray(release.assets)) return undefined;
+        return release.assets.find(asset => asset.name === RELEASE_CONFIG.stableAssetName)
+            || release.assets.find(asset => asset.name.toLowerCase().endsWith('.zip'));
     }
     
     // Format file size in human-readable format
@@ -199,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle fallback when GitHub API is not available
     function handleFallbackDownload() {
         // GitHub releases URL for the latest release
-        const githubReleasesUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/latest/download/PlanWell.md-macOS-arm64.zip`;
+        const githubReleasesUrl = `https://github.com/${RELEASE_CONFIG.owner}/${RELEASE_CONFIG.repo}/releases/latest/download/${RELEASE_CONFIG.stableAssetName}`;
         
         // Enable download buttons and point to GitHub release
         const downloadButtons = [
@@ -230,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                     
                 btn.dataset.downloadUrl = githubReleasesUrl;
-                btn.dataset.fileName = 'PlanWell.md-macOS-arm64.zip';
+                btn.dataset.fileName = RELEASE_CONFIG.stableAssetName;
                 
                 // ENSURE click listener is attached when button is updated
                 btn.removeEventListener('click', handleDownloadClick); // Remove any existing
@@ -242,8 +251,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const versionElement = document.getElementById('version');
         const fileSizeElement = document.getElementById('file-size');
         
-        if (versionElement) versionElement.textContent = '0.1.0';
-        if (fileSizeElement) fileSizeElement.textContent = '~168MB';
+        if (versionElement) versionElement.textContent = RELEASE_CONFIG.fallbackVersion;
+        if (fileSizeElement) fileSizeElement.textContent = RELEASE_CONFIG.fallbackSize;
         
         trackEvent('direct_download_enabled', {
             download_url: githubReleasesUrl,

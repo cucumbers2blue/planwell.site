@@ -20,7 +20,7 @@ PlanWell is a desktop application that bridges the gap between visual planning t
 
 ## Production Status ✅
 
-**Current Version**: 0.1.0 (January 2025)
+**Current Version**: 0.1.0 (September 2025)
 - ✅ Fully functional download buttons
 - ✅ Responsive design with hero screenshot
 - ✅ Tabbed demo videos (PlanWell Mode + Obsidian Mode)
@@ -71,6 +71,13 @@ npx http-server
 php -S localhost:8000
 ```
 
+## Release Workflow
+
+1. Generate the notarized Apple silicon ZIP from the app repository (`npm run mac:ship:zip`).
+2. Upload both the versioned archive `PlanWell.md-<ver>-macOS-arm64.zip` and the stable alias `PlanWell.md-macOS-arm64.zip` to this repo’s matching release tag (`gh release upload v<ver> … --repo cucumbers2blue/planwell.site --clobber`).
+3. Update `assets/js/main.js` if the stable filename or repo target changes; the script auto-refreshes version/size details from the latest release.
+4. Push any site changes to `main`; GitHub Pages deploys automatically.
+
 ## Deployment
 
 Automatically deployed via GitHub Pages from main branch:
@@ -80,8 +87,9 @@ Automatically deployed via GitHub Pages from main branch:
 
 ## Download
 
-Latest PlanWell.md app available at: https://planwell.site
-Direct releases: [GitHub Releases](https://github.com/cucumbers2blue/planwell.site/releases)
+Landing page: https://cucumbers2blue.github.io/planwell.site/
+
+Downloads resolve to assets on the [`cucumbers2blue/planwell.site` releases](https://github.com/cucumbers2blue/planwell.site/releases) page. The buttons first try the GitHub API for the newest tag, then fall back to the stable asset URL (`PlanWell.md-macOS-arm64.zip`).
 
 ## Analytics & Tracking
 
