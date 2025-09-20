@@ -140,6 +140,10 @@ a:hover {
   outline-offset: 4px;
 }
 
+.button-primary:focus-visible {
+  color: white;
+}
+
 .button-primary {
   color: white;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
@@ -147,8 +151,16 @@ a:hover {
 }
 
 .button-primary:hover {
+  color: white;
   transform: translateY(-1px);
   box-shadow: 0 22px 40px -18px rgba(52, 120, 246, 0.72);
+}
+
+a.button-primary:hover .button-label,
+a.button-primary:hover .button-meta,
+a.button-primary:focus-visible .button-label,
+a.button-primary:focus-visible .button-meta {
+  color: white;
 }
 
 .button-ghost {
@@ -160,6 +172,18 @@ a:hover {
 .button-ghost:hover {
   transform: translateY(-1px);
   background: rgba(255, 255, 255, 0.9);
+}
+
+.button-ghost.youtube {
+  background: linear-gradient(135deg, #ff0033 0%, #c80000 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 18px 34px -18px rgba(200, 0, 0, 0.6);
+}
+
+.button-ghost.youtube:hover {
+  background: linear-gradient(135deg, #ff3355 0%, #e00000 100%);
+  box-shadow: 0 22px 40px -18px rgba(200, 0, 0, 0.68);
 }
 
 .button-label {
