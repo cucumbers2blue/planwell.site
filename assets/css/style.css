@@ -70,12 +70,47 @@ a:hover {
   color: var(--text-strong);
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .alpha-pill {
   padding: 6px 12px;
   border-radius: 999px;
   background: rgba(52, 120, 246, 0.12);
   color: var(--accent-strong);
   font-size: 0.85rem;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: color var(--duration);
+}
+
+.nav-link:hover {
+  color: var(--accent-strong);
+}
+
+.nav-link-beta {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(15, 93, 226, 0.1);
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.nav-link-beta:hover {
+  background: rgba(15, 93, 226, 0.15);
 }
 
 .hero {
@@ -249,10 +284,30 @@ a.button-primary:focus-visible .button-meta {
   }
 }
 
+@media (max-width: 768px) {
+  .header-right {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+  .alpha-pill {
+    font-size: 0.75rem;
+  }
+  .header-nav {
+    gap: 12px;
+  }
+  .nav-link {
+    font-size: 0.85rem;
+  }
+}
+
 @media (max-width: 640px) {
   .bar-content {
     flex-direction: column;
     gap: 12px;
+  }
+  .header-right {
+    align-items: center;
   }
   .hero-actions {
     flex-direction: column;
