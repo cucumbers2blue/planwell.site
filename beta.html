@@ -182,23 +182,26 @@
             </ul>
 
             <div class="signup-form">
-                <h3>Sign Up for Beta Access</h3>
+                <h3>Request Beta Access</h3>
                 <p style="text-align: center; margin-bottom: 1.5rem;">Limited to 20 testers for this round</p>
 
-                <form id="betaForm" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="hidden_iframe">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="entry.NAME" required placeholder="Your name">
+                <p style="text-align: center; line-height: 1.8; margin-bottom: 2rem;">
+                    Email <strong>peter@planwellmd.com</strong> with:
+                </p>
 
-                    <label for="email">Email (for TestFlight invite)</label>
-                    <input type="email" id="email" name="entry.EMAIL" required placeholder="teacher@example.com">
+                <ul style="max-width: 500px; margin: 0 auto 2rem; line-height: 1.8;">
+                    <li><strong>Your name</strong></li>
+                    <li><strong>Email address</strong> (for TestFlight invite)</li>
+                    <li><strong>Teaching context</strong> (grade level, subjects, etc.) - optional</li>
+                    <li><strong>Why you want to test PlanWell</strong> - optional but helpful!</li>
+                </ul>
 
-                    <label for="teaching">Teaching Context (optional)</label>
-                    <textarea id="teaching" name="entry.TEACHING" rows="3" placeholder="Grade level, subjects, or how you plan to use PlanWell..."></textarea>
+                <a href="mailto:peter@planwellmd.com?subject=PlanWell%20iOS%20Beta%20Request&body=Hi%20Peter%2C%0A%0AI'd%20like%20to%20join%20the%20PlanWell%20iOS%20beta.%0A%0AName%3A%20%0AEmail%20for%20TestFlight%3A%20%0ATeaching%20context%3A%20%0AWhy%20I%20want%20to%20test%3A%20"
+                   style="display: block; width: 100%; max-width: 400px; margin: 0 auto; padding: 1rem; background: #0066cc; color: white; text-align: center; border-radius: 6px; font-size: 1.1rem; font-weight: 600; text-decoration: none; transition: background 0.2s;">
+                    Email Beta Request
+                </a>
 
-                    <button type="submit">Request Beta Access</button>
-
-                    <p class="note">You'll receive a TestFlight invite within 24-48 hours. iOS 17+ required.</p>
-                </form>
+                <p class="note">You'll receive a TestFlight invite within 24-48 hours. iOS 17+ required.</p>
             </div>
 
             <div class="beta-box">
@@ -219,17 +222,5 @@
     <footer style="text-align: center; padding: 40px 20px; color: #666; border-top: 1px solid #eee;">
         <p><a href="/">← Back to PlanWell.md</a> | <a href="/privacy">Privacy Policy</a></p>
     </footer>
-
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-    <script>
-        // Simple form submission handling
-        document.getElementById('betaForm').addEventListener('submit', function(e) {
-            // Let the form submit to Google Forms
-            setTimeout(function() {
-                document.querySelector('.signup-form h3').textContent = 'Thanks! Check your email soon.';
-                document.getElementById('betaForm').innerHTML = '<p style="text-align: center; padding: 2rem;">Your beta request has been submitted. You\'ll receive a TestFlight invite within 24-48 hours if selected.</p>';
-            }, 1000);
-        });
-    </script>
 </body>
 </html>
