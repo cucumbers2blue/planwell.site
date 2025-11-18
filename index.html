@@ -48,7 +48,24 @@
 
                     <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
                         <p style="margin: 0 0 0.5rem 0; font-size: 0.875rem; color: rgba(255,255,255,0.7);">Install via Homebrew:</p>
-                        <code style="display: block; padding: 0.5rem; background: rgba(0,0,0,0.3); border-radius: 4px; font-size: 0.875rem; color: #88c0d0;">brew install --cask cucumbers2blue/planwell/planwell</code>
+                        <div style="position: relative; display: flex; align-items: center; gap: 0.5rem;">
+                            <input
+                                type="text"
+                                value="brew install --cask cucumbers2blue/planwell/planwell"
+                                readonly
+                                id="brew-command"
+                                style="flex: 1; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 0.875rem; color: #88c0d0; font-family: 'SF Mono', Monaco, 'Courier New', monospace; cursor: text;"
+                            >
+                            <button
+                                onclick="copyBrewCommand()"
+                                id="copy-btn"
+                                style="padding: 0.5rem 0.75rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: rgba(255,255,255,0.9); font-size: 0.875rem; cursor: pointer; white-space: nowrap; transition: all 0.2s;"
+                                onmouseover="this.style.background='rgba(255,255,255,0.15)'"
+                                onmouseout="this.style.background='rgba(255,255,255,0.1)'"
+                            >
+                                <span id="copy-icon">📋</span> <span id="copy-text">Copy</span>
+                            </button>
+                        </div>
                     </div>
 
                     <ul class="hero-meta">
@@ -77,6 +94,34 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        function copyBrewCommand() {
+            const input = document.getElementById('brew-command');
+            const copyBtn = document.getElementById('copy-btn');
+            const copyIcon = document.getElementById('copy-icon');
+            const copyText = document.getElementById('copy-text');
+
+            // Select and copy
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(input.value).then(() => {
+                // Success feedback
+                copyIcon.textContent = '✓';
+                copyText.textContent = 'Copied!';
+                copyBtn.style.background = 'rgba(136, 192, 208, 0.2)';
+                copyBtn.style.borderColor = 'rgba(136, 192, 208, 0.4)';
+
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    copyIcon.textContent = '📋';
+                    copyText.textContent = 'Copy';
+                    copyBtn.style.background = 'rgba(255,255,255,0.1)';
+                    copyBtn.style.borderColor = 'rgba(255,255,255,0.2)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
     </script>
     <script src="assets/js/main.js?v=20250920d"></script>
 </body>
