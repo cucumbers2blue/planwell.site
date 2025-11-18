@@ -233,6 +233,69 @@ a.button-primary:focus-visible .button-meta {
   font-size: 0.95rem;
 }
 
+/* Homebrew Install Section */
+.brew-install {
+  margin-top: 24px;
+}
+
+.brew-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.brew-input-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.brew-input {
+  flex: 1;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  color: var(--text);
+  cursor: text;
+  transition: all var(--duration);
+}
+
+.brew-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+  border-color: var(--accent);
+}
+
+.brew-copy-btn {
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brew-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(15, 23, 42, 0.24);
+  transform: translateY(-1px);
+}
+
+.brew-copy-btn:active {
+  transform: translateY(0);
+}
+
 .hero-media {
   display: flex;
   flex-direction: column;

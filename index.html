@@ -46,22 +46,20 @@
                         </a>
                     </div>
 
-                    <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                        <p style="margin: 0 0 0.5rem 0; font-size: 0.875rem; color: rgba(255,255,255,0.7);">Install via Homebrew:</p>
-                        <div style="position: relative; display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="brew-install">
+                        <p class="brew-label">Install via Homebrew:</p>
+                        <div class="brew-input-wrapper">
                             <input
                                 type="text"
                                 value="brew install --cask cucumbers2blue/planwell/planwell"
                                 readonly
                                 id="brew-command"
-                                style="flex: 1; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 0.875rem; color: #88c0d0; font-family: 'SF Mono', Monaco, 'Courier New', monospace; cursor: text;"
+                                class="brew-input"
                             >
                             <button
                                 onclick="copyBrewCommand()"
                                 id="copy-btn"
-                                style="padding: 0.5rem 0.75rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: rgba(255,255,255,0.9); font-size: 0.875rem; cursor: pointer; white-space: nowrap; transition: all 0.2s;"
-                                onmouseover="this.style.background='rgba(255,255,255,0.15)'"
-                                onmouseout="this.style.background='rgba(255,255,255,0.1)'"
+                                class="brew-copy-btn"
                             >
                                 <span id="copy-icon">📋</span> <span id="copy-text">Copy</span>
                             </button>
@@ -108,15 +106,17 @@
                 // Success feedback
                 copyIcon.textContent = '✓';
                 copyText.textContent = 'Copied!';
-                copyBtn.style.background = 'rgba(136, 192, 208, 0.2)';
-                copyBtn.style.borderColor = 'rgba(136, 192, 208, 0.4)';
+                copyBtn.style.background = 'rgba(52, 120, 246, 0.12)';
+                copyBtn.style.borderColor = 'var(--accent)';
+                copyBtn.style.color = 'var(--accent-strong)';
 
                 // Reset after 2 seconds
                 setTimeout(() => {
                     copyIcon.textContent = '📋';
                     copyText.textContent = 'Copy';
-                    copyBtn.style.background = 'rgba(255,255,255,0.1)';
-                    copyBtn.style.borderColor = 'rgba(255,255,255,0.2)';
+                    copyBtn.style.background = '';
+                    copyBtn.style.borderColor = '';
+                    copyBtn.style.color = '';
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy:', err);
