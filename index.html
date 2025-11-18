@@ -46,25 +46,16 @@
                         </a>
                     </div>
 
-                    <div class="brew-install">
-                        <p class="brew-label">Install via Homebrew:</p>
-                        <div class="brew-input-wrapper">
-                            <input
-                                type="text"
-                                value="brew install --cask cucumbers2blue/planwell/planwell"
-                                readonly
-                                id="brew-command"
-                                class="brew-input"
-                            >
-                            <button
-                                onclick="copyBrewCommand()"
-                                id="copy-btn"
-                                class="brew-copy-btn"
-                            >
-                                <span id="copy-icon">📋</span> <span id="copy-text">Copy</span>
-                            </button>
-                        </div>
-                    </div>
+                    <p class="brew-install">
+                        Install via Homebrew: <code class="brew-command" id="brew-command">brew install --cask cucumbers2blue/planwell/planwell</code>
+                        <button onclick="copyBrewCommand()" id="copy-btn" class="brew-copy-btn" aria-label="Copy to clipboard">
+                            <svg id="copy-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M3.5 10.5h-1a1 1 0 01-1-1v-7a1 1 0 011-1h7a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            <span id="copy-text" class="sr-only">Copy</span>
+                        </button>
+                    </p>
 
                     <ul class="hero-meta">
                         <li>Plaintext-first: every lesson is a readable markdown file with YAML schema</li>
@@ -94,29 +85,17 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         function copyBrewCommand() {
-            const input = document.getElementById('brew-command');
-            const copyBtn = document.getElementById('copy-btn');
+            const command = document.getElementById('brew-command');
             const copyIcon = document.getElementById('copy-icon');
-            const copyText = document.getElementById('copy-text');
 
-            // Select and copy
-            input.select();
-            input.setSelectionRange(0, 99999); // For mobile devices
-            navigator.clipboard.writeText(input.value).then(() => {
-                // Success feedback
-                copyIcon.textContent = '✓';
-                copyText.textContent = 'Copied!';
-                copyBtn.style.background = 'rgba(52, 120, 246, 0.12)';
-                copyBtn.style.borderColor = 'var(--accent)';
-                copyBtn.style.color = 'var(--accent-strong)';
+            // Copy to clipboard
+            navigator.clipboard.writeText(command.textContent).then(() => {
+                // Success feedback - change to checkmark
+                copyIcon.innerHTML = '<polyline points="3.5 8 6.5 11 12.5 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
 
                 // Reset after 2 seconds
                 setTimeout(() => {
-                    copyIcon.textContent = '📋';
-                    copyText.textContent = 'Copy';
-                    copyBtn.style.background = '';
-                    copyBtn.style.borderColor = '';
-                    copyBtn.style.color = '';
+                    copyIcon.innerHTML = '<rect x="5.5" y="5.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 10.5h-1a1 1 0 01-1-1v-7a1 1 0 011-1h7a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"/>';
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy:', err);
