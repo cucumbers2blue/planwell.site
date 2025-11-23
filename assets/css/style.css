@@ -66,8 +66,16 @@ a:hover {
 
 .brand {
   font-weight: 600;
+  font-size: 1.5rem;
   letter-spacing: 0.02em;
   color: var(--text-strong);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  flex-shrink: 0;
 }
 
 .header-nav {
@@ -108,12 +116,12 @@ a:hover {
 }
 
 .hero {
-  padding: min(18vh, 140px) 0;
+  padding: 40px 0;
 }
 
 .hero-grid {
   display: grid;
-  gap: 48px;
+  gap: 32px;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
 }
@@ -121,7 +129,7 @@ a:hover {
 .hero-copy {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 .eyebrow {
@@ -132,8 +140,8 @@ a:hover {
 }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 5vw, 3.4rem);
-  line-height: 1.1;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  line-height: 1.15;
   color: var(--text-strong);
 }
 
@@ -213,6 +221,10 @@ a.button-primary:focus-visible .button-meta {
 .button-ghost.youtube:hover {
   background: linear-gradient(135deg, #ff3355 0%, #e00000 100%);
   box-shadow: 0 22px 40px -18px rgba(200, 0, 0, 0.68);
+}
+
+.button-icon {
+  flex-shrink: 0;
 }
 
 .button-label {

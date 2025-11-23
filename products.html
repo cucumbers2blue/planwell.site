@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products — PlanWell</title>
+    <meta name="description" content="PlanWell apps for web, desktop, iOS, macOS, Raycast, and Chrome. All free during early development - your feedback shapes the product.">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="assets/images/planwell-hero-screenshot.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css?v=20250920d">
+    <style>
+        .products-layout {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+        }
+
+        .products-header {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+        }
+
+        .products-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-strong);
+        }
+
+        .products-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .products-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .sidebar-item {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--duration);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .sidebar-item.active {
+            background: var(--accent-strong);
+            color: white;
+        }
+
+        .sidebar-item:not(.active):hover {
+            background: rgba(52, 120, 246, 0.1);
+            color: var(--accent-strong);
+        }
+
+        .sidebar-item.disabled {
+            opacity: 0.4;
+        }
+
+        .product-section {
+            display: none;
+        }
+
+        .product-section.active {
+            display: block;
+        }
+
+        .sidebar-item svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .products-content {
+            min-height: 400px;
+        }
+
+        .free-banner {
+            background: linear-gradient(135deg, rgba(52, 120, 246, 0.1) 0%, rgba(52, 120, 246, 0.05) 100%);
+            border: 1px solid rgba(52, 120, 246, 0.2);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .free-banner strong {
+            color: var(--accent-strong);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-strong);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        .product-entry {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .product-entry:last-child {
+            border-bottom: none;
+        }
+
+        .product-entry.secondary {
+            opacity: 0.5;
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        .product-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-available {
+            background: rgba(34, 197, 94, 0.15);
+            color: #15803d;
+        }
+
+        .badge-beta {
+            background: rgba(52, 120, 246, 0.15);
+            color: var(--accent-strong);
+        }
+
+        .badge-soon {
+            background: rgba(107, 114, 128, 0.15);
+            color: #4b5563;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .product-button {
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all var(--duration);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .product-button-primary {
+            background: var(--accent-strong);
+            color: white;
+        }
+
+        .product-button-primary:hover {
+            background: #0b4ab8;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .product-button-secondary {
+            background: rgba(52, 120, 246, 0.1);
+            color: var(--accent-strong);
+        }
+
+        .product-button-secondary:hover {
+            background: rgba(52, 120, 246, 0.18);
+            color: var(--accent-strong);
+        }
+
+        .brew-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brew-code {
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.8rem;
+            background: rgba(15, 23, 42, 0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+            user-select: all;
+        }
+
+        .copy-btn {
+            padding: 4px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all var(--duration);
+            display: inline-flex;
+            align-items: center;
+            border-radius: 4px;
+        }
+
+        .copy-btn:hover {
+            color: var(--accent);
+            background: rgba(52, 120, 246, 0.08);
+        }
+
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .logo-row img {
+            height: 16px;
+            opacity: 0.7;
+        }
+
+        /* Feedback Form */
+        .feedback-container {
+            max-width: 500px;
+        }
+
+        .feedback-intro {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .feedback-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .feedback-field label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-strong);
+        }
+
+        .feedback-field textarea,
+        .feedback-field input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: white;
+            resize: vertical;
+            transition: all var(--duration);
+        }
+
+        .feedback-field textarea {
+            min-height: 120px;
+        }
+
+        .feedback-field textarea:focus,
+        .feedback-field input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(52, 120, 246, 0.1);
+        }
+
+        .feedback-field textarea::placeholder,
+        .feedback-field input::placeholder {
+            color: rgba(15, 23, 42, 0.4);
+        }
+
+        .feedback-submit {
+            padding: 12px 20px;
+            background: var(--accent-strong);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all var(--duration);
+            align-self: flex-start;
+        }
+
+        .feedback-submit:hover {
+            background: #0b4ab8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(52, 120, 246, 0.3);
+        }
+
+        .feedback-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .feedback-status {
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            border-radius: 8px;
+            min-height: 1em;
+        }
+
+        .feedback-status.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #15803d;
+        }
+
+        .feedback-status.error {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .products-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .products-sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+                position: static;
+            }
+
+            .sidebar-item {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .feedback-form {
+                flex-direction: column;
+            }
+
+            .feedback-submit {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="page">
+    <header class="top-bar">
+        <div class="wrap bar-content">
+            <a class="brand" href="/">
+                <svg class="brand-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 2v4"/>
+                    <path d="M16 2v4"/>
+                    <rect width="18" height="18" x="3" y="4" rx="2"/>
+                    <path d="M3 10h18"/>
+                    <path d="m9 16 2 2 4-4"/>
+                </svg>
+                PlanWell
+            </a>
+            <nav class="header-nav">
+                <a href="/products.html" class="nav-link nav-link-beta">Products</a>
+                <a href="/changelog.html" class="nav-link nav-link-button">Changelog</a>
+                <a href="/privacy.html" class="nav-link nav-link-button">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="products-layout">
+            <div class="products-header">
+                <h1>Products</h1>
+                <p>Markdown-native teacher planning across all your devices</p>
+            </div>
+
+            <aside class="products-sidebar">
+                <button class="sidebar-item active" data-section="try-now">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    Try Now
+                </button>
+                <button class="sidebar-item" data-section="coming-soon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    Coming Soon
+                </button>
+                <button class="sidebar-item" data-section="feedback">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    Feedback
+                </button>
+            </aside>
+
+            <div class="products-content">
+                <div class="free-banner">
+                    <strong>Everything is free during early development.</strong> Your feedback shapes the product.
+                </div>
+
+                <!-- Try Now Section -->
+                <section id="try-now" class="product-section active">
+                    <h2 class="section-title">Try Now</h2>
+
+                <!-- Web App -->
+                <div class="product-entry">
+                    <div class="product-header">
+                        <span class="product-name">Web App</span>
+                        <span class="product-badge badge-available">Available</span>
+                    </div>
+                    <p class="product-description">Full planning experience in your browser. Uses the File System Access API to read and write directly to your local vault—no uploads, no sync, no account required. Works in Chrome and Edge. Your markdown files stay exactly where they are.</p>
+                    <div class="product-actions">
+                        <a href="https://app.planwellmd.com" target="_blank" rel="noopener noreferrer" class="product-button product-button-primary">Open Web App</a>
+                    </div>
+                </div>
+
+                <!-- Desktop App -->
+                <div class="product-entry">
+                    <div class="product-header">
+                        <span class="product-name">Desktop App</span>
+                        <span class="product-badge badge-available">Available</span>
+                    </div>
+                    <p class="product-description">Native macOS app built with Electron. Opens lessons directly in Obsidian, VS Code, Vim, or any editor you configure. Full offline support with direct file system access. Notarized and signed for macOS. Apple silicon native (arm64).</p>
+                    <div class="product-actions">
+                        <a href="https://github.com/cucumbers2blue/planwell.brew/releases/latest/download/PlanWell.md-macOS-arm64.zip" target="_blank" rel="noopener noreferrer" class="product-button product-button-primary">Download for macOS</a>
+                        <div class="logo-row">
+                            <img src="https://obsidian.md/favicon.ico" alt="Obsidian">
+                            Obsidian compatible
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Homebrew -->
+                <div class="product-entry">
+                    <div class="product-header">
+                        <span class="product-name">Homebrew</span>
+                        <span class="product-badge badge-available">Available</span>
+                    </div>
+                    <p class="product-description">Install and update PlanWell via Homebrew Cask. Same desktop app, managed through your terminal. Auto-updates when you run <code>brew upgrade</code>.</p>
+                    <div class="product-actions">
+                        <div class="brew-section">
+                            <code class="brew-code" id="brew-command">brew install --cask cucumbers2blue/planwell/planwell</code>
+                            <button onclick="copyBrewCommand()" class="copy-btn" aria-label="Copy to clipboard">
+                                <svg id="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M3.5 10.5h-1a1 1 0 01-1-1v-7a1 1 0 011-1h7a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                </section>
+
+                <!-- Coming Soon Section -->
+                <section id="coming-soon" class="product-section">
+                    <h2 class="section-title">Coming Soon</h2>
+
+                <!-- iOS App -->
+                <div class="product-entry">
+                    <div class="product-header">
+                        <span class="product-name">iOS App</span>
+                        <span class="product-badge badge-beta">Beta</span>
+                    </div>
+                    <p class="product-description">Native SwiftUI app for iPhone and iPad. View your weekly schedule, see current and upcoming classes, and check off todos. Home screen widget shows what's happening now and next. Reads directly from your iCloud Drive vault—same markdown files, no sync needed. Requires iOS 17+.</p>
+                    <div class="product-actions">
+                        <a href="mailto:peter@planwellmd.com?subject=PlanWell%20iOS%20Beta%20Request&body=Hi%20Peter%2C%0A%0AI'd%20like%20to%20join%20the%20PlanWell%20iOS%20beta.%0A%0AName%3A%20%0ATeaching%20context%20(optional)%3A%20%0A" class="product-button product-button-secondary">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            Join Beta
+                        </a>
+                        <div class="logo-row">
+                            <img src="https://developer.apple.com/assets/elements/icons/app-store/app-store-128x128_2x.png" alt="App Store">
+                            TestFlight Beta
+                        </div>
+                    </div>
+                </div>
+
+                <!-- macOS Sync -->
+                <div class="product-entry">
+                    <div class="product-header">
+                        <span class="product-name">macOS Calendar Sync</span>
+                        <span class="product-badge badge-beta">Beta</span>
+                    </div>
+                    <p class="product-description">Lightweight menu bar app that syncs your PlanWell classes to iCloud Calendar. See your teaching schedule in Calendar.app, get native notifications, and view classes alongside personal events. Runs in background, updates automatically when your vault changes.</p>
+                    <div class="product-actions">
+                        <a href="mailto:peter@planwellmd.com?subject=PlanWell%20macOS%20Sync%20Beta%20Request&body=Hi%20Peter%2C%0A%0AI'd%20like%20to%20join%20the%20PlanWell%20macOS%20Sync%20beta.%0A%0AName%3A%20%0ATeaching%20context%20(optional)%3A%20%0A" class="product-button product-button-secondary">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            Join Beta
+                        </a>
+                        <div class="logo-row">
+                            <img src="https://developer.apple.com/assets/elements/icons/mac-app-store/mac-app-store-128x128_2x.png" alt="Mac App Store">
+                            TestFlight Beta
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Raycast -->
+                <div class="product-entry">
+                    <div class="product-header">
+                        <span class="product-name">Raycast Extension</span>
+                        <span class="product-badge badge-soon">Coming Soon</span>
+                    </div>
+                    <p class="product-description">Quick access to your schedule, events, and todos from Raycast. See today's classes, mark todos done, and open lessons directly in PlanWell or Obsidian. Search across all your lesson notes. Keyboard-first workflow for power users.</p>
+                    <div class="product-actions">
+                        <div class="logo-row">
+                            <img src="https://raycast.com/favicon.png" alt="Raycast">
+                            Coming to Raycast Store
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chrome Extension -->
+                <div class="product-entry">
+                    <div class="product-header">
+                        <span class="product-name">Chrome Extension</span>
+                        <span class="product-badge badge-soon">Coming Soon</span>
+                    </div>
+                    <p class="product-description">Toolbar badge shows minutes until your next class. Click to see today's full schedule with color-coded urgency indicators (green → yellow → red as class approaches). Quick glance without opening the full app.</p>
+                    <div class="product-actions">
+                        <div class="logo-row">
+                            <img src="https://www.google.com/chrome/static/images/favicons/favicon-32x32.png" alt="Chrome">
+                            Coming to Chrome Web Store
+                        </div>
+                    </div>
+                </div>
+
+                </section>
+
+                <!-- Feedback Section -->
+                <section id="feedback" class="product-section">
+                    <h2 class="section-title">Send Feedback</h2>
+                    <div class="feedback-container">
+                        <p class="feedback-intro">Found a bug? Have a feature request? I'd love to hear from you.</p>
+                        <form id="feedback-form" class="feedback-form">
+                            <div class="feedback-field">
+                                <label for="feedback-message">Message</label>
+                                <textarea id="feedback-message" name="message" placeholder="What's on your mind?" required></textarea>
+                            </div>
+                            <div class="feedback-field">
+                                <label for="feedback-email">Email (optional)</label>
+                                <input type="email" id="feedback-email" name="email" placeholder="For a reply">
+                            </div>
+                            <button type="submit" class="feedback-submit" id="feedback-submit">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                </svg>
+                                Send Feedback
+                            </button>
+                        </form>
+                        <p id="feedback-status" class="feedback-status"></p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="wrap footer-content">
+            <span>&copy; <span id="year"></span> PlanWell.md</span>
+            <span>Built by a teacher for teachers who script their own workflows.</span>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Section navigation
+        document.querySelectorAll('.sidebar-item').forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.dataset.section;
+
+                // Update active sidebar item
+                document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+                button.classList.add('active');
+
+                // Show corresponding section
+                document.querySelectorAll('.product-section').forEach(section => section.classList.remove('active'));
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        function copyBrewCommand() {
+            const command = document.getElementById('brew-command');
+            const copyIcon = document.getElementById('copy-icon');
+
+            navigator.clipboard.writeText(command.textContent).then(() => {
+                copyIcon.innerHTML = '<polyline points="3.5 8 6.5 11 12.5 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+
+                setTimeout(() => {
+                    copyIcon.innerHTML = '<rect x="5.5" y="5.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 10.5h-1a1 1 0 01-1-1v-7a1 1 0 011-1h7a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"/>';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        // Feedback form submission
+        const SUPABASE_URL = 'https://kpcdyznvsmfdrxnrvwfv.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtwY2R5em52c21mZHJ4bnJ2d2Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODUyOTgsImV4cCI6MjA3OTQ2MTI5OH0.LS-MW8FayWgz-eQISaafX3dBvpX_mnR_y9LJTxx596M';
+
+        document.getElementById('feedback-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = document.getElementById('feedback-submit');
+            const status = document.getElementById('feedback-status');
+            const message = document.getElementById('feedback-message').value.trim();
+            const email = document.getElementById('feedback-email').value.trim();
+
+            if (!message) return;
+
+            // Disable button while submitting
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Sending...';
+            status.textContent = '';
+            status.className = 'feedback-status';
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/feedback`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        email: email || null,
+                        page: window.location.pathname
+                    })
+                });
+
+                if (response.ok) {
+                    status.textContent = 'Thanks for your feedback!';
+                    status.className = 'feedback-status success';
+                    form.reset();
+                } else {
+                    throw new Error('Failed to submit');
+                }
+            } catch (err) {
+                status.textContent = 'Failed to send. Please try again.';
+                status.className = 'feedback-status error';
+                console.error('Feedback error:', err);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                    Send
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

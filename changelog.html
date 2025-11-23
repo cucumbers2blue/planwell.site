@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog — PlanWell</title>
+    <meta name="description" content="PlanWell changelog - see what's new, improved, and fixed across all PlanWell apps.">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="assets/images/planwell-hero-screenshot.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css?v=20250920d">
+    <style>
+        .changelog-layout {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+        }
+
+        .changelog-header {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+        }
+
+        .changelog-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-strong);
+        }
+
+        .changelog-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .changelog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .sidebar-item {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--duration);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-item.active {
+            background: var(--accent-strong);
+            color: white;
+        }
+
+        .sidebar-item:not(.active):not(.disabled):hover {
+            background: rgba(52, 120, 246, 0.1);
+            color: var(--accent-strong);
+        }
+
+        .sidebar-item.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .sidebar-item svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .changelog-content {
+            min-height: 400px;
+        }
+
+        .version-entry {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .version-entry:last-child {
+            border-bottom: none;
+        }
+
+        .version-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .version-number {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        .version-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .version-changes {
+            list-style: none;
+            padding: 0;
+        }
+
+        .version-changes li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .version-changes li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .change-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-right: 6px;
+        }
+
+        .tag-new {
+            background: rgba(34, 197, 94, 0.15);
+            color: #15803d;
+        }
+
+        .tag-improved {
+            background: rgba(52, 120, 246, 0.15);
+            color: var(--accent-strong);
+        }
+
+        .tag-fixed {
+            background: rgba(249, 115, 22, 0.15);
+            color: #c2410c;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .changelog-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .changelog-sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+                position: static;
+            }
+
+            .sidebar-item {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body class="page">
+    <header class="top-bar">
+        <div class="wrap bar-content">
+            <a class="brand" href="/">
+                <svg class="brand-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 2v4"/>
+                    <path d="M16 2v4"/>
+                    <rect width="18" height="18" x="3" y="4" rx="2"/>
+                    <path d="M3 10h18"/>
+                    <path d="m9 16 2 2 4-4"/>
+                </svg>
+                PlanWell
+            </a>
+            <nav class="header-nav">
+                <a href="/products.html" class="nav-link nav-link-button">Products</a>
+                <a href="/changelog.html" class="nav-link nav-link-beta">Changelog</a>
+                <a href="/privacy.html" class="nav-link nav-link-button">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="changelog-layout">
+            <div class="changelog-header">
+                <h1>Changelog</h1>
+                <p>What's new, improved, and fixed in PlanWell</p>
+            </div>
+
+            <aside class="changelog-sidebar">
+                <div class="sidebar-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                    Desktop & Web
+                </div>
+                <div class="sidebar-item disabled">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                        <line x1="12" y1="18" x2="12.01" y2="18"/>
+                    </svg>
+                    iOS App
+                </div>
+                <div class="sidebar-item disabled">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10"/>
+                        <polyline points="1 20 1 14 7 14"/>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                    </svg>
+                    macOS Sync
+                </div>
+                <div class="sidebar-item disabled">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    Raycast
+                </div>
+                <div class="sidebar-item disabled">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="4"/>
+                        <line x1="21.17" y1="8" x2="12" y2="8"/>
+                        <line x1="3.95" y1="6.06" x2="8.54" y2="14"/>
+                        <line x1="10.88" y1="21.94" x2="15.46" y2="14"/>
+                    </svg>
+                    Chrome
+                </div>
+            </aside>
+
+            <div class="changelog-content">
+                <!-- v0.1.1 -->
+                <div class="version-entry">
+                    <div class="version-header">
+                        <span class="version-number">v0.1.1</span>
+                        <span class="version-date">November 2025</span>
+                    </div>
+                    <ul class="version-changes">
+                        <li><span class="change-tag tag-new">New</span> External editor mode - open lessons in VS Code, Vim, or any editor</li>
+                        <li><span class="change-tag tag-new">New</span> Obsidian mode - direct integration with Obsidian vault</li>
+                        <li><span class="change-tag tag-improved">Improved</span> Period configuration now supports custom time slots</li>
+                        <li><span class="change-tag tag-fixed">Fixed</span> Calendar navigation issues on month boundaries</li>
+                    </ul>
+                </div>
+
+                <!-- v0.1.0 -->
+                <div class="version-entry">
+                    <div class="version-header">
+                        <span class="version-number">v0.1.0</span>
+                        <span class="version-date">October 2025</span>
+                    </div>
+                    <ul class="version-changes">
+                        <li><span class="change-tag tag-new">New</span> Initial release</li>
+                        <li><span class="change-tag tag-new">New</span> Visual timetable with period-based scheduling</li>
+                        <li><span class="change-tag tag-new">New</span> Multi-day events with category lanes</li>
+                        <li><span class="change-tag tag-new">New</span> Weekly todos for teaching goals</li>
+                        <li><span class="change-tag tag-new">New</span> Markdown files with YAML frontmatter</li>
+                        <li><span class="change-tag tag-new">New</span> macOS app with notarization</li>
+                        <li><span class="change-tag tag-new">New</span> Web app with File System Access API</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="wrap footer-content">
+            <span>&copy; <span id="year"></span> PlanWell.md</span>
+            <span>Built by a teacher for teachers who script their own workflows.</span>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
