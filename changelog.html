@@ -83,6 +83,10 @@
             min-height: 400px;
         }
 
+        .changelog-section {
+            display: block;
+        }
+
         .version-entry {
             margin-bottom: 2.5rem;
             padding-bottom: 2rem;
@@ -242,11 +246,12 @@
                     </svg>
                     macOS Sync
                 </div>
-                <div class="sidebar-item disabled">
+                <div class="sidebar-item">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                     </svg>
                     Raycast
+                    <span class="change-tag tag-new" style="margin-left: auto;">New</span>
                 </div>
                 <div class="sidebar-item disabled">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -261,6 +266,8 @@
             </aside>
 
             <div class="changelog-content">
+                <!-- Desktop & Web -->
+                <div id="desktop-web-changelog" class="changelog-section">
                 <!-- v0.1.1 -->
                 <div class="version-entry">
                     <div class="version-header">
@@ -291,6 +298,27 @@
                         <li><span class="change-tag tag-new">New</span> Web app with File System Access API</li>
                     </ul>
                 </div>
+                </div>
+
+                <!-- Raycast Extension -->
+                <div id="raycast-changelog" class="changelog-section" style="display: none;">
+                    <!-- v1.0.0 -->
+                    <div class="version-entry">
+                        <div class="version-header">
+                            <span class="version-number">v1.0.0</span>
+                            <span class="version-date">November 2025</span>
+                        </div>
+                        <ul class="version-changes">
+                            <li><span class="change-tag tag-new">New</span> Today's Classes - View your schedule with period times and remaining time</li>
+                            <li><span class="change-tag tag-new">New</span> Upcoming Events - See multi-day events with start/end dates</li>
+                            <li><span class="change-tag tag-new">New</span> Todos - View and mark todos as complete</li>
+                            <li><span class="change-tag tag-new">New</span> Quick Add - Add classes to free periods</li>
+                            <li><span class="change-tag tag-new">New</span> Delete Class - Move classes to bin</li>
+                            <li><span class="change-tag tag-new">New</span> Open in PlanWell or external editor (Obsidian, VS Code, etc.)</li>
+                            <li><span class="change-tag tag-new">New</span> Keyboard shortcuts for quick navigation</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -304,6 +332,32 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Sidebar navigation
+        const sidebarItems = document.querySelectorAll('.sidebar-item:not(.disabled)');
+        const desktopWebSection = document.getElementById('desktop-web-changelog');
+        const raycastSection = document.getElementById('raycast-changelog');
+
+        sidebarItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                // Remove active class from all items
+                sidebarItems.forEach(i => i.classList.remove('active'));
+
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Show corresponding section
+                if (index === 0) {
+                    // Desktop & Web
+                    desktopWebSection.style.display = 'block';
+                    raycastSection.style.display = 'none';
+                } else if (index === 1) {
+                    // Raycast
+                    desktopWebSection.style.display = 'none';
+                    raycastSection.style.display = 'block';
+                }
+            });
+        });
     </script>
 </body>
 </html>
