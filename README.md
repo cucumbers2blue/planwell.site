@@ -1,13 +1,16 @@
 # PlanWell.md Landing Page
 
-This repository hosts the GitHub Pages site that distributes the latest PlanWell.md build. The page is intentionally minimal—one hero panel with the download CTA and a link to the YouTube build log.
+This repository hosts the GitHub Pages site for PlanWell.md (planwellmd.com). The site includes product pages, changelog, and download links for all PlanWell apps and extensions.
 
 ## Page Overview
 
-- `index.html` renders the entire site (brand header, hero copy, download button, YouTube link, release metadata footer).
-- `assets/css/style.css` provides the macOS Tahoe–inspired glass UI for the hero layout. No additional sections exist.
-- `assets/js/main.js` keeps lightweight UI behaviour (tab switching, smooth scrolling, analytics pings) and logs clicks on the download link.
-- `assets/images/` stores the single screenshot used in the hero card.
+- `index.html` - Homepage with hero section, download buttons, Raycast install badge
+- `products.html` - Product listings for all apps (Desktop, Web, Chrome, Raycast, iOS Beta, macOS Sync Beta)
+- `changelog.html` - Version history and release notes for all products
+- `privacy.html` - Privacy policy
+- `assets/css/style.css` - macOS Tahoe-inspired glass UI styling
+- `assets/js/main.js` - Lightweight UI behavior (navigation, analytics)
+- `assets/images/` - Screenshots and media assets
 
 ## Local Development
 
@@ -19,6 +22,18 @@ npx http-server
 ```
 
 Open `http://localhost:8000` and click the download button to confirm it opens the GitHub Releases page.
+
+## Available Products
+
+### Production (Available Now)
+- **Desktop App** - macOS Electron app (v0.1.1)
+- **Web App** - Browser-based at app.planwellmd.com
+- **Chrome Extension** - [Chrome Web Store](https://chromewebstore.google.com/detail/planwell-schedule/jonkonglfokjegcdonimhaoaddiofcjp)
+- **Raycast Extension** - [Raycast Store](https://www.raycast.com/Raynold/planwell)
+
+### Beta (TestFlight)
+- **iOS App** - Beta signup at planwellmd.com/beta
+- **macOS Sync** - Calendar sync menu bar app
 
 ## Release Workflow
 
