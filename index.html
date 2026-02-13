@@ -1,106 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlanWell.md — Browser & macOS lesson planning</title>
-    <meta name="description" content="PlanWell.md is a browser-based and macOS app for technical teachers who want markdown-first lesson planning with Obsidian compatibility. Try now in Chrome or download for Apple silicon.">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/png" href="assets/images/planwell-hero-screenshot.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css?v=20250920d">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlanWell Desktop</title>
+  <meta name="description" content="PlanWell Desktop is a fast local-first teacher planner. Start with the free PlanWell Web app, then move to desktop workflows when you want.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/landing-minimal.css?v=20260212a">
 </head>
-<body class="page" id="top">
-    <header class="top-bar">
-        <div class="wrap bar-content">
-            <a class="brand" href="#top">
-                <svg class="brand-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8 2v4"/>
-                    <path d="M16 2v4"/>
-                    <rect width="18" height="18" x="3" y="4" rx="2"/>
-                    <path d="M3 10h18"/>
-                    <path d="m9 16 2 2 4-4"/>
-                </svg>
-                PlanWell
-            </a>
-            <nav class="header-nav">
-                <a href="/products.html" class="nav-link nav-link-button">Products</a>
-                <a href="/changelog.html" class="nav-link nav-link-button">Changelog</a>
-                <a href="/privacy.html" class="nav-link nav-link-button">Privacy</a>
-            </nav>
-        </div>
+<body class="landing-home">
+  <div class="layout">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="PlanWell Desktop home">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 2v4"/>
+          <path d="M16 2v4"/>
+          <rect width="18" height="18" x="3" y="4" rx="2"/>
+          <path d="M3 10h18"/>
+          <path d="m9 16 2 2 4-4"/>
+        </svg>
+        <span>PlanWell Desktop</span>
+      </a>
+      <a class="privacy-link" href="/privacy.html">Privacy</a>
     </header>
 
-    <main>
-        <section class="hero" aria-labelledby="hero-title" id="download">
-            <div class="wrap hero-grid">
-                <div class="hero-copy">
-                    <p class="eyebrow">macOS Tahoe 26 aesthetic • Built for markdown workflows</p>
-                    <h1 id="hero-title">Own your timetable without leaving your vault.</h1>
-                    <p class="lede">Try PlanWell in your browser or download for macOS. Keep lesson plans as plain Obsidian-compatible markdown. Designed for technical early adopters who want full control.</p>
+    <main class="hero" aria-label="PlanWell Desktop landing">
+      <section class="hero-copy">
+        <p class="eyebrow">Teacher-first local planner</p>
+        <h1>PlanWell Desktop</h1>
+        <p class="lead">Plan your week in seconds, keep everything private, and stay fully in control. PlanWell Desktop is fast, local-first, markdown-native, and works smoothly with Obsidian.</p>
+        <p class="pricing">Start with the free PlanWell Web app, or use the desktop app for offline speed and fully local workflows.</p>
+      </section>
 
-                    <div class="hero-actions">
-                        <a class="button button-primary" href="https://app.planwellmd.com" target="_blank" rel="noopener noreferrer">
-                            <svg class="button-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/>
-                                <line x1="2" y1="12" x2="22" y2="12"/>
-                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                            </svg>
-                            <span class="button-label">Try Now in Browser</span>
-                            <span class="button-meta">Chrome or Edge • No install required</span>
-                        </a>
-                        <a id="main-download-btn" class="button button-ghost" href="https://github.com/cucumbers2blue/planwell.brew/releases/latest/download/PlanWell.md-macOS-arm64.zip" target="_blank" rel="noopener noreferrer">
-                            <svg class="button-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                                <line x1="8" y1="21" x2="16" y2="21"/>
-                                <line x1="12" y1="17" x2="12" y2="21"/>
-                            </svg>
-                            <span class="button-label">Download for macOS</span>
-                            <span class="button-meta">v0.1.2 • 174MB • Apple silicon</span>
-                        </a>
-                        <a class="button button-ghost" href="https://apps.apple.com/us/app/planwell-md/id6756115972" target="_blank" rel="noopener noreferrer" aria-label="View PlanWell on the Mac App Store">
-                            <img class="button-icon" src="https://developer.apple.com/assets/elements/icons/mac-app-store/mac-app-store-128x128_2x.png" alt="" width="18" height="18" loading="lazy" aria-hidden="true">
-                            <span class="button-label">Mac App Store</span>
-                            <span class="button-meta">Get the desktop app</span>
-                        </a>
-                        <a class="button button-ghost youtube" href="https://www.youtube.com/@PlanWell_app" target="_blank" rel="noopener noreferrer">
-                            <svg class="button-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                            <span class="button-label">Watch the build log</span>
-                            <span class="button-meta">YouTube · PlanWell channel</span>
-                        </a>
-                    </div>
-
-                    <ul class="hero-meta">
-                        <li>Plaintext-first: every lesson is a readable markdown file with YAML schema</li>
-                        <li>Period-aware engine renders timeline blocks from the same notes you edit in Obsidian</li>
-                        <li>Use your own storage sync (iCloud, git, rsync) with zero vendor dependencies</li>
-                    </ul>
-                </div>
-
-                <figure class="hero-media">
-                    <div class="glass-frame">
-                        <img src="assets/images/planwell-hero-screenshot.png" alt="PlanWell.md timeline view on macOS" loading="lazy">
-                    </div>
-                    <figcaption>Plan your week visually while editing the same markdown in Obsidian.</figcaption>
-                </figure>
-            </div>
-        </section>
+      <section class="hero-visual">
+        <img
+          src="assets/images/hero-desktop-latest-1800.jpg"
+          srcset="assets/images/hero-desktop-latest-900.jpg 900w, assets/images/hero-desktop-latest-1800.jpg 1800w"
+          sizes="(max-width: 980px) 95vw, 58vw"
+          width="1800"
+          height="1165"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          alt="PlanWell Desktop weekly planner screenshot"
+        >
+      </section>
     </main>
 
-    <footer class="footer">
-        <div class="wrap footer-content">
-            <span>&copy; <span id="year"></span> PlanWell.md</span>
-            <span>Built by a teacher for teachers who script their own workflows.</span>
-        </div>
+    <footer class="platforms" aria-label="Platform links">
+      <a class="icon-link" href="https://app.planwellmd.com" target="_blank" rel="noopener noreferrer" aria-label="PlanWell Web" title="PlanWell Web">
+        <img src="assets/icons/web.svg" alt="" aria-hidden="true">
+      </a>
+      <a class="icon-link" href="https://apps.apple.com/us/app/planwell-md/id6756115972" target="_blank" rel="noopener noreferrer" aria-label="App Store" title="App Store">
+        <img src="assets/icons/appstore.svg" alt="" aria-hidden="true">
+      </a>
+      <a class="icon-link" href="https://apps.apple.com/id/app/planwell-teacher-planner/id6755210899" target="_blank" rel="noopener noreferrer" aria-label="iOS app" title="iOS app">
+        <img src="assets/icons/ios.svg" alt="" aria-hidden="true">
+      </a>
+      <a class="icon-link" href="https://www.raycast.com/Raynold/planwell" target="_blank" rel="noopener noreferrer" aria-label="Raycast" title="Raycast">
+        <img src="assets/icons/raycast.svg" alt="" aria-hidden="true">
+      </a>
+      <a class="icon-link" href="https://www.youtube.com/@PlanWell_app" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
+        <img src="assets/icons/youtube.svg" alt="" aria-hidden="true">
+      </a>
+      <a class="icon-link" href="https://chromewebstore.google.com/detail/planwell-schedule/jonkonglfokjegcdonimhaoaddiofcjp" target="_blank" rel="noopener noreferrer" aria-label="Google Store" title="Google Store">
+        <img src="assets/icons/google-store.svg" alt="" aria-hidden="true">
+      </a>
     </footer>
-
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-    <script src="assets/js/main.js?v=20250920d"></script>
+  </div>
 </body>
 </html>
