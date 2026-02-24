@@ -1,130 +1,123 @@
-// PlanWell Landing Page JavaScript
-// Handles lightweight UI interactions (tabs, smooth scrolling, analytics hooks)
+// PlanWell Desktop website interactions (no analytics, no tracking)
 
-document.addEventListener('DOMContentLoaded', function() {
-    setupTabSwitching();
-    setupSmoothScrolling();
-    setupScrollAnimations();
-    setupFormHandling();
-    wireDownloadAnalytics();
+document.addEventListener('DOMContentLoaded', () => {
+  const yearTargets = document.querySelectorAll('[data-year]');
+  const currentYear = new Date().getFullYear();
+  yearTargets.forEach((node) => {
+    node.textContent = String(currentYear);
+  });
 
-    function wireDownloadAnalytics() {
-        const downloadLink = document.getElementById('main-download-btn');
-        if (!downloadLink) return;
+  const copyButtons = document.querySelectorAll('[data-copy]');
+  copyButtons.forEach((button) => {
+    button.addEventListener('click', async () => {
+      const targetSelector = button.getAttribute('data-copy');
+      if (!targetSelector) {
+        return;
+      }
 
-        downloadLink.addEventListener('click', () => {
-            trackEvent('download_clicked', {
-                button_location: 'main-download-btn',
-                target_url: downloadLink.href,
-                timestamp: new Date().toISOString()
-            });
-        });
-    }
+      const source = document.querySelector(targetSelector);
+      if (!source) {
+        return;
+      }
 
-    function setupTabSwitching() {
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
+      const text = source.textContent ? source.textContent.trim() : '';
+      if (!text) {
+        return;
+      }
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const targetTab = button.dataset.tab;
+      const originalLabel = button.textContent;
 
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = 'Copied';
+      } catch (_error) {
+        button.textContent = 'Copy failed';
+      }
 
-                button.classList.add('active');
-                const targetContent = document.getElementById(`${targetTab}-tab`);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-
-                trackEvent('screenshot_tab_clicked', {
-                    tab: targetTab,
-                    timestamp: new Date().toISOString()
-                });
-            });
-        });
-    }
-
-    function setupSmoothScrolling() {
-        const navLinks = document.querySelectorAll('a[href^="#"]');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (!targetElement) return;
-
-                e.preventDefault();
-
-                const headerOffset = 80;
-                const elementPosition = targetElement.offsetTop;
-                const offsetPosition = elementPosition - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-
-                trackEvent('navigation_clicked', {
-                    target: targetId,
-                    timestamp: new Date().toISOString()
-                });
-            });
-        });
-    }
-
-    function setupScrollAnimations() {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                }
-            });
-        }, observerOptions);
-
-        const animatedElements = document.querySelectorAll('.feature-card, .path-card');
-        animatedElements.forEach(el => observer.observe(el));
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            const messageEl = document.getElementById('page-message');
-            if (messageEl) {
-                messageEl.style.opacity = '0';
-                messageEl.style.transform = 'translateX(100%)';
-            }
+      window.setTimeout(() => {
+        if (originalLabel) {
+          button.textContent = originalLabel;
         }
+      }, 1200);
+    });
+  });
+
+  const carousels = document.querySelectorAll('[data-carousel]');
+  carousels.forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+    const dots = Array.from(carousel.querySelectorAll('.carousel-dot'));
+    const prevButton = carousel.querySelector('[data-carousel-prev]');
+    const nextButton = carousel.querySelector('[data-carousel-next]');
+
+    if (slides.length === 0) {
+      return;
+    }
+
+    let current = 0;
+    let timer = null;
+
+    const showSlide = (index) => {
+      const normalized = (index + slides.length) % slides.length;
+      current = normalized;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === normalized);
+      });
+
+      dots.forEach((dot, i) => {
+        const isActive = i === normalized;
+        dot.classList.toggle('is-active', isActive);
+        if (isActive) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    const schedule = () => {
+      if (slides.length < 2) {
+        return;
+      }
+      window.clearInterval(timer);
+      timer = window.setInterval(() => {
+        showSlide(current + 1);
+      }, 4500);
+    };
+
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        showSlide(current - 1);
+        schedule();
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        showSlide(current + 1);
+        schedule();
+      });
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const next = Number(dot.getAttribute('data-carousel-dot'));
+        if (!Number.isNaN(next)) {
+          showSlide(next);
+          schedule();
+        }
+      });
     });
 
-    function setupFormHandling() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                trackEvent('form_submitted', {
-                    form_id: form.id,
-                    timestamp: new Date().toISOString()
-                });
-            });
-        });
-    }
+    carousel.addEventListener('mouseenter', () => {
+      window.clearInterval(timer);
+    });
 
-    function trackEvent(eventName, eventData = {}) {
-        console.log(`Event: ${eventName}`, eventData);
+    carousel.addEventListener('mouseleave', () => {
+      schedule();
+    });
 
-        if (typeof gtag !== 'undefined') {
-            gtag('event', eventName, eventData);
-        }
-
-        if (typeof plausible !== 'undefined') {
-            plausible(eventName, { props: eventData });
-        }
-    }
+    showSlide(0);
+    schedule();
+  });
 });
