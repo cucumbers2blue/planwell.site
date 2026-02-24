@@ -33,7 +33,6 @@ Open `http://localhost:8000` and verify nav links and CTA targets.
 - **Chrome Extension** - [Chrome Web Store](https://chromewebstore.google.com/detail/planwell-schedule/jonkonglfokjegcdonimhaoaddiofcjp)
 - **Raycast Extension** - [Raycast Store](https://www.raycast.com/Raynold/planwell)
 - **PlanWell iOS App** - [App Store](https://apps.apple.com/id/app/planwell-teacher-planner/id6755210899)
-- **Homebrew Cask** - `brew install --cask cucumbers2blue/planwell/planwell`
 
 ## Release Workflow
 
