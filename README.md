@@ -8,6 +8,7 @@ This repository hosts the static marketing site for PlanWell Desktop at planwell
 - `products.html` - Product packaging and companion tools
 - `changelog.html` - Retired public changelog notice with pointers to current update surfaces
 - `privacy.html` - Privacy policy and no-tracking statement
+- `support.html` - Support, troubleshooting, and contact information
 - `assets/css/style.css` - Shared visual system and responsive layout
 - `assets/js/main.js` - Lightweight UI behavior (year + copy helper only)
 - `assets/images/` - Screenshots and media assets
