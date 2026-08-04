@@ -12,6 +12,13 @@ This repository hosts the static marketing site for PlanWell Desktop at planwell
 - `assets/css/style.css` - Shared visual system and responsive layout
 - `assets/js/main.js` - Lightweight UI behavior (year + copy helper only)
 - `assets/images/` - Screenshots and media assets
+- `source/grade-6-design-flashcards/` - Reusable Grade 6 Design flashcard library source
+
+## Grade 6 Design Flashcards
+
+The reusable flashcard framework and its Digital Citizenship deck are kept in
+`source/grade-6-design-flashcards/`. The current student site is available at
+[grade-6-design-flashcards.classy-dell-2167.chatgpt.site](https://grade-6-design-flashcards.classy-dell-2167.chatgpt.site).
 
 ## Local Development
 
