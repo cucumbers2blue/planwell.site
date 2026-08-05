@@ -1,4 +1,4 @@
-import { cp, mkdir, writeFile } from "node:fs/promises";
+import { cp, lstat, mkdir, rm, writeFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -7,6 +7,7 @@ const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const sourceDirectory = resolve(repositoryRoot, "source/grade-6-design-flashcards");
 const clientDirectory = resolve(sourceDirectory, "dist/client");
 const publicDirectory = resolve(repositoryRoot, "design");
+const assetsDirectory = resolve(publicDirectory, "assets");
 
 execFileSync("npm", ["run", "build"], {
   cwd: sourceDirectory,
@@ -34,8 +35,18 @@ const html = (await response.text())
   .replaceAll("/favicon.svg", "/design/favicon.svg")
   .replaceAll("/og.png", "/design/og.png");
 
-await mkdir(resolve(publicDirectory, "assets"), { recursive: true });
-await cp(resolve(clientDirectory, "assets"), resolve(publicDirectory, "assets"), {
+try {
+  const assets = await lstat(assetsDirectory);
+  if (!assets.isDirectory() || assets.isSymbolicLink()) {
+    throw new Error("design/assets must be a regular directory");
+  }
+  await rm(assetsDirectory, { recursive: true });
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+
+await mkdir(assetsDirectory, { recursive: true });
+await cp(resolve(clientDirectory, "assets"), assetsDirectory, {
   recursive: true,
 });
 await cp(resolve(clientDirectory, "favicon.svg"), resolve(publicDirectory, "favicon.svg"));

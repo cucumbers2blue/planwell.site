@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { decks, type Card, type Deck } from "./decks";
+import { prepareCards } from "./prepareCards";
 
 type Session = { deck: Deck; cards: Card[] };
 
@@ -11,7 +12,7 @@ export default function Flashcards() {
   const [selected, setSelected] = useState<string | null>(null);
 
   function start(deck: Deck) {
-    setSession({ deck, cards: deck.cards });
+    setSession({ deck, cards: prepareCards(deck.cards) });
     setIndex(0);
     setSelected(null);
   }
