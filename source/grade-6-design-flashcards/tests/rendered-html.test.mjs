@@ -23,6 +23,8 @@ test("server-renders the flashcard library", async () => {
   assert.match(html, /Flashcard library/);
   assert.match(html, /Digital Citizenship/);
   assert.match(html, /25(?:<!-- -->)? questions/);
+  assert.match(html, /Hardware, Software, Input and Output/);
+  assert.match(html, /30(?:<!-- -->)? questions/);
   assert.match(html, /Practice now/);
   assert.doesNotMatch(html, /Start full deck|Practise 20 questions/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);

@@ -1,3 +1,5 @@
+import { hardwareSoftwareInputOutputDeck } from "./hardwareSoftwareInputOutputDeck.ts";
+
 export type Card = {
   question: string;
   choices: string[];
@@ -221,4 +223,5 @@ export const decks: Deck[] = [
       },
     ],
   },
+  hardwareSoftwareInputOutputDeck,
 ];
