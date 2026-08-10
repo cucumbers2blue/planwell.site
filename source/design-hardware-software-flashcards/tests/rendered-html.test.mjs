@@ -25,7 +25,7 @@ async function render() {
   );
 }
 
-test("server-renders the two-deck learning experience", async () => {
+test("server-renders the three-deck learning experience", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
@@ -35,11 +35,12 @@ test("server-renders the two-deck learning experience", async () => {
   assert.match(html, /Choose your challenge\./);
   assert.match(html, /Hardware and Software Basics/);
   assert.match(html, /Applying the Idea/);
+  assert.match(html, /Input and Output Devices/);
   assert.match(html, /Cards you miss will come back/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
 });
 
-test("contains mastery behavior and all twenty cards", async () => {
+test("contains mastery behavior and retains the original twenty cards", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),

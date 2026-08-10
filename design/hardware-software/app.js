@@ -1,4 +1,4 @@
-const decks = [
+const legacyDecks = [
   {
     id: "basics",
     number: "01",
@@ -183,6 +183,8 @@ const decks = [
   },
 ];
 
+const decks = [...legacyDecks, window.inputOutputDeck];
+
 const elements = {
   home: document.querySelector("#home-view"),
   practice: document.querySelector("#practice-view"),
@@ -219,6 +221,10 @@ function shuffle(items) {
   return copy;
 }
 
+function prepareDeckCards(cards, introCount = 0) {
+  return [...cards.slice(0, introCount), ...shuffle(cards.slice(introCount))];
+}
+
 function showView(view) {
   elements.home.hidden = view !== "home";
   elements.practice.hidden = view !== "practice";
@@ -246,7 +252,7 @@ function renderDeckChoices() {
 
 function startDeck(deck) {
   currentDeck = deck;
-  queue = shuffle(deck.cards);
+  queue = prepareDeckCards(deck.cards, deck.introCount);
   mastered = 0;
   attempts = 0;
   answerState = "idle";
@@ -313,11 +319,20 @@ function selectAnswer(button, choice) {
   if (correct) {
     button.classList.add("is-correct");
     renderProgress(true);
+    const discussion = card.discussion
+      ? `
+        <div class="discussion-block">
+          <h3>Discuss</h3>
+          <ul>${card.discussion.map((question) => `<li>${question}</li>`).join("")}</ul>
+        </div>
+      `
+      : "";
     elements.feedback.innerHTML = `
       <div class="correct-panel">
         <p class="feedback-label">Correct — card mastered</p>
         <h2>Go deeper</h2>
         <p>${card.deeper}</p>
+        ${discussion}
         <button class="primary-button" type="button">
           ${queue.length === 1 ? "Finish deck" : "Next card"} →
         </button>

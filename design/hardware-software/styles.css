@@ -193,9 +193,9 @@ button:focus-visible {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(18px, 3vw, 32px);
-  max-width: 980px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
@@ -230,6 +230,10 @@ button:focus-visible {
 
 .deck-card.orange {
   background: var(--orange);
+}
+
+.deck-card.green {
+  background: #79d69c;
 }
 
 .deck-number {
@@ -512,6 +516,29 @@ footer {
   margin: 8px 0 18px;
   color: rgba(21, 24, 30, 0.75);
   line-height: 1.55;
+}
+
+.discussion-block {
+  margin: 20px 0;
+  border-top: 1px solid rgba(23, 107, 67, 0.25);
+  padding-top: 18px;
+}
+
+.discussion-block h3 {
+  margin: 0 0 8px;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 1.1rem;
+}
+
+.discussion-block ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: rgba(21, 24, 30, 0.78);
+  line-height: 1.55;
+}
+
+.discussion-block li + li {
+  margin-top: 6px;
 }
 
 .primary-button,

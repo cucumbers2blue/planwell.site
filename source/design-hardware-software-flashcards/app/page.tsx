@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { inputOutputDeck } from "./decks";
+import { prepareDeckCards } from "./prepareDeckCards";
 
 type Card = {
   id: number;
@@ -8,14 +10,16 @@ type Card = {
   choices: string[];
   answer: string;
   deeper: string;
+  discussion?: string[];
 };
 
 type Deck = {
-  id: "basics" | "applying";
+  id: "basics" | "applying" | "input-output";
   number: string;
   title: string;
   description: string;
   accent: string;
+  introCount?: number;
   cards: Card[];
 };
 
@@ -222,16 +226,8 @@ const decks: Deck[] = [
       },
     ],
   },
+  inputOutputDeck,
 ];
-
-function shuffle<T>(items: T[]): T[] {
-  const copy = [...items];
-  for (let index = copy.length - 1; index > 0; index -= 1) {
-    const swapWith = Math.floor(Math.random() * (index + 1));
-    [copy[index], copy[swapWith]] = [copy[swapWith], copy[index]];
-  }
-  return copy;
-}
 
 export default function Home() {
   const [deck, setDeck] = useState<Deck | null>(null);
@@ -248,7 +244,7 @@ export default function Home() {
 
   function startDeck(nextDeck: Deck) {
     setDeck(nextDeck);
-    setQueue(shuffle(nextDeck.cards));
+    setQueue(prepareDeckCards(nextDeck.cards, nextDeck.introCount));
     setStatus("idle");
     setSelected(null);
     setMastered(0);
@@ -303,7 +299,7 @@ export default function Home() {
           <p className="eyebrow">Hardware + Software</p>
           <h1>Choose your challenge.</h1>
           <p className="hero-copy">
-            Pick either deck. Cards you miss will come back until you have
+            Pick a deck. Cards you miss will come back until you have
             mastered every one.
           </p>
           <div className="system-line" aria-label="The relationship between hardware and software">
@@ -358,7 +354,7 @@ export default function Home() {
               Play this deck again
             </button>
             <button className="text-button" onClick={returnHome}>
-              Choose the other deck
+              Choose another deck
             </button>
           </div>
         </div>
@@ -427,6 +423,16 @@ export default function Home() {
                 <p className="feedback-label">Correct — card mastered</p>
                 <h2>Go deeper</h2>
                 <p>{current.deeper}</p>
+                {current.discussion && (
+                  <div className="discussion-block">
+                    <h3>Discuss</h3>
+                    <ul>
+                      {current.discussion.map((question) => (
+                        <li key={question}>{question}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <button className="primary-button" onClick={continueDeck}>
                   {queue.length === 1 ? "Finish deck" : "Next card"} →
                 </button>
