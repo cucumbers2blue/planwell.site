@@ -13,19 +13,15 @@ async function render() {
   );
 }
 
-test("server-renders the flashcard library", async () => {
+test("server-renders the subject landing page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Grade 6 Design Flashcards<\/title>/i);
-  assert.match(html, /Flashcard library/);
-  assert.match(html, /Digital Citizenship/);
-  assert.match(html, /25(?:<!-- -->)? questions/);
-  assert.match(html, /Hardware, Software, Input and Output/);
-  assert.match(html, /30(?:<!-- -->)? questions/);
-  assert.match(html, /Practice now/);
-  assert.doesNotMatch(html, /Start full deck|Practise 20 questions/);
+  assert.match(html, /<title>Grade 6 Flashcards<\/title>/i);
+  assert.match(html, /Choose a subject|Music or Design/i);
+  assert.match(html, /Design/);
+  assert.match(html, /Music/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });

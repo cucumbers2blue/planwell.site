@@ -124,6 +124,21 @@ button { font: inherit; }
 .complete > p:not(.eyebrow) { color: var(--muted); line-height: 1.6; }
 .complete-actions { width: 100%; margin-top: 28px; }
 
+.card-image {
+  margin: 0 0 28px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+.card-image img {
+  display: block;
+  width: min(100%, 560px);
+  height: auto;
+  margin: 0 auto;
+}
+.back-row { margin-top: 28px; }
+
 button:focus-visible { outline: 3px solid #8fbda0; outline-offset: 3px; }
 
 @media (max-width: 650px) {

@@ -12,17 +12,21 @@ This repository hosts the static marketing site for PlanWell Desktop at planwell
 - `assets/css/style.css` - Shared visual system and responsive layout
 - `assets/js/main.js` - Lightweight UI behavior (year + copy helper only)
 - `assets/images/` - Screenshots and media assets
-- `design/index.html` - Public Grade 6 Design flashcard library
-- `source/grade-6-design-flashcards/` - Reusable Grade 6 Design flashcard library source
+- `flash/index.html` - Public Grade 6 flashcard library (Music + Design)
+- `design/index.html` - Redirects to `/flash/`
+- `source/grade-6-design-flashcards/` - Shared flashcard player and deck data
 
-## Grade 6 Design Flashcards
+## Grade 6 Flashcards
 
-The reusable flashcard framework and its Digital Citizenship deck are kept in
-`source/grade-6-design-flashcards/`. The current student site is available at
-[planwellmd.com/design/](https://planwellmd.com/design/).
+Student landing page: [planwellmd.com/flash/](https://planwellmd.com/flash/).
 
-After changing the framework or deck content, rebuild its public GitHub Pages
-files with:
+Subjects:
+
+- Design decks (digital citizenship, computer systems, …)
+- Music decks (Task A score symbols, …)
+
+Source lives in `source/grade-6-design-flashcards/`. Add a weekly deck as data,
+then rebuild:
 
 ```bash
 node scripts/build-grade-6-design-flashcards.mjs

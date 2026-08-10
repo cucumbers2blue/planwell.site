@@ -1,21 +1,10 @@
 import { hardwareSoftwareInputOutputDeck } from "./hardwareSoftwareInputOutputDeck.ts";
+import { musicTaskAScoreSymbolsDeck } from "./musicTaskAScoreSymbolsDeck.ts";
+import type { Deck, Subject } from "./types";
 
-export type Card = {
-  question: string;
-  choices: string[];
-  answer: string;
-  explanation: string;
-  discuss?: string;
-};
+export type { Card, Deck, Subject } from "./types";
 
-export type Deck = {
-  id: string;
-  title: string;
-  description: string;
-  cards: Card[];
-};
-
-export const decks: Deck[] = [
+const designDecks: Deck[] = [
   {
     id: "digital-citizenship",
     title: "Digital Citizenship",
@@ -225,3 +214,23 @@ export const decks: Deck[] = [
   },
   hardwareSoftwareInputOutputDeck,
 ];
+
+export const subjects: Subject[] = [
+  {
+    id: "design",
+    title: "Design",
+    mark: "D6",
+    description: "Grade 6 Design topics for learning, discussion and practice.",
+    decks: designDecks,
+  },
+  {
+    id: "music",
+    title: "Music",
+    mark: "M6",
+    description: "Grade 6 Music topics, starting with reading a piano score.",
+    decks: [musicTaskAScoreSymbolsDeck],
+  },
+];
+
+/** @deprecated Prefer subjects; kept for older imports/tests. */
+export const decks: Deck[] = designDecks;

@@ -6,8 +6,10 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const sourceDirectory = resolve(repositoryRoot, "source/grade-6-design-flashcards");
 const clientDirectory = resolve(sourceDirectory, "dist/client");
-const publicDirectory = resolve(repositoryRoot, "design");
+const publicDirectory = resolve(repositoryRoot, "flash");
 const assetsDirectory = resolve(publicDirectory, "assets");
+const notationSource = resolve(sourceDirectory, "public/notation");
+const notationTarget = resolve(publicDirectory, "notation");
 
 execFileSync("npm", ["run", "build"], {
   cwd: sourceDirectory,
@@ -31,20 +33,21 @@ if (!response.ok) {
 }
 
 const html = (await response.text())
-  .replaceAll("/assets/", "/design/assets/")
-  .replaceAll("/favicon.svg", "/design/favicon.svg")
-  .replaceAll("/og.png", "/design/og.png");
+  .replaceAll("/assets/", "/flash/assets/")
+  .replaceAll("/favicon.svg", "/flash/favicon.svg")
+  .replaceAll("/og.png", "/flash/og.png");
 
 try {
   const assets = await lstat(assetsDirectory);
   if (!assets.isDirectory() || assets.isSymbolicLink()) {
-    throw new Error("design/assets must be a regular directory");
+    throw new Error("flash/assets must be a regular directory");
   }
   await rm(assetsDirectory, { recursive: true });
 } catch (error) {
   if (error.code !== "ENOENT") throw error;
 }
 
+await mkdir(publicDirectory, { recursive: true });
 await mkdir(assetsDirectory, { recursive: true });
 await cp(resolve(clientDirectory, "assets"), assetsDirectory, {
   recursive: true,
@@ -53,4 +56,26 @@ await cp(resolve(clientDirectory, "favicon.svg"), resolve(publicDirectory, "favi
 await cp(resolve(clientDirectory, "og.png"), resolve(publicDirectory, "og.png"));
 await writeFile(resolve(publicDirectory, "index.html"), html);
 
-console.log("Exported Grade 6 Design flashcards to design/");
+// Notation SVGs for Music cards
+await rm(notationTarget, { recursive: true, force: true });
+await cp(notationSource, notationTarget, { recursive: true });
+
+// Keep old /design/ bookmark working
+const designRedirect = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="refresh" content="0; url=/flash/" />
+  <link rel="canonical" href="https://planwellmd.com/flash/" />
+  <title>Moved to Grade 6 Flashcards</title>
+  <script>location.replace("/flash/");</script>
+</head>
+<body>
+  <p>This page has moved to <a href="/flash/">planwellmd.com/flash/</a>.</p>
+</body>
+</html>
+`;
+await mkdir(resolve(repositoryRoot, "design"), { recursive: true });
+await writeFile(resolve(repositoryRoot, "design/index.html"), designRedirect);
+
+console.log("Exported Grade 6 flashcards to flash/");
