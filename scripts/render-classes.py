@@ -58,13 +58,15 @@ img { display:block; max-width:100%; height:auto; border-radius:16px; margin:1.2
 iframe { width:100%; max-width:100%; border:0; border-radius:16px; margin:1.2em 0; }
 hr { border:0; border-top:1px solid var(--line); margin:1.5em 0; }
 .hub > p:first-of-type { color:var(--muted); margin-top:0; }
-.hub > ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:1.5rem 0 0; padding:0; list-style:none; }
+.hub > ul { display:grid; grid-template-columns:1fr; gap:10px; margin:1.5rem 0 0; padding:0; list-style:none; }
+.home > ul { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .hub > ul li { margin:0; }
-.hub > ul a { display:flex; align-items:center; min-height:58px; padding:14px 16px; border:1px solid var(--line); border-radius:14px; background:#fbfcfa; color:var(--ink); font-weight:650; line-height:1.25; text-decoration:none; }
-.hub > ul a:hover { border-color:#b8cbbb; background:var(--accent-soft); color:var(--accent); }
+.hub > .link-card { margin:10px 0 0; }
+.hub > ul a, .hub > .link-card a { display:flex; align-items:center; min-height:58px; padding:14px 16px; border:1px solid var(--line); border-radius:14px; background:#fbfcfa; color:var(--ink); font-weight:650; line-height:1.25; text-decoration:none; }
+.hub > ul a:hover, .hub > .link-card a:hover { border-color:#b8cbbb; background:var(--accent-soft); color:var(--accent); }
 .back { display:inline-block; margin-top:2rem; color:var(--muted); font-size:.92rem; text-decoration:none; }
 .back:hover { color:var(--accent); }
-@media (max-width:520px) { .hub > ul { grid-template-columns:1fr; } main { border-radius:18px; } }
+@media (max-width:520px) { .home > ul { grid-template-columns:1fr; } main { border-radius:18px; } }
 """
 
 
@@ -185,9 +187,12 @@ def render_markdown(text: str) -> str:
                 label = prettify(target)
             url = resolve_wikilink(target)
             if url:
-                out.append(f'<p><a href="{url}">{html.escape(label)}</a></p>')
+                out.append(f'<p class="link-card"><a href="{url}">{html.escape(label)}</a></p>')
             else:
                 out.append(f"<p>{html.escape(label)}</p>")
+            continue
+        if re.fullmatch(r"\[[^\]]+\]\([^)]+\)", line.strip()):
+            out.append(f'<p class="link-card">{inline(line.strip())}</p>')
             continue
         # headings
         if line.startswith("### "):
@@ -277,7 +282,7 @@ def render_all() -> None:
     # index page
     index_md = (PANTRY / "index.md").read_text()
     body = render_markdown(index_md)
-    (OUT / "index.html").write_text(page("Classes", body, back=False, kind="hub"))
+    (OUT / "index.html").write_text(page("Classes", body, back=False, kind="hub home"))
     print("rendered: classes/index.html")
 
     # grade pages
@@ -287,7 +292,7 @@ def render_all() -> None:
             print(f"  missing {fname} — skipping")
             continue
         body = render_markdown(f.read_text())
-        (OUT / slug / "index.html").write_text(page(title, body, kind="hub"))
+        (OUT / slug / "index.html").write_text(page(title, body, kind="hub grade"))
         print(f"rendered: classes/{slug}/index.html")
 
     # task pages (wikilink targets from curriculum/)
