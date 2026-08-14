@@ -75,7 +75,9 @@ def inline(text: str) -> str:
         label = (label or prettify(target)).strip()
         url = resolve_wikilink(target)
         if url:
-            return f'<a href="{url}">{html.escape(label)}</a>'
+            # encode spaces and other unsafe chars in the URL path
+            encoded = quote(url)
+            return f'<a href="{encoded}">{html.escape(label)}</a>'
         return html.escape(label)
 
     text = TASK_PATTERN.sub(wl, text)
