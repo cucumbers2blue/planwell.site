@@ -228,11 +228,15 @@ def render_all() -> None:
 
 
 def publish() -> None:
-    render_all()
+    # render quietly; only report when there are actual changes
+    import io
+    from contextlib import redirect_stdout
+
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        render_all()
     subprocess.run(["git", "add", "classes"], cwd=REPO_ROOT, check=True)
-    r = subprocess.run(
-        ["git", "diff", "--cached", "--quiet"], cwd=REPO_ROOT
-    )
+    r = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=REPO_ROOT)
     if r.returncode == 0:
         print("no changes — nothing to publish")
         return
@@ -243,6 +247,7 @@ def publish() -> None:
     )
     subprocess.run(["git", "push", "origin", "main"], cwd=REPO_ROOT, check=True)
     print("published to planwellmd.com/classes/")
+    print(buf.getvalue().strip())
 
 
 if __name__ == "__main__":
