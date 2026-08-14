@@ -35,7 +35,7 @@ if (!response.ok) {
 const html = (await response.text())
   .replaceAll("/assets/", "/flash/assets/")
   .replaceAll("/favicon.svg", "/flash/favicon.svg")
-  .replaceAll("/og.png", "/flash/og.png");
+  .replaceAll("/og-music-design.png", "/flash/og-music-design.png");
 
 try {
   const assets = await lstat(assetsDirectory);
@@ -53,7 +53,10 @@ await cp(resolve(clientDirectory, "assets"), assetsDirectory, {
   recursive: true,
 });
 await cp(resolve(clientDirectory, "favicon.svg"), resolve(publicDirectory, "favicon.svg"));
-await cp(resolve(clientDirectory, "og.png"), resolve(publicDirectory, "og.png"));
+await cp(
+  resolve(clientDirectory, "og-music-design.png"),
+  resolve(publicDirectory, "og-music-design.png"),
+);
 await writeFile(resolve(publicDirectory, "index.html"), html);
 
 // Notation SVGs for Music cards

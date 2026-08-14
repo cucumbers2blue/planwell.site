@@ -1,8 +1,8 @@
 import { hardwareSoftwareInputOutputDeck } from "./hardwareSoftwareInputOutputDeck.ts";
 import { musicTaskAScoreSymbolsDeck } from "./musicTaskAScoreSymbolsDeck.ts";
-import type { Deck, Subject } from "./types";
+import type { Deck, GradeLevel, Subject } from "./types";
 
-export type { Card, Deck, Subject } from "./types";
+export type { Card, Deck, GradeLevel, Subject } from "./types";
 
 const designDecks: Deck[] = [
   {
@@ -229,6 +229,16 @@ export const subjects: Subject[] = [
     mark: "M6",
     description: "Grade 6 Music topics, starting with reading a piano score.",
     decks: [musicTaskAScoreSymbolsDeck],
+  },
+];
+
+export const grades: GradeLevel[] = [
+  {
+    id: "grade-6",
+    title: "Grade 6",
+    mark: "G6",
+    description: "Music and Design topics for Grade 6.",
+    subjects,
   },
 ];
 

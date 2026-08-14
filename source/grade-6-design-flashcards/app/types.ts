@@ -24,3 +24,11 @@ export type Subject = {
   description: string;
   decks: Deck[];
 };
+
+export type GradeLevel = {
+  id: string;
+  title: string;
+  mark: string;
+  description: string;
+  subjects: Subject[];
+};

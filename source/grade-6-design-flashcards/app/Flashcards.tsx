@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { subjects, type Card, type Deck, type Subject } from "./decks";
+import { grades, type Card, type Deck, type GradeLevel, type Subject } from "./decks";
 import { prepareCards } from "./prepareCards";
 
 /** Published student root on planwellmd.com */
 const FLASH_BASE = "/flash/";
 
 type Session = {
+  grade: GradeLevel;
   subject: Subject;
   deck: Deck;
   cards: Card[];
@@ -18,14 +19,16 @@ function assetUrl(path: string): string {
 }
 
 export default function Flashcards() {
+  const [grade, setGrade] = useState<GradeLevel | null>(null);
   const [subject, setSubject] = useState<Subject | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
 
-  function start(nextSubject: Subject, deck: Deck) {
+  function start(nextGrade: GradeLevel, nextSubject: Subject, deck: Deck) {
+    setGrade(nextGrade);
     setSubject(nextSubject);
-    setSession({ subject: nextSubject, deck, cards: prepareCards(deck.cards) });
+    setSession({ grade: nextGrade, subject: nextSubject, deck, cards: prepareCards(deck.cards) });
     setIndex(0);
     setSelected(null);
   }
@@ -41,13 +44,58 @@ export default function Flashcards() {
     setSubject(null);
   }
 
+  function leaveGrade() {
+    leaveSubject();
+    setGrade(null);
+  }
+
+  if (!grade) {
+    return (
+      <main className="library">
+        <header className="site-header">
+          <span className="mark">FC</span>
+          <div>
+            <strong>Flashcard Library</strong>
+            <span>Music + Design</span>
+          </div>
+        </header>
+
+        <section className="intro">
+          <p className="eyebrow">Learn · discuss · practise</p>
+          <h1>Choose your grade.</h1>
+          <p>Pick a grade, then choose Music or Design and start a topic deck.</p>
+        </section>
+
+        <section className="deck-list" aria-label="Grades">
+          {grades.map((item) => {
+            const deckCount = item.subjects.reduce((total, nextSubject) => total + nextSubject.decks.length, 0);
+            return (
+              <article className="deck" key={item.id}>
+                <div>
+                  <span className="deck-meta">{item.subjects.length} subjects · {deckCount} decks</span>
+                  <h2>{item.title}</h2>
+                  <p>{item.description}</p>
+                </div>
+                <div className="deck-actions">
+                  <button className="primary" onClick={() => setGrade(item)}>
+                    Open {item.title}
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      </main>
+    );
+  }
+
   if (!subject) {
     return (
       <main className="library">
         <header className="site-header">
-          <span className="mark">G6</span>
+          <span className="mark">{grade.mark}</span>
           <div>
-            <strong>Grade 6 Flashcards</strong>
+            <strong>{grade.title} Flashcards</strong>
             <span>Choose a subject</span>
           </div>
         </header>
@@ -55,11 +103,11 @@ export default function Flashcards() {
         <section className="intro">
           <p className="eyebrow">Learn · discuss · practise</p>
           <h1>Music or Design.</h1>
-          <p>Pick a subject, then choose a topic deck.</p>
+          <p>Choose a subject, then pick a topic deck.</p>
         </section>
 
         <section className="deck-list" aria-label="Subjects">
-          {subjects.map((item) => (
+          {grade.subjects.map((item) => (
             <article className="deck" key={item.id}>
               <div>
                 <span className="deck-meta">{item.decks.length} {item.decks.length === 1 ? "deck" : "decks"}</span>
@@ -74,6 +122,12 @@ export default function Flashcards() {
             </article>
           ))}
         </section>
+
+        <p className="back-row">
+          <button className="text-button" onClick={leaveGrade}>
+            ← All grades
+          </button>
+        </p>
       </main>
     );
   }
@@ -84,7 +138,7 @@ export default function Flashcards() {
         <header className="site-header">
           <span className="mark">{subject.mark}</span>
           <div>
-            <strong>Grade 6 {subject.title}</strong>
+            <strong>{grade.title} {subject.title}</strong>
             <span>Flashcard library</span>
           </div>
         </header>
@@ -104,7 +158,7 @@ export default function Flashcards() {
                 <p>{deck.description}</p>
               </div>
               <div className="deck-actions">
-                <button className="primary" onClick={() => start(subject, deck)}>
+                <button className="primary" onClick={() => start(grade, subject, deck)}>
                   Practice now
                 </button>
               </div>
@@ -132,7 +186,7 @@ export default function Flashcards() {
             You finished all {session.cards.length} questions in {session.deck.title}.
           </p>
           <div className="complete-actions">
-            <button className="primary" onClick={() => start(session.subject, session.deck)}>
+            <button className="primary" onClick={() => start(session.grade, session.subject, session.deck)}>
               Start again
             </button>
             <button className="secondary" onClick={leaveDeck}>
