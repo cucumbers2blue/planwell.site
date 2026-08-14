@@ -21,13 +21,15 @@ img { display:block; max-width:100%; height:auto; border-radius:16px; margin:1.2
 iframe { width:100%; max-width:100%; border:0; border-radius:16px; margin:1.2em 0; }
 hr { border:0; border-top:1px solid var(--line); margin:1.5em 0; }
 .hub > p:first-of-type { color:var(--muted); margin-top:0; }
-.hub > ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:1.5rem 0 0; padding:0; list-style:none; }
+.hub > ul { display:grid; grid-template-columns:1fr; gap:10px; margin:1.5rem 0 0; padding:0; list-style:none; }
+.home > ul { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .hub > ul li { margin:0; }
-.hub > ul a { display:flex; align-items:center; min-height:58px; padding:14px 16px; border:1px solid var(--line); border-radius:14px; background:#fbfcfa; color:var(--ink); font-weight:650; line-height:1.25; text-decoration:none; }
-.hub > ul a:hover { border-color:#b8cbbb; background:var(--accent-soft); color:var(--accent); }
+.hub > .link-card { margin:10px 0 0; }
+.hub > ul a, .hub > .link-card a { display:flex; align-items:center; min-height:58px; padding:14px 16px; border:1px solid var(--line); border-radius:14px; background:#fbfcfa; color:var(--ink); font-weight:650; line-height:1.25; text-decoration:none; }
+.hub > ul a:hover, .hub > .link-card a:hover { border-color:#b8cbbb; background:var(--accent-soft); color:var(--accent); }
 .back { display:inline-block; margin-top:2rem; color:var(--muted); font-size:.92rem; text-decoration:none; }
 .back:hover { color:var(--accent); }
-@media (max-width:520px) { .hub > ul { grid-template-columns:1fr; } main { border-radius:18px; } }
+@media (max-width:520px) { .home > ul { grid-template-columns:1fr; } main { border-radius:18px; } }
 </style>
 </head>
 <body>
@@ -40,7 +42,7 @@ hr { border:0; border-top:1px solid var(--line); margin:1.5em 0; }
 <p>1. <strong>Strand i — Investigate:</strong> Answer all guided questions in The Pantry.</p>
 <p>2. <strong>Strand ii — Analyse:</strong> Annotate one historical music manuscript.</p>
 <h2>Strand i — Guided Questions</h2>
-<p><a href="https://www.youtube.com/watch?v=fJtgzYAQOkk&amp;t=5s&amp;pp=ygUZaGlzdG9yeSBvZiBtdXNpYyBub3RhdGlvbg%3D%3D">Use full sentences and details from the videos.</a></p>
+<p class="link-card"><a href="https://www.youtube.com/watch?v=fJtgzYAQOkk&amp;t=5s&amp;pp=ygUZaGlzdG9yeSBvZiBtdXNpYyBub3RhdGlvbg%3D%3D">Use full sentences and details from the videos.</a></p>
 <h3>Questions</h3>
 <p>1. What were <strong>neumes</strong>? What did they help singers do?</p>
 <p>2. Why could early neumes not show an exact <strong>melody</strong>? What did singers need to know?</p>
