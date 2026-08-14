@@ -244,8 +244,14 @@ def publish() -> None:
         ["git", "commit", "-m", "Publish classes from Thinkwell pantry"],
         cwd=REPO_ROOT,
         check=True,
+        capture_output=True,
     )
-    subprocess.run(["git", "push", "origin", "main"], cwd=REPO_ROOT, check=True)
+    subprocess.run(
+        ["git", "push", "origin", "main"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    )
     print("published to planwellmd.com/classes/")
     print(buf.getvalue().strip())
 
