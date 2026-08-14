@@ -18,6 +18,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 THINKWELL = Path(
@@ -67,7 +68,17 @@ def strip_frontmatter(text: str) -> str:
 
 
 def inline(text: str) -> str:
-    """Markdown inline: bold, italic, links."""
+    """Markdown inline: bold, italic, links, wikilinks."""
+    # wikilinks with optional alias: [[target]] or [[target|label]]
+    def wl(m: re.Match) -> str:
+        target, label = m.group(1).strip(), m.group(2)
+        label = (label or prettify(target)).strip()
+        url = resolve_wikilink(target)
+        if url:
+            return f'<a href="{url}">{html.escape(label)}</a>'
+        return html.escape(label)
+
+    text = TASK_PATTERN.sub(wl, text)
     # links first: [text](url)
     text = re.sub(
         r"\[([^\]]+)\]\(([^)]+)\)",
@@ -91,12 +102,39 @@ def prettify(name: str) -> str:
 
 def resolve_wikilink(target: str) -> str | None:
     """Map a [[wikilink]] target to its rendered URL, or None if unknown."""
+    # Obsidian allows [[name]] or [[name.md]]; normalize both
+    target = target.strip()
+    if target.endswith(".md"):
+        target = target[:-3]
     # Task files live in curriculum/<subject>/<name>.md
     for subj in ("music", "design"):
         f = CURRICULUM / subj / f"{target}.md"
         if f.exists():
             slug = f"{target}"
             return f"/classes/{slug}/"
+    return None
+
+
+def find_asset(name: str) -> Path | None:
+    """Resolve an embedded image by basename anywhere in the Thinkwell vault."""
+    name = name.strip().split("/")[-1]
+    # search order: pantry/assets, pantry root, vault root, curriculum assets
+    candidates = [
+        PANTRY / "assets" / name,
+        PANTRY / name,
+        THINKWELL / name,
+    ]
+    for c in candidates:
+        if c.exists() and c.is_file():
+            return c
+    # fallback: recursive search by filename
+    for root in (PANTRY, THINKWELL):
+        try:
+            hits = list(root.rglob(name))
+            if hits:
+                return hits[0]
+        except PermissionError:
+            continue
     return None
 
 
@@ -108,13 +146,16 @@ def render_markdown(text: str) -> str:
         line = raw.rstrip()
         if not line.strip():
             continue
-        # image embed: ![[path]] -> drop or link (assets may not be published)
+        # image embed: ![[path]] -> copy asset into site and render <img>
         m = EMBED_PATTERN.match(line.strip())
         if m:
             target = m.group(1).strip()
             fname = target.split("/")[-1]
-            # If the asset exists relative to pantry, copy it into the page dir? Keep simple: skip.
-            out.append(f'<p class="note">[image: {html.escape(fname)}]</p>')
+            src = find_asset(fname)
+            if src:
+                out.append(f'<p><img src="/classes/assets/{quote(fname)}" alt="{html.escape(fname)}"></p>')
+            else:
+                out.append(f'<p class="note">[image not found: {html.escape(fname)}]</p>')
             continue
         # raw iframe (YouTube) — keep as-is (allowlist: youtube only)
         if line.strip().startswith("<iframe") and "youtube.com" in line:
@@ -182,10 +223,42 @@ def page(title: str, body: str, back: bool = True) -> str:
 """
 
 
+ASSETS_OUT = OUT / "assets"
+
+
+def sync_assets() -> None:
+    """Copy every embedded image found in pantry markdown into classes/assets/."""
+    assets_out = ASSETS_OUT
+    assets_out.mkdir(parents=True, exist_ok=True)
+    # collect all embed targets from pantry + curriculum markdown
+    targets: set[str] = set()
+    for md_file in list(PANTRY.glob("*.md")) + list(
+        CURRICULUM.rglob("*.md")
+    ):
+        try:
+            text = md_file.read_text()
+        except (OSError, PermissionError):
+            continue
+        for m in EMBED_PATTERN.finditer(text):
+            fname = m.group(1).strip().split("/")[-1]
+            if fname:
+                targets.add(fname)
+    for fname in sorted(targets):
+        src = find_asset(fname)
+        if not src:
+            continue
+        dest = assets_out / fname
+        if not dest.exists() or dest.stat().st_size != src.stat().st_size:
+            shutil.copy2(src, dest)
+            print(f"asset: {fname}")
+
+
 def render_all() -> None:
     if not PANTRY.exists():
         print(f"PANTRY NOT FOUND: {PANTRY}", file=sys.stderr)
         sys.exit(1)
+
+    sync_assets()
 
     # index page
     index_md = (PANTRY / "index.md").read_text()
