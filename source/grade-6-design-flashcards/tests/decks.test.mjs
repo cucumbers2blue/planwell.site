@@ -33,11 +33,11 @@ test("hardware, software, input and output deck follows the library workflow", (
   assert.equal(new Set(deck.cards.map((card) => card.question)).size, 30);
 });
 
-test("design foundations and file management deck follows the library workflow", () => {
-  const deck = decks.find((item) => item.id === "design-foundations-file-management");
+test("storage devices deck follows the library workflow", () => {
+  const deck = decks.find((item) => item.id === "storage-devices");
 
-  assert.ok(deck, "design foundations deck should be available in the shared library");
-  assert.equal(deck.title, "Design Foundations and File Management");
+  assert.ok(deck, "storage devices deck should be available in the shared library");
+  assert.equal(deck.title, "Storage Devices");
   assert.equal(deck.cards.length, 30);
   assert.equal(deck.teachingCount, 6);
 
@@ -48,8 +48,8 @@ test("design foundations and file management deck follows the library workflow",
     .flatMap((card) => [card.question, card.answer, card.explanation, card.discuss ?? ""])
     .join(" ")
     .toLowerCase();
-  for (const term of ["design", "contrast", "alignment", "file management", "filename"]) {
-    assert.match(teachingText, new RegExp(term));
+  for (const term of ["storage", "ram", "hdd", "ssd", "internal", "external"]) {
+    assert.match(teachingText, new RegExp(`\\b${term}\\b`));
   }
 
   assert.equal(
@@ -63,4 +63,8 @@ test("design foundations and file management deck follows the library workflow",
     true,
   );
   assert.equal(new Set(deck.cards.map((card) => card.question)).size, 30);
+  assert.equal(
+    decks.some((item) => item.id === "design-foundations-file-management"),
+    false,
+  );
 });
