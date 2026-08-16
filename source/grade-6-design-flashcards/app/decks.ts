@@ -1,3 +1,4 @@
+import { designFoundationsFileManagementDeck } from "./designFoundationsFileManagementDeck.ts";
 import { hardwareSoftwareInputOutputDeck } from "./hardwareSoftwareInputOutputDeck.ts";
 import { musicTaskAScoreSymbolsDeck } from "./musicTaskAScoreSymbolsDeck.ts";
 import type { Deck, GradeLevel, Subject } from "./types";
@@ -213,6 +214,7 @@ const designDecks: Deck[] = [
     ],
   },
   hardwareSoftwareInputOutputDeck,
+  designFoundationsFileManagementDeck,
 ];
 
 export const subjects: Subject[] = [

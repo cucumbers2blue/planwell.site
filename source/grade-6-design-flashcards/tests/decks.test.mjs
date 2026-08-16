@@ -32,3 +32,35 @@ test("hardware, software, input and output deck follows the library workflow", (
   );
   assert.equal(new Set(deck.cards.map((card) => card.question)).size, 30);
 });
+
+test("design foundations and file management deck follows the library workflow", () => {
+  const deck = decks.find((item) => item.id === "design-foundations-file-management");
+
+  assert.ok(deck, "design foundations deck should be available in the shared library");
+  assert.equal(deck.title, "Design Foundations and File Management");
+  assert.equal(deck.cards.length, 30);
+  assert.equal(deck.teachingCount, 6);
+
+  const teachingCards = deck.cards.slice(0, 6);
+  assert.equal(teachingCards.every((card) => Boolean(card.discuss)), true);
+
+  const teachingText = teachingCards
+    .flatMap((card) => [card.question, card.answer, card.explanation, card.discuss ?? ""])
+    .join(" ")
+    .toLowerCase();
+  for (const term of ["design", "contrast", "alignment", "file management", "filename"]) {
+    assert.match(teachingText, new RegExp(term));
+  }
+
+  assert.equal(
+    deck.cards.every(
+      (card) =>
+        card.choices.length === 3 &&
+        new Set(card.choices).size === 3 &&
+        card.choices.includes(card.answer) &&
+        card.explanation.length > 60,
+    ),
+    true,
+  );
+  assert.equal(new Set(deck.cards.map((card) => card.question)).size, 30);
+});
