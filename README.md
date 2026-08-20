@@ -1,12 +1,12 @@
-# PlanWell Desktop Website
+# PlanWell Website
 
-This repository hosts the static marketing site for PlanWell Desktop at planwellmd.com.
+This repository hosts the static PlanWell marketing site at planwellmd.com.
 
 ## Page Overview
 
-- `index.html` - Home page with desktop-first conversion hierarchy
-- `products.html` - Product packaging and companion tools
-- `changelog.html` - Retired public changelog notice with pointers to current update surfaces
+- `index.html` - Home page for PlanWell for Mac
+- `products.html` - Redirect to the home page
+- `changelog.html` - Redirect to the home page
 - `privacy.html` - Privacy policy and no-tracking statement
 - `support.html` - Support, troubleshooting, and contact information
 - `assets/css/style.css` - Shared visual system and responsive layout
@@ -45,18 +45,18 @@ Open `http://localhost:8000` and verify nav links and CTA targets.
 
 ## Available Products
 
-### Core Offers
-- **PlanWell Desktop (Paid)** - Mac App Store desktop app
-- **PlanWell Web (Free)** - Fully functional browser app at app.planwellmd.com
+### Core offer
+- **PlanWell Timetable** - Native Mac app on the [Mac App Store](https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12)
 
 ### Companion Tools
+- **PlanWell Web** - Basic browser planner at [app.planwellmd.com](https://app.planwellmd.com)
 - **Chrome Extension** - [Chrome Web Store](https://chromewebstore.google.com/detail/planwell-schedule/jonkonglfokjegcdonimhaoaddiofcjp)
 - **Raycast Extension** - [Raycast Store](https://www.raycast.com/Raynold/planwell)
-- **PlanWell iOS App** - [App Store](https://apps.apple.com/id/app/planwell-teacher-planner/id6755210899)
+- **PlanWell CLI** - [npm](https://www.npmjs.com/package/planwell-cli)
 
 ## Release Workflow
 
-1. Ship PlanWell Desktop updates through the Mac App Store listing.
+1. Ship PlanWell updates through the Mac App Store listing.
 2. Keep page messaging, screenshots, and product links aligned with the current app packaging.
 3. Commit/push any site copy or styling changes to `main`; GitHub Pages redeploys automatically.
 
@@ -66,8 +66,8 @@ The site is served from `main` via GitHub Pages at https://cucumbers2blue.github
 
 ## Download Behaviour
 
-- Primary desktop CTA points to the Mac App Store listing.
-- PlanWell Web is positioned as a full free app, not a trial.
+- Primary CTA points to the current Mac App Store listing.
+- PlanWell Web appears as a secondary browser option.
 - No analytics or tracking scripts are included in this website.
 
 ---

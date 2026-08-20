@@ -3,7 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PlanWell Desktop</title>
+    <meta
+      name="description"
+      content="PlanWell is a native Mac planner for teachers. Set your timetable once, plan what comes next, and keep the whole school year in view."
+    />
+    <title>PlanWell for Mac | Teacher planning in perspective</title>
     <style>
       :root {
         --paper: #f7f1e8;
@@ -11,10 +15,6 @@
         --ink: #151515;
         --muted: #5d646b;
         --line: rgba(21, 21, 21, 0.14);
-        --soft: rgba(255, 255, 255, 0.68);
-        --accent: #176b58;
-        --accent-2: #a63f36;
-        --blue: #315f85;
         --shadow: 0 18px 60px rgba(33, 40, 48, 0.12);
         font-family:
           Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -23,6 +23,10 @@
 
       * {
         box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
       }
 
       body {
@@ -42,13 +46,21 @@
         padding: 28px clamp(18px, 4vw, 48px) 36px;
       }
 
+      .nav,
+      .hero,
+      .section,
+      .plain-band,
+      footer {
+        max-width: 1180px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       .nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 20px;
-        max-width: 1180px;
-        margin: 0 auto;
       }
 
       .brand {
@@ -57,7 +69,6 @@
         gap: 12px;
         font-size: 21px;
         font-weight: 800;
-        letter-spacing: 0;
       }
 
       .brand svg {
@@ -72,11 +83,10 @@
         gap: 10px;
       }
 
-      .nav-link,
-      .pill {
+      .nav-link {
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.55);
         border-radius: 999px;
+        background: rgba(255, 255, 255, 0.55);
         color: #30343a;
         font-size: 14px;
         line-height: 1;
@@ -84,10 +94,9 @@
       }
 
       .hero {
-        max-width: 1180px;
-        margin: 86px auto 0;
+        margin-top: 78px;
         display: grid;
-        grid-template-columns: minmax(0, 0.85fr) minmax(460px, 1.15fr);
+        grid-template-columns: minmax(0, 0.88fr) minmax(460px, 1.12fr);
         gap: clamp(38px, 6vw, 76px);
         align-items: center;
       }
@@ -101,12 +110,21 @@
         text-transform: uppercase;
       }
 
-      h1 {
+      h1,
+      h2 {
         margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(48px, 8vw, 86px);
-        line-height: 0.92;
         letter-spacing: 0;
+      }
+
+      h1 {
+        font-size: clamp(48px, 7.5vw, 82px);
+        line-height: 0.94;
+      }
+
+      h2 {
+        font-size: clamp(34px, 5vw, 52px);
+        line-height: 1;
       }
 
       .lead {
@@ -119,7 +137,7 @@
 
       .sublead {
         max-width: 560px;
-        margin: 20px 0 0;
+        margin: 18px 0 0;
         color: var(--muted);
         font-size: 16px;
         line-height: 1.55;
@@ -129,17 +147,16 @@
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
-        margin-top: 30px;
+        margin-top: 28px;
       }
 
       .button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
         min-height: 48px;
-        border-radius: 999px;
         border: 1px solid var(--line);
+        border-radius: 999px;
         padding: 0 20px;
         font-size: 15px;
         font-weight: 750;
@@ -154,26 +171,26 @@
 
       .button.secondary {
         background: rgba(255, 255, 255, 0.66);
-        color: var(--ink);
-      }
-
-      .button.youtube {
-        background: #ff0033;
-        border-color: #ff0033;
-        color: white;
       }
 
       .trust-line {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 22px;
+        gap: 0;
+        margin-top: 20px;
+        color: #59616a;
+        font-size: 14px;
+        font-weight: 650;
       }
 
       .pill {
-        background: rgba(255, 255, 255, 0.42);
-        color: #4c545c;
-        padding: 10px 13px;
+        padding: 0;
+      }
+
+      .pill + .pill::before {
+        content: "·";
+        margin: 0 10px;
+        color: #8a9097;
       }
 
       .hero-shot {
@@ -187,15 +204,12 @@
       .hero-shot img {
         display: block;
         width: 100%;
-        aspect-ratio: 1.62;
-        object-fit: cover;
-        object-position: center;
+        height: auto;
         border-radius: 18px;
       }
 
       .section {
-        max-width: 1180px;
-        margin: 94px auto 0;
+        margin-top: 92px;
       }
 
       .section-head {
@@ -203,15 +217,7 @@
         align-items: end;
         justify-content: space-between;
         gap: 28px;
-        margin-bottom: 22px;
-      }
-
-      h2 {
-        margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(34px, 5vw, 54px);
-        line-height: 1;
-        letter-spacing: 0;
+        margin-bottom: 24px;
       }
 
       .section-head p {
@@ -222,111 +228,70 @@
         line-height: 1.55;
       }
 
-      .versions {
+      .feature-grid,
+      .tool-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-      }
-
-      .version {
-        min-height: 330px;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.55);
-        padding: 22px;
-      }
-
-      .version.recommended {
-        background: rgba(255, 255, 255, 0.74);
-        border-color: rgba(23, 107, 88, 0.38);
-        box-shadow: 0 18px 45px rgba(23, 107, 88, 0.1);
-      }
-
-      .version-top {
-        display: flex;
-        align-items: start;
-        justify-content: space-between;
         gap: 14px;
       }
 
-      .version h3 {
-        margin: 0;
-        font-size: 22px;
-        line-height: 1.1;
-        letter-spacing: 0;
+      .feature-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
-      .price {
-        flex: 0 0 auto;
-        color: var(--ink);
-        font-size: 17px;
-        font-weight: 850;
+      .feature,
+      .tool-card {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.58);
+        box-shadow: 0 10px 30px rgba(33, 40, 48, 0.05);
       }
 
-      .tag {
-        width: fit-content;
-        margin-top: 14px;
-        border-radius: 999px;
-        padding: 7px 10px;
-        background: rgba(49, 95, 133, 0.11);
-        color: var(--blue);
-        font-size: 12px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
+      .feature {
+        padding: 22px;
       }
 
-      .tag.green {
-        background: rgba(23, 107, 88, 0.12);
-        color: var(--accent);
+      .feature strong,
+      .tool-card strong {
+        display: block;
+        font-size: 16px;
+        line-height: 1.25;
       }
 
-      .tag.red {
-        background: rgba(166, 63, 54, 0.12);
-        color: var(--accent-2);
-      }
-
-      .version p {
-        margin: 18px 0 0;
-        color: #3f4750;
-        font-size: 15px;
-        line-height: 1.55;
-      }
-
-      .version ul {
-        margin: 18px 0 0;
-        padding: 0;
-        list-style: none;
+      .feature p,
+      .tool-card span span {
+        margin: 9px 0 0;
         color: var(--muted);
         font-size: 14px;
         line-height: 1.5;
       }
 
-      .version li + li {
-        margin-top: 8px;
+      .mac-card {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 28px;
+        align-items: center;
+        border: 1px solid rgba(23, 107, 88, 0.34);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.72);
+        padding: 26px;
+        box-shadow: 0 18px 45px rgba(23, 107, 88, 0.08);
       }
 
-      .version li::before {
-        content: "";
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        margin: 0 10px 2px 0;
-        border-radius: 99px;
-        background: currentColor;
-        opacity: 0.55;
+      .mac-card h3 {
+        margin: 0;
+        font-size: 23px;
       }
 
-      .version .button {
-        width: 100%;
-        margin-top: auto;
+      .mac-card p {
+        max-width: 680px;
+        margin: 9px 0 0;
+        color: var(--muted);
+        line-height: 1.55;
       }
 
       .plain-band {
-        max-width: 1180px;
-        margin: 58px auto 0;
+        margin-top: 58px;
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
         padding: 26px 0;
@@ -343,134 +308,110 @@
         line-height: 1.5;
       }
 
-      .tool-links {
-        max-width: 1180px;
-        margin: 48px auto 0;
-      }
-
-      .tool-links h2 {
-        font-family:
-          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
-        font-size: 18px;
-        font-weight: 850;
-        line-height: 1.2;
-      }
-
       .tool-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 14px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .tool-card {
         display: grid;
-        grid-template-columns: 58px 1fr;
-        gap: 16px;
+        grid-template-columns: 48px 1fr;
+        gap: 14px;
         align-items: center;
-        min-height: 88px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.58);
+        min-height: 92px;
         padding: 16px;
-        box-shadow: 0 10px 30px rgba(33, 40, 48, 0.06);
       }
 
       .tool-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 58px;
+        width: 48px;
         height: 42px;
       }
 
       .tool-icon img {
         display: block;
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
         object-fit: contain;
       }
 
       .tool-icon img.wide {
-        width: 58px;
-        height: 44px;
-      }
-
-      .tool-card strong {
-        display: block;
-        font-size: 15px;
-        line-height: 1.2;
-      }
-
-      .tool-card span {
-        display: block;
-        margin-top: 5px;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.35;
+        width: 48px;
       }
 
       .tool-card code {
         color: #292f35;
-        font-family:
-          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-          monospace;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         font-size: 12px;
       }
 
-      .icon-row {
-        display: none;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        max-width: 1180px;
-        margin: 48px auto 0;
+      a.button:hover,
+      a.nav-link:hover,
+      a.tool-card:hover {
+        transform: translateY(-1px);
       }
 
-      .icon-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 52px;
-        height: 52px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.58);
-        font-size: 21px;
-        box-shadow: 0 10px 30px rgba(33, 40, 48, 0.06);
+      a:focus-visible {
+        outline: 3px solid rgba(49, 95, 133, 0.45);
+        outline-offset: 3px;
       }
 
       footer {
-        max-width: 1180px;
-        margin: 34px auto 0;
+        margin-top: 34px;
         color: #69727a;
         font-size: 13px;
         text-align: center;
       }
 
-      @media (max-width: 920px) {
-        .page {
-          padding-top: 24px;
+      @media (max-width: 980px) {
+        .hero {
+          margin-top: 62px;
+          grid-template-columns: 1fr;
+          gap: 42px;
         }
 
-        .nav-links .nav-link {
+        .feature-grid,
+        .tool-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          padding-top: 22px;
+        }
+
+        .brand {
+          font-size: 18px;
+        }
+
+        .nav-links .nav-link:first-child {
           display: none;
         }
 
         .hero {
-          margin-top: 66px;
-          grid-template-columns: 1fr;
-          gap: 44px;
+          margin-top: 52px;
         }
 
-        .hero-shot {
-          border-radius: 22px;
-          padding: 10px;
+        .actions,
+        .feature-grid,
+        .tool-grid,
+        .mac-card,
+        .plain-band {
+          grid-template-columns: 1fr;
+        }
+
+        .actions {
+          display: grid;
+        }
+
+        .button {
+          width: 100%;
         }
 
         .section {
-          margin-top: 72px;
+          margin-top: 70px;
         }
 
         .section-head {
@@ -481,61 +422,24 @@
           margin-top: 14px;
         }
 
-        .versions {
-          grid-template-columns: 1fr;
+        .hero-shot {
+          border-radius: 20px;
+          padding: 9px;
         }
 
-        .version {
-          min-height: 0;
-        }
-
-        .version .button {
-          margin-top: 24px;
-        }
-
-        .plain-band {
-          grid-template-columns: 1fr;
-        }
-
-        .tool-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 520px) {
-        .brand {
-          font-size: 18px;
-        }
-
-        .hero {
-          margin-top: 58px;
-        }
-
-        .actions {
-          display: grid;
-          grid-template-columns: 1fr;
-        }
-
-        .button {
-          width: 100%;
-        }
-
-        .hero-shot img {
-          aspect-ratio: 1.25;
-        }
       }
     </style>
   </head>
   <body>
     <div class="page">
       <nav class="nav" aria-label="Primary">
-        <a class="brand" href="/" aria-label="PlanWell Desktop home">
+        <a class="brand" href="/" aria-label="PlanWell home">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
             <path d="M8 2v4M16 2v4M3 10h18" />
             <rect x="3" y="4" width="18" height="18" rx="2" />
             <path d="m8 15 2.2 2.2L16 12" />
           </svg>
-          <span>PlanWell Desktop</span>
+          <span>PlanWell</span>
         </a>
         <div class="nav-links">
           <a class="nav-link" href="/support.html">Support</a>
@@ -546,104 +450,105 @@
       <main>
         <section class="hero" aria-labelledby="hero-title">
           <div>
-            <p class="eyebrow">Teacher-first local planner</p>
-            <h1 id="hero-title">PlanWell Desktop</h1>
+            <p class="eyebrow">Native Mac planner for teachers</p>
+            <h1 id="hero-title">Your school year, in perspective.</h1>
             <p class="lead">
-              Plan your week in seconds, keep everything private, and stay fully in control.
-              PlanWell is fast, local-first, markdown-native, and works smoothly with Obsidian.
+              Set your repeating timetable once. Plan what comes next. PlanWell keeps
+              lessons, goals, holidays, and deadlines on one school-year timeline.
             </p>
             <p class="sublead">
-              Start with the free web app. Buy the native tools only when PlanWell becomes
-              part of your real school week.
+              Rebuilt for macOS. Fast, private, and made to work with Calendar, iCloud,
+              notifications, Obsidian, and the files you already own.
             </p>
+            <div class="actions">
+              <a
+                class="button primary"
+                href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12"
+              >Get PlanWell for Mac</a>
+              <a class="button secondary" href="https://www.youtube.com/@PlanWell_app">Watch on YouTube</a>
+            </div>
             <div class="trust-line" aria-label="Product principles">
-              <span class="pill">No subscription</span>
+              <span class="pill">One-time purchase</span>
               <span class="pill">No account</span>
-              <span class="pill">Local markdown files</span>
+              <span class="pill">No tracking</span>
             </div>
           </div>
 
           <div class="hero-shot">
             <img
-              src="assets/images/hero-desktop-latest-1800.jpg"
-              alt="PlanWell Desktop weekly planner screenshot"
+              src="assets/images/hero-planwell-native-1800.jpg"
+              srcset="assets/images/hero-planwell-native-900.jpg 900w, assets/images/hero-planwell-native-1800.jpg 1800w"
+              sizes="(max-width: 980px) 100vw, 56vw"
+              alt="PlanWell for Mac showing a teacher's timetable, school events, and todo list"
+              fetchpriority="high"
+              decoding="async"
             />
           </div>
         </section>
 
-        <section class="section" id="versions" aria-labelledby="versions-title">
+        <section class="section" aria-labelledby="workflow-title">
           <div class="section-head">
-            <h2 id="versions-title">Choose your version.</h2>
+            <h2 id="workflow-title">Plan the year without filling every day.</h2>
           </div>
 
-          <div class="versions">
-            <article class="version">
-              <div class="version-top">
-                <h3>Free Web App</h3>
-                <div class="price">$0</div>
-              </div>
-              <div class="tag">Start here</div>
-              <p>
-                Use PlanWell in the browser to test the markdown workflow with your real
-                school week.
-              </p>
-              <ul>
-                <li>Visual timeline planning</li>
-                <li>Works with PlanWell markdown files</li>
-                <li>No install, no account required</li>
-              </ul>
-              <a class="button secondary" href="https://app.planwellmd.com">Open Web App</a>
+          <div class="feature-grid">
+            <article class="feature">
+              <strong>Set the timetable once</strong>
+              <p>Recurring classes appear throughout the school year.</p>
             </article>
+            <article class="feature">
+              <strong>Keep the year in view</strong>
+              <p>See lessons, holidays, goals, and deadlines in context.</p>
+            </article>
+            <article class="feature">
+              <strong>Use your Mac</strong>
+              <p>Work with Calendar, iCloud, and notifications.</p>
+            </article>
+            <article class="feature">
+              <strong>Own the files</strong>
+              <p>PlanWell stores plain Markdown that also works with Obsidian.</p>
+            </article>
+          </div>
 
-            <article class="version">
-              <div class="version-top">
-                <h3>PlanWell Focus</h3>
-                <div class="price">$4.99</div>
-              </div>
-              <div class="tag red">Timeline only</div>
+          <div class="mac-card">
+            <div>
+              <h3>PlanWell for Mac</h3>
               <p>
-                A small Mac app for teachers who only want a lightweight timeline viewer
-                for existing PlanWell files.
+                The complete native planner. No subscription, no account, and no need to
+                replace the tools that already work for you.
               </p>
-              <ul>
-                <li>Simple chronological timeline</li>
-                <li>Reads your existing local files</li>
-                <li>Not the full PlanWell workflow</li>
-              </ul>
-              <a class="button secondary" href="https://apps.apple.com/us/app/planwell-focus/id6758877157?mt=12">View Focus</a>
-            </article>
-
-            <article class="version recommended">
-              <div class="version-top">
-                <h3>Mac Native Pack</h3>
-                <div class="price">$9.99</div>
-              </div>
-              <div class="tag green">Full workflow</div>
-              <p>
-                The complete native setup: PlanWell.md for Mac, menu bar schedule access
-                and sync, plus the iPhone companion.
-              </p>
-              <ul>
-                <li>Mac desktop planner</li>
-                <li>PlanWellSync menu bar utility</li>
-                <li>iPhone companion app</li>
-              </ul>
-              <a class="button primary" href="https://apps.apple.com/us/app-bundle/id1896763588?mt=12">Get Mac Native Pack</a>
-            </article>
+            </div>
+            <a
+              class="button primary"
+              href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12"
+            >View on the Mac App Store</a>
           </div>
         </section>
 
         <section class="plain-band" aria-label="Local files message">
           <p>
-            PlanWell does not become another place to trap your planning. Your lessons,
-            deadlines, notes, and events stay in plain local markdown files.
+            Your teaching plan stays in plain local files. You can read it, back it up,
+            open it in Obsidian, or leave PlanWell without losing your work.
           </p>
-          <a class="button youtube" href="https://www.youtube.com/@PlanWell_app">Watch on YouTube</a>
+          <a class="button secondary" href="/privacy.html">Read the privacy policy</a>
         </section>
 
-        <section class="tool-links" aria-labelledby="tools-title">
-          <h2 id="tools-title">Also available for smaller workflows.</h2>
+        <section class="section" aria-labelledby="tools-title">
+          <div class="section-head">
+            <h2 id="tools-title">More ways to use PlanWell.</h2>
+          </div>
+
           <div class="tool-grid">
+            <a class="tool-card" href="https://app.planwellmd.com">
+              <span class="tool-icon" aria-hidden="true">
+                <img src="assets/icons/web.svg" alt="" />
+              </span>
+              <span>
+                <strong>Web App</strong>
+                <span>Basic browser planning for Windows and other computers.</span>
+              </span>
+            </a>
+
             <a class="tool-card" href="https://www.raycast.com/Raynold/planwell">
               <span class="tool-icon" aria-hidden="true">
                 <img src="assets/icons/raycast.svg" alt="" />
@@ -660,7 +565,7 @@
               </span>
               <span>
                 <strong>Chrome Extension</strong>
-                <span>Next-class timer in your browser.</span>
+                <span>See the next class in your browser.</span>
               </span>
             </a>
 
