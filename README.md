@@ -15,6 +15,7 @@ This repository hosts the static PlanWell marketing site at planwellmd.com.
 - `flash/index.html` - Public Music + Design flashcard library, organized by grade
 - `design/index.html` - Redirects to `/flash/`
 - `source/grade-6-design-flashcards/` - Shared flashcard player and deck data
+- Class documents (The Pantry / `/classes/`) were removed. Students get docs via Google Classroom.
 
 ## Music + Design Flashcards
 
