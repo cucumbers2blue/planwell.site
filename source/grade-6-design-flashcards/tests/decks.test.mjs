@@ -63,8 +63,68 @@ test("storage devices deck follows the library workflow", () => {
     true,
   );
   assert.equal(new Set(deck.cards.map((card) => card.question)).size, 30);
+});
+
+test("design foundations deck is separate and teacher-ready", () => {
+  const deck = decks.find((item) => item.id === "design-foundations");
+
+  assert.ok(deck, "design foundations deck should be available in the shared library");
+  assert.equal(deck.title, "Design Foundations");
+  assert.equal(deck.cards.length, 15);
+  assert.equal(deck.teachingCount, 7);
+
+  const teachingCards = deck.cards.slice(0, 7);
+  assert.equal(teachingCards.every((card) => Boolean(card.discuss)), true);
+
+  const teachingText = teachingCards
+    .flatMap((card) => [card.question, card.answer, card.explanation, card.discuss ?? ""])
+    .join(" ")
+    .toLowerCase();
+  for (const term of ["design", "purpose", "contrast", "alignment", "proximity", "repetition", "connected"]) {
+    assert.match(teachingText, new RegExp(`\\b${term}\\b`));
+  }
+
   assert.equal(
-    decks.some((item) => item.id === "design-foundations-file-management"),
-    false,
+    deck.cards.every(
+      (card) =>
+        card.choices.length === 3 &&
+        new Set(card.choices).size === 3 &&
+        card.choices.includes(card.answer) &&
+        card.explanation.length > 60,
+    ),
+    true,
   );
+  assert.equal(new Set(deck.cards.map((card) => card.question)).size, 15);
+});
+
+test("file management deck is separate and teacher-ready", () => {
+  const deck = decks.find((item) => item.id === "file-management");
+
+  assert.ok(deck, "file management deck should be available in the shared library");
+  assert.equal(deck.title, "File Management");
+  assert.equal(deck.cards.length, 18);
+  assert.equal(deck.teachingCount, 5);
+
+  const teachingCards = deck.cards.slice(0, 5);
+  assert.equal(teachingCards.every((card) => Boolean(card.discuss)), true);
+
+  const teachingText = teachingCards
+    .flatMap((card) => [card.question, card.answer, card.explanation, card.discuss ?? ""])
+    .join(" ")
+    .toLowerCase();
+  for (const term of ["file", "folder", "filename", "format", "version"]) {
+    assert.match(teachingText, new RegExp(`\\b${term}\\b`));
+  }
+
+  assert.equal(
+    deck.cards.every(
+      (card) =>
+        card.choices.length === 3 &&
+        new Set(card.choices).size === 3 &&
+        card.choices.includes(card.answer) &&
+        card.explanation.length > 60,
+    ),
+    true,
+  );
+  assert.equal(new Set(deck.cards.map((card) => card.question)).size, 18);
 });

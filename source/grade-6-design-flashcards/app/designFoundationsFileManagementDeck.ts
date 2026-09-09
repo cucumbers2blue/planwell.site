@@ -1,4 +1,4 @@
-export const designFoundationsFileManagementDeck = {
+const sourceDeck = {
   "id": "design-foundations-file-management",
   "title": "Design Foundations and File Management",
   "description": "Purposeful design, visual principles, prototypes, and the habits that keep digital work organized.",
@@ -36,6 +36,39 @@ export const designFoundationsFileManagementDeck = {
       "answer": "It makes important elements different so they stand out",
       "explanation": "Contrast means creating a noticeable difference, such as dark text on a light background, a large heading above smaller body text or one bright colour among quieter colours. Contrast helps a viewer notice hierarchy and find important information. Too little contrast can make a design hard to read.",
       "discuss": "Which is easier to read: dark text on a light background or light text on a light background? Why?"
+    },
+    {
+      "question": "What does alignment mean in a design?",
+      "choices": [
+        "Placing elements so their edges or centres line up",
+        "Making every element a different colour",
+        "Putting related information as far apart as possible"
+      ],
+      "answer": "Placing elements so their edges or centres line up",
+      "explanation": "Alignment gives a design an invisible structure. Text, images and other elements can line up along a left edge, right edge or centre line. This makes the page easier to scan because the viewer can see how parts relate to one another. Alignment does not mean everything must be the same size or placed in one straight row.",
+      "discuss": "Look at a classroom poster. Which edges could you line up to make it easier to read?"
+    },
+    {
+      "question": "What does proximity mean in a design?",
+      "choices": [
+        "Placing related elements close together and separating unrelated elements",
+        "Making every object the same size",
+        "Using only colours that are next to each other on a colour wheel"
+      ],
+      "answer": "Placing related elements close together and separating unrelated elements",
+      "explanation": "Proximity helps the viewer understand which pieces of information belong together. A heading placed near its paragraph is easier to connect than a heading separated by a large empty gap. Space between different groups also prevents the page from becoming one confusing block of information.",
+      "discuss": "Where should a caption sit in relation to the image it describes? What might happen if it is placed beside the wrong image?"
+    },
+    {
+      "question": "What does repetition mean in a design?",
+      "choices": [
+        "Reusing visual features so related parts look connected",
+        "Copying the whole design without changing anything",
+        "Repeating the same sentence until the page is full"
+      ],
+      "answer": "Reusing visual features so related parts look connected",
+      "explanation": "Repetition means using a visual feature more than once, such as the same heading style, colour, icon shape or button style. It creates a pattern that helps viewers recognize related information. Repetition should support the message, not add decoration that makes the design noisy.",
+      "discuss": "Which visual feature could you repeat across three pages of the same presentation? Why would that help the audience?"
     },
     {
       "question": "How do alignment, proximity and repetition help a design?",
@@ -78,7 +111,8 @@ export const designFoundationsFileManagementDeck = {
         "A folder containing unrelated downloads"
       ],
       "answer": "A short description of the problem, user, purpose and requirements",
-      "explanation": "A design brief gives the designer a clear starting point. It explains what needs to be solved, who the solution is for and what the solution should achieve. It prevents a project from becoming a collection of attractive choices with no clear purpose."
+      "explanation": "A design brief gives the designer a clear starting point. It explains what needs to be solved, who the solution is for and what the solution should achieve. It prevents a project from becoming a collection of attractive choices with no clear purpose.",
+      "discuss": "What problem would you include in a brief for a school safety poster? What requirements would the poster need to meet?"
     },
     {
       "question": "What is the target audience?",
@@ -158,7 +192,8 @@ export const designFoundationsFileManagementDeck = {
         "A device that connects to Wi-Fi"
       ],
       "answer": "A named collection of digital information",
-      "explanation": "A file stores information in a digital form. It could contain text, an image, audio, video, code or a presentation. Files have names and usually have a file extension that helps the computer understand the format."
+      "explanation": "A file stores information in a digital form. It could contain text, an image, audio, video, code or a presentation. Files have names and usually have a file extension that helps the computer understand the format.",
+      "discuss": "What kinds of files might you create during one design project? How could their formats affect what you do with them?"
     },
     {
       "question": "What is a folder?",
@@ -168,7 +203,8 @@ export const designFoundationsFileManagementDeck = {
         "A type of computer screen"
       ],
       "answer": "A container used to organize related files and other folders",
-      "explanation": "Folders help group related work so it can be found quickly. A project folder might contain folders for research, designs, images and final submissions. Folders can contain subfolders, creating a structure that matches the way the project is organized."
+      "explanation": "Folders help group related work so it can be found quickly. A project folder might contain folders for research, designs, images and final submissions. Folders can contain subfolders, creating a structure that matches the way the project is organized.",
+      "discuss": "If you opened a project folder and found 40 loose files, what folders would you create first?"
     },
     {
       "question": "What is a subfolder?",
@@ -178,7 +214,8 @@ export const designFoundationsFileManagementDeck = {
         "A hidden part of a file extension"
       ],
       "answer": "A folder stored inside another folder",
-      "explanation": "A subfolder is a folder inside a larger folder. For example, `Design Project/Research` is a subfolder inside `Design Project`. Subfolders make a large project easier to navigate when each group of files has a clear purpose."
+      "explanation": "A subfolder is a folder inside a larger folder. For example, `Design Project/Research` is a subfolder inside `Design Project`. Subfolders make a large project easier to navigate when each group of files has a clear purpose.",
+      "discuss": "When would a subfolder make a project easier to manage? When might too many subfolders become confusing?"
     },
     {
       "question": "Which filename is the clearest?",
@@ -311,4 +348,25 @@ export const designFoundationsFileManagementDeck = {
       "explanation": "An editable source file is useful when the design needs revision. A PDF is often useful for sharing or printing because its layout is more stable. Keeping both, with clear names and folders, protects the working process and the final presentation."
     }
   ]
+};
+
+const designCardIndexes = [0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16];
+const fileManagementCardIndexes = [7, 8, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
+
+const cardsAt = (indexes) => indexes.map((index) => sourceDeck.cards[index]);
+
+export const designFoundationsDeck = {
+  id: "design-foundations",
+  title: "Design Foundations",
+  description: "Purpose, audience, visual principles, prototypes and iteration.",
+  teachingCount: 7,
+  cards: cardsAt(designCardIndexes),
+};
+
+export const fileManagementDeck = {
+  id: "file-management",
+  title: "File Management",
+  description: "Files, folders, filenames, formats, versions, submissions and backups.",
+  teachingCount: 5,
+  cards: cardsAt(fileManagementCardIndexes),
 };
