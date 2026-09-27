@@ -222,10 +222,13 @@ a.chip:hover { border-color: var(--accent); }
   margin: 0 0 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
 }
 h1, h2 { margin: 0 0 14px; letter-spacing: -0.025em; line-height: 1.04; font-weight: 700; }
-h1 { font-size: clamp(34px, 3.7vw, 56px); }
+h1 { font-size: clamp(32px, 3.3vw, 52px); }
 h2 { font-size: clamp(27px, 2.5vw, 40px); }
 h1 span, h2 span { font-weight: 400; color: var(--text-2); }
-.lead { font-size: clamp(15px, 1.15vw, 18px); color: var(--text-2); margin: 0 0 20px; max-width: 34em; }
+.lead { font-size: clamp(15px, 1.05vw, 17px); color: var(--text-2); margin: 0 0 20px; max-width: 30em; }
+.copy .lead { margin-bottom: 22px; }
+.hero { padding-left: clamp(20px, 2.4vw, 40px); }
+h1 span { display: block; }
 .copy p { margin: 0 0 12px; color: var(--text-2); }
 .copy p strong { color: var(--text); font-weight: 600; }
 .ticks { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; font-size: 14px; }
@@ -247,7 +250,7 @@ h1 span, h2 span { font-weight: 400; color: var(--text-2); }
 .store:hover { filter: brightness(1.15); }
 .fine { font-size: 13px; color: var(--text-3); margin: 0; }
 .fine a { color: var(--text-2); }
-.hint { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; font-size: 13px; color: var(--text-3); }
+.copy .hint { display: inline-flex; align-items: center; gap: 8px; margin: 26px 0 0; font-size: 13px; color: var(--text-3); }
 .hint kbd {
   font: inherit; font-size: 12px; padding: 1px 7px; border-radius: 5px;
   border: 0.6px solid var(--chip-border); background: var(--chip);
@@ -370,7 +373,8 @@ pre .d { color: var(--text-3); }
   .todo { margin: 0; align-self: stretch; }
   .shot img { height: auto; aspect-ratio: 1800 / 1165; }
   .card { padding: 20px; }
-  .hint { display: none; }
+  .copy .hint { display: none; }
+  .hero { padding-left: 0; }
   .widgets { grid-template-columns: 1fr; }
   .file { grid-template-columns: 1fr; }
   .tree { border-right: 0; border-bottom: 0.6px solid var(--line); }
