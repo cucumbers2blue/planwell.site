@@ -87,11 +87,13 @@
         const chip = document.createElement("span");
         chip.className = "chip klass";
         chip.setAttribute("aria-hidden", "true");
+        chip.title = "Highlight every class with this name";
         if (d.getTime() === today.getTime() && p === nowPeriod) chip.classList.add("now");
         chip.style.gridColumn = c;
         chip.style.gridRow = row;
         chip.style.setProperty("--i", i++ % 60);
         chip.textContent = CLASSES[(seed + p) % CLASSES.length];
+        if (chip.textContent === highlighted) chip.classList.add("hl");
         out.appendChild(chip);
       }
     }
@@ -154,6 +156,27 @@
     if (!(e.key in map)) return;
     e.preventDefault();
     scroller.scrollBy({ left: map[e.key], behavior: reduceMotion ? "auto" : "smooth" });
+  });
+
+  // Click a class to highlight it and every class with the same name, like the app.
+  // Clicking the same class again, or empty grid space, clears it.
+  let highlighted = null;
+  function highlight(name) {
+    highlighted = name;
+    grid.querySelectorAll(".chip.klass").forEach((el) => {
+      el.classList.toggle("hl", name !== null && el.textContent === name);
+    });
+  }
+  grid.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip.klass");
+    if (chip) {
+      highlight(chip.textContent === highlighted ? null : chip.textContent);
+    } else if (highlighted !== null && !e.target.closest(".block, .todos, a, label")) {
+      highlight(null);
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && highlighted !== null) highlight(null);
   });
 
   function layout() {

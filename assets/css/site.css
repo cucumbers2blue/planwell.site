@@ -187,8 +187,11 @@ a.chip:hover { border-color: var(--accent); }
 .chip.event { grid-row: 2; font-weight: 600; }
 .chip.red { background: var(--red); color: var(--red-ink); border-color: transparent; }
 .chip.teal { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
-.chip.klass { color: var(--text-2); font-weight: 500; opacity: 0.8; pointer-events: none; }
+.chip.klass { color: var(--text-2); font-weight: 500; opacity: 0.8; cursor: pointer; user-select: none; transition: box-shadow 0.12s, opacity 0.12s; }
+.chip.klass:hover { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 0.75px var(--accent); }
 .chip.klass.now { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); opacity: 1; color: var(--text); }
+/* click a class: it and every class with the same name get the app's accent ring */
+.chip.klass.hl { opacity: 1; color: var(--text); border-color: var(--accent); box-shadow: 0 0 0 1.5px var(--accent); }
 @media (prefers-reduced-motion: no-preference) {
   .chip.klass { animation: pop 0.5s both; animation-delay: calc(var(--i, 0) * 12ms); }
   @keyframes pop { from { opacity: 0; transform: scale(0.9); } }
