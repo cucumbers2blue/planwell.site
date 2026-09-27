@@ -1,590 +1,236 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="PlanWell is a native Mac planner for teachers. Set your timetable once, plan what comes next, and keep the whole school year in view."
-    />
-    <title>PlanWell for Mac | Teacher planning in perspective</title>
-    <style>
-      :root {
-        --paper: #f7f1e8;
-        --paper-2: #eef3f7;
-        --ink: #151515;
-        --muted: #5d646b;
-        --line: rgba(21, 21, 21, 0.14);
-        --shadow: 0 18px 60px rgba(33, 40, 48, 0.12);
-        font-family:
-          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        color: var(--ink);
-        background:
-          linear-gradient(118deg, var(--paper) 0%, #faf8f2 45%, var(--paper-2) 100%);
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .page {
-        min-height: 100vh;
-        padding: 28px clamp(18px, 4vw, 48px) 36px;
-      }
-
-      .nav,
-      .hero,
-      .section,
-      .plain-band,
-      footer {
-        max-width: 1180px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-      }
-
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 21px;
-        font-weight: 800;
-      }
-
-      .brand svg {
-        width: 30px;
-        height: 30px;
-        stroke-width: 2.2;
-      }
-
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .nav-link {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.55);
-        color: #30343a;
-        font-size: 14px;
-        line-height: 1;
-        padding: 12px 16px;
-      }
-
-      .hero {
-        margin-top: 78px;
-        display: grid;
-        grid-template-columns: minmax(0, 0.88fr) minmax(460px, 1.12fr);
-        gap: clamp(38px, 6vw, 76px);
-        align-items: center;
-      }
-
-      .eyebrow {
-        margin: 0 0 18px;
-        color: #4f5c66;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-
-      h1,
-      h2 {
-        margin: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        letter-spacing: 0;
-      }
-
-      h1 {
-        font-size: clamp(48px, 7.5vw, 82px);
-        line-height: 0.94;
-      }
-
-      h2 {
-        font-size: clamp(34px, 5vw, 52px);
-        line-height: 1;
-      }
-
-      .lead {
-        max-width: 570px;
-        margin: 24px 0 0;
-        color: #313943;
-        font-size: clamp(18px, 2vw, 21px);
-        line-height: 1.46;
-      }
-
-      .sublead {
-        max-width: 560px;
-        margin: 18px 0 0;
-        color: var(--muted);
-        font-size: 16px;
-        line-height: 1.55;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 28px;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 48px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 0 20px;
-        font-size: 15px;
-        font-weight: 750;
-        white-space: nowrap;
-      }
-
-      .button.primary {
-        background: var(--ink);
-        border-color: var(--ink);
-        color: white;
-      }
-
-      .button.secondary {
-        background: rgba(255, 255, 255, 0.66);
-      }
-
-      .trust-line {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0;
-        margin-top: 20px;
-        color: #59616a;
-        font-size: 14px;
-        font-weight: 650;
-      }
-
-      .pill {
-        padding: 0;
-      }
-
-      .pill + .pill::before {
-        content: "·";
-        margin: 0 10px;
-        color: #8a9097;
-      }
-
-      .hero-shot {
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.5);
-        box-shadow: var(--shadow);
-      }
-
-      .hero-shot img {
-        display: block;
-        width: 100%;
-        height: auto;
-        border-radius: 18px;
-      }
-
-      .section {
-        margin-top: 92px;
-      }
-
-      .section-head {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 28px;
-        margin-bottom: 24px;
-      }
-
-      .section-head p {
-        max-width: 440px;
-        margin: 0;
-        color: var(--muted);
-        font-size: 16px;
-        line-height: 1.55;
-      }
-
-      .feature-grid,
-      .tool-grid {
-        display: grid;
-        gap: 14px;
-      }
-
-      .feature-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .feature,
-      .tool-card {
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.58);
-        box-shadow: 0 10px 30px rgba(33, 40, 48, 0.05);
-      }
-
-      .feature {
-        padding: 22px;
-      }
-
-      .feature strong,
-      .tool-card strong {
-        display: block;
-        font-size: 16px;
-        line-height: 1.25;
-      }
-
-      .feature p,
-      .tool-card span span {
-        margin: 9px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .mac-card {
-        margin-top: 18px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 28px;
-        align-items: center;
-        border: 1px solid rgba(23, 107, 88, 0.34);
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.72);
-        padding: 26px;
-        box-shadow: 0 18px 45px rgba(23, 107, 88, 0.08);
-      }
-
-      .mac-card h3 {
-        margin: 0;
-        font-size: 23px;
-      }
-
-      .mac-card p {
-        max-width: 680px;
-        margin: 9px 0 0;
-        color: var(--muted);
-        line-height: 1.55;
-      }
-
-      .plain-band {
-        margin-top: 58px;
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-        padding: 26px 0;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 24px;
-        align-items: center;
-      }
-
-      .plain-band p {
-        margin: 0;
-        color: #303943;
-        font-size: 18px;
-        line-height: 1.5;
-      }
-
-      .tool-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .tool-card {
-        display: grid;
-        grid-template-columns: 48px 1fr;
-        gap: 14px;
-        align-items: center;
-        min-height: 92px;
-        padding: 16px;
-      }
-
-      .tool-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 48px;
-        height: 42px;
-      }
-
-      .tool-icon img {
-        display: block;
-        width: 38px;
-        height: 38px;
-        object-fit: contain;
-      }
-
-      .tool-icon img.wide {
-        width: 48px;
-      }
-
-      .tool-card code {
-        color: #292f35;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        font-size: 12px;
-      }
-
-      a.button:hover,
-      a.nav-link:hover,
-      a.tool-card:hover {
-        transform: translateY(-1px);
-      }
-
-      a:focus-visible {
-        outline: 3px solid rgba(49, 95, 133, 0.45);
-        outline-offset: 3px;
-      }
-
-      footer {
-        margin-top: 34px;
-        color: #69727a;
-        font-size: 13px;
-        text-align: center;
-      }
-
-      @media (max-width: 980px) {
-        .hero {
-          margin-top: 62px;
-          grid-template-columns: 1fr;
-          gap: 42px;
-        }
-
-        .feature-grid,
-        .tool-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      @media (max-width: 640px) {
-        .page {
-          padding-top: 22px;
-        }
-
-        .brand {
-          font-size: 18px;
-        }
-
-        .nav-links .nav-link:first-child {
-          display: none;
-        }
-
-        .hero {
-          margin-top: 52px;
-        }
-
-        .actions,
-        .feature-grid,
-        .tool-grid,
-        .mac-card,
-        .plain-band {
-          grid-template-columns: 1fr;
-        }
-
-        .actions {
-          display: grid;
-        }
-
-        .button {
-          width: 100%;
-        }
-
-        .section {
-          margin-top: 70px;
-        }
-
-        .section-head {
-          display: block;
-        }
-
-        .section-head p {
-          margin-top: 14px;
-        }
-
-        .hero-shot {
-          border-radius: 20px;
-          padding: 9px;
-        }
-
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <nav class="nav" aria-label="Primary">
-        <a class="brand" href="/" aria-label="PlanWell home">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M8 2v4M16 2v4M3 10h18" />
-            <rect x="3" y="4" width="18" height="18" rx="2" />
-            <path d="m8 15 2.2 2.2L16 12" />
-          </svg>
-          <span>PlanWell</span>
-        </a>
-        <div class="nav-links">
-          <a class="nav-link" href="/support.html">Support</a>
-          <a class="nav-link" href="/privacy.html">Privacy</a>
-        </div>
-      </nav>
-
-      <main>
-        <section class="hero" aria-labelledby="hero-title">
-          <div>
-            <p class="eyebrow">Native Mac planner for teachers</p>
-            <h1 id="hero-title">Your school year, in perspective.</h1>
-            <p class="lead">
-              Set your repeating timetable once. Plan what comes next. PlanWell keeps
-              lessons, goals, holidays, and deadlines on one school-year timeline.
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PlanWell Timetable for Mac: the teacher planner that works with Google Calendar</title>
+  <meta name="description" content="PlanWell is a Mac planner made by a teacher. See your timetable, events, deadlines and todos on one weekly timeline. Works with Google Calendar or plain Markdown files. $19.99 once on the Mac App Store.">
+  <link rel="canonical" href="https://planwellmd.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#f4f6f9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1d21" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://planwellmd.com/">
+  <meta property="og:title" content="PlanWell Timetable for Mac">
+  <meta property="og:description" content="Your school week on one timeline. Works with Google Calendar. $19.99 once.">
+  <meta property="og:image" content="https://planwellmd.com/assets/images/hero-planwell-native-1800.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/css/site.css?v=20260927">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PlanWell Timetable",
+    "operatingSystem": "macOS 15 or later",
+    "applicationCategory": "EducationalApplication",
+    "description": "A weekly timeline planner for teachers. Works with Google Calendar and Google Tasks, or with local Markdown files.",
+    "url": "https://planwellmd.com/",
+    "downloadUrl": "https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12",
+    "offers": { "@type": "Offer", "price": "19.99", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Peter Bazylak" }
+  }
+  </script>
+</head>
+<body>
+  <header class="bar">
+    <a class="brand" href="/" aria-label="PlanWell home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+      PlanWell
+    </a>
+    <p class="month" id="month" aria-hidden="true"></p>
+    <nav aria-label="Sections">
+      <a class="tool" href="#google">Google Calendar</a>
+      <a class="tool" href="#files">Markdown</a>
+      <a class="tool" href="#price">Price</a>
+      <a class="tool" href="support.html">Support</a>
+      <a class="tool buy" href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12">Get it · $19.99</a>
+    </nav>
+  </header>
+
+  <div class="frame">
+    <ol class="rows" aria-hidden="true">
+      <li class="strong">Today</li>
+      <li class="strong">Events</li>
+      <li>0 08:00</li><li>1 08:40</li><li>2 09:20</li><li>3 10:20</li><li>4 10:55</li>
+      <li>5 11:30</li><li>6 12:05</li><li>lunch</li><li>8 13:15</li><li>9 13:55</li>
+      <li>After school</li>
+      <li class="strong">Todo</li>
+    </ol>
+
+    <main class="scroller" id="scroller" tabindex="0" aria-label="PlanWell, laid out as a week. Scroll sideways.">
+      <div class="grid" id="grid">
+        <div class="days" id="days" aria-hidden="true"></div>
+
+        <!-- Week 1 · Meet PlanWell -->
+        <section class="sec" id="top" data-col="1" aria-labelledby="h-top">
+          <span class="chip event teal" style="grid-column:1/5">Meet PlanWell</span>
+          <div class="block copy" style="grid-column:1/10;grid-row:3/13">
+            <p class="eyebrow">PlanWell Timetable · for Mac</p>
+            <h1 id="h-top">Your school week, <span>on one timeline.</span></h1>
+            <p class="lead">A Mac planner made by a teacher. Classes, events, deadlines and todos sit in one view you can read at a glance, and it works with the Google Calendar your school already uses.</p>
+            <div class="cta">
+              <a class="store" href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12">
+                <img src="assets/icons/appstore.svg" alt="" width="22" height="22">
+                <span><small>Download on the</small>Mac App Store</span>
+              </a>
+              <p class="fine">$19.99 once. No subscription.</p>
+            </div>
+            <p class="hint" aria-hidden="true">Scroll sideways, or use <kbd>←</kbd> <kbd>→</kbd>
+              <svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h15M11 1l5 5-5 5"/></svg>
             </p>
-            <p class="sublead">
-              Rebuilt for macOS. Fast, private, and made to work with Calendar, iCloud,
-              notifications, Obsidian, and the files you already own.
-            </p>
-            <div class="actions">
-              <a
-                class="button primary"
-                href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12"
-              >Get PlanWell for Mac</a>
-              <a class="button secondary" href="https://www.youtube.com/@PlanWell_app">Watch on YouTube</a>
+          </div>
+          <figure class="block shot" style="grid-column:10/25;grid-row:3/14;margin:6px 3px">
+            <img src="assets/images/hero-planwell-native-1800.jpg"
+                 srcset="assets/images/hero-planwell-native-900.jpg 900w, assets/images/hero-planwell-native-1800.jpg 1800w"
+                 sizes="(max-width: 820px) 100vw, 60vw"
+                 alt="The PlanWell window showing August 2026: event rows for holidays, exams and assemblies above a timetable of classes by period, with a todo list underneath."
+                 width="1800" height="1165">
+          </figure>
+          <label class="todo" style="grid-column:1/7"><input type="checkbox"><span>See the whole week in one place</span></label>
+        </section>
+
+        <!-- Week 5 · Google Calendar -->
+        <section class="sec" id="google" data-col="29" aria-labelledby="h-google">
+          <span class="chip event" style="grid-column:29/34">Google Calendar</span>
+          <div class="block card copy" style="grid-column:29/37;grid-row:3/13">
+            <p class="eyebrow">Google mode</p>
+            <h2 id="h-google">Your school runs on Google Calendar. <span>Keep it.</span></h2>
+            <p>Connect your Google account and choose which calendars PlanWell shows. Mark each one as <strong>Classes</strong>, which fill the periods they overlap, or <strong>Events</strong>, which sit above the timetable. Pick a Google Tasks list for your weekly goals.</p>
+            <ul class="ticks">
+              <li>Edits go straight back to Google</li>
+              <li>Shared staff calendars stay in sync</li>
+              <li>Your data is never sent to PlanWell</li>
+            </ul>
+          </div>
+          <div class="block card mock" style="grid-column:38/47;grid-row:3/13" aria-hidden="true">
+            <div class="mock-head"><span class="dots"><i></i><i></i><i></i></span>Settings · Google Calendar</div>
+            <div class="mock-body">
+              <div>
+                <p class="mock-label">Calendars</p>
+                <div class="cal-row" style="--c:#0b8043"><i></i>My timetable<span class="select">Classes</span></div>
+                <div class="cal-row" style="--c:#3f51b5"><i></i>Staff calendar<span class="select">Events</span></div>
+                <div class="cal-row" style="--c:#d50000"><i></i>Exams &amp; reports<span class="select">Events</span></div>
+                <div class="cal-row off" style="--c:#8e24aa"><i></i>Family<span class="select">Off</span></div>
+              </div>
+              <div>
+                <p class="mock-label">Google Tasks list</p>
+                <div class="cal-row" style="--c:var(--accent)"><i></i>Weekly goals<span class="select">Goals</span></div>
+              </div>
+              <p class="note"><b>Connected.</b> PlanWell talks directly to Google and keeps a local cache for the timeline and widgets.</p>
             </div>
-            <div class="trust-line" aria-label="Product principles">
-              <span class="pill">One-time purchase</span>
-              <span class="pill">No account</span>
-              <span class="pill">No tracking</span>
+          </div>
+          <label class="todo" style="grid-column:29/35"><input type="checkbox"><span>Connect Google Calendar</span></label>
+        </section>
+
+        <!-- Week 8 · Menu bar and widgets -->
+        <section class="sec" id="glance" data-col="50" aria-labelledby="h-glance">
+          <span class="chip event" style="grid-column:50/54">Menu bar</span>
+          <div class="block card copy" style="grid-column:50/57;grid-row:3/12">
+            <p class="eyebrow">At a glance</p>
+            <h2 id="h-glance">Know what's next <span>without opening anything.</span></h2>
+            <p>The menu bar shows your current or next class and how long until it starts. Widgets keep upcoming events and this week's todos on your desktop, and Quick Add drops a class or event into the right period from anywhere.</p>
+          </div>
+          <div class="block menubar" style="grid-column:58/68;grid-row:3/4;align-self:center" aria-hidden="true">
+            <span class="pw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>P4 6BD in 62m</span>
+            <span class="dim">Wed 9:52 AM</span>
+          </div>
+          <div class="block widgets" style="grid-column:58/68;grid-row:5/12" aria-hidden="true">
+            <div class="widget">
+              <h3>Upcoming</h3>
+              <div class="w-item"><span>Parent-teacher interviews</span><span>3 days</span></div>
+              <div class="w-item"><span>Unit 2 deadline</span><span>6 days</span></div>
+              <div class="w-item red"><span>Mid-term exams</span><span>12 days</span></div>
+              <div class="w-item"><span>Sports day</span><span>19 days</span></div>
+            </div>
+            <div class="widget">
+              <h3>This week</h3>
+              <div class="w-todo done">Upload Grade 6 Task A</div>
+              <div class="w-todo">Mark 7B quizzes</div>
+              <div class="w-todo">Start mid-term prep</div>
+              <div class="w-todo">Book the computer lab</div>
             </div>
           </div>
-
-          <div class="hero-shot">
-            <img
-              src="assets/images/hero-planwell-native-1800.jpg"
-              srcset="assets/images/hero-planwell-native-900.jpg 900w, assets/images/hero-planwell-native-1800.jpg 1800w"
-              sizes="(max-width: 980px) 100vw, 56vw"
-              alt="PlanWell for Mac showing a teacher's timetable, school events, and todo list"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </div>
+          <label class="todo" style="grid-column:50/56"><input type="checkbox"><span>Glance at the menu bar</span></label>
         </section>
 
-        <section class="section" aria-labelledby="workflow-title">
-          <div class="section-head">
-            <h2 id="workflow-title">Plan the year without filling every day.</h2>
+        <!-- Week 10 · Markdown files -->
+        <section class="sec" id="files" data-col="71" aria-labelledby="h-files">
+          <span class="chip event" style="grid-column:71/75">Markdown files</span>
+          <div class="block card copy" style="grid-column:71/78;grid-row:3/12">
+            <p class="eyebrow">Local Markdown mode</p>
+            <h2 id="h-files">Prefer plain files? <span>Those work too.</span></h2>
+            <p>Keep every class, event and todo as an ordinary <strong>.md</strong> file in a folder you choose. Open it in Obsidian, back it up anywhere, and sync with Apple Calendar and Reminders if you like. No account needed.</p>
           </div>
-
-          <div class="feature-grid">
-            <article class="feature">
-              <strong>Set the timetable once</strong>
-              <p>Recurring classes appear throughout the school year.</p>
-            </article>
-            <article class="feature">
-              <strong>Keep the year in view</strong>
-              <p>See lessons, holidays, goals, and deadlines in context.</p>
-            </article>
-            <article class="feature">
-              <strong>Use your Mac</strong>
-              <p>Work with Calendar, iCloud, and notifications.</p>
-            </article>
-            <article class="feature">
-              <strong>Own the files</strong>
-              <p>PlanWell stores plain Markdown that also works with Obsidian.</p>
-            </article>
-          </div>
-
-          <div class="mac-card">
-            <div>
-              <h3>PlanWell for Mac</h3>
-              <p>
-                The complete native planner. No subscription, no account, and no need to
-                replace the tools that already work for you.
-              </p>
+          <div class="block card file" style="grid-column:79/89;grid-row:3/12" aria-hidden="true">
+            <div class="tree">
+              <div class="dir">classes</div>
+              <div class="f">english-7a.md</div>
+              <div class="f on">mathematics-7a.md</div>
+              <div class="f">science-7b.md</div>
+              <div class="dir">events</div>
+              <div class="f">parent-teacher-interviews.md</div>
+              <div class="dir">todos</div>
+              <div class="f">lesson-prep.md</div>
             </div>
-            <a
-              class="button primary"
-              href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12"
-            >View on the Mac App Store</a>
+<pre><span class="d">---</span>
+<span class="k">name:</span> Mathematics 7A
+<span class="k">isRecurring:</span> true
+<span class="k">startDate:</span> 2026-01-26
+<span class="k">occurrence 1:</span> 'dayOfWeek:1, period:period-1'
+<span class="k">occurrence 2:</span> 'dayOfWeek:3, period:period-1'
+<span class="k">occurrence 3:</span> 'dayOfWeek:5, period:period-1'
+<span class="d">---</span>
+Year 7 Mathematics: algebra,
+geometry, and data analysis.</pre>
           </div>
+          <label class="todo" style="grid-column:71/77"><input type="checkbox"><span>Back up my planning folder</span></label>
         </section>
 
-        <section class="plain-band" aria-label="Local files message">
-          <p>
-            Your teaching plan stays in plain local files. You can read it, back it up,
-            open it in Obsidian, or leave PlanWell without losing your work.
-          </p>
-          <a class="button secondary" href="/privacy.html">Read the privacy policy</a>
+        <!-- Week 13 · Price -->
+        <section class="sec" id="price" data-col="92" aria-labelledby="h-price">
+          <span class="chip event red" style="grid-column:92/96">Payday</span>
+          <div class="block card copy price" style="grid-column:92/101;grid-row:3/14">
+            <p class="eyebrow">One price</p>
+            <h2 id="h-price" class="big">$19.99 <span>once.</span></h2>
+            <div class="receipt">
+              <div><span>Subscription</span><span>None</span></div>
+              <div><span>Account needed</span><span>Only for Google mode</span></div>
+              <div><span>Ads, analytics, tracking</span><span>None</span></div>
+              <div><span>Runs on</span><span>macOS 15 or later</span></div>
+            </div>
+            <div class="cta">
+              <a class="store" href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12">
+                <img src="assets/icons/appstore.svg" alt="" width="22" height="22">
+                <span><small>Download on the</small>Mac App Store</span>
+              </a>
+            </div>
+            <p class="fine" style="margin-top:14px">Not on a Mac? <a href="https://app.planwellmd.com">PlanWell Web</a> is a free, simpler planner that runs in your browser.</p>
+          </div>
+          <label class="todo important" style="grid-column:92/98"><input type="checkbox"><span><a href="https://apps.apple.com/app/planwell-timetable/id6797381808?mt=12">Get PlanWell</a></span></label>
         </section>
 
-        <section class="section" aria-labelledby="tools-title">
-          <div class="section-head">
-            <h2 id="tools-title">More ways to use PlanWell.</h2>
-          </div>
-
-          <div class="tool-grid">
-            <a class="tool-card" href="https://app.planwellmd.com">
-              <span class="tool-icon" aria-hidden="true">
-                <img src="assets/icons/web.svg" alt="" />
-              </span>
-              <span>
-                <strong>Web App</strong>
-                <span>Basic browser planning for Windows and other computers.</span>
-              </span>
-            </a>
-
-            <a class="tool-card" href="https://www.raycast.com/Raynold/planwell">
-              <span class="tool-icon" aria-hidden="true">
-                <img src="assets/icons/raycast.svg" alt="" />
-              </span>
-              <span>
-                <strong>Raycast Extension</strong>
-                <span>Check your PlanWell schedule from Raycast.</span>
-              </span>
-            </a>
-
-            <a class="tool-card" href="https://chromewebstore.google.com/detail/planwell-schedule/jonkonglfokjegcdonimhaoaddiofcjp">
-              <span class="tool-icon" aria-hidden="true">
-                <img src="assets/icons/google-store.svg" alt="" />
-              </span>
-              <span>
-                <strong>Chrome Extension</strong>
-                <span>See the next class in your browser.</span>
-              </span>
-            </a>
-
-            <a class="tool-card" href="https://www.npmjs.com/package/planwell-cli">
-              <span class="tool-icon" aria-hidden="true">
-                <img class="wide" src="assets/icons/npm.svg" alt="" />
-              </span>
-              <span>
-                <strong>PlanWell CLI</strong>
-                <span><code>npm install -g planwell-cli</code></span>
-              </span>
-            </a>
-          </div>
+        <!-- Week 15 · Made by a teacher -->
+        <section class="sec" id="about" data-col="104" aria-labelledby="h-about">
+          <span class="chip event" style="grid-column:104/109">Made by a teacher</span>
+          <footer class="block card copy foot" style="grid-column:104/112;grid-row:3/13">
+            <p class="eyebrow">Who makes it</p>
+            <h2 id="h-about">Built for the rhythm <span>of a real school week.</span></h2>
+            <p>PlanWell is made by Peter Bazylak, a teacher of fifteen years. Periods, rotations, exam weeks, assemblies and the todo list that never ends are the whole point, not an afterthought.</p>
+            <p>Questions or ideas? Email <a href="mailto:contact@planwellmd.com">contact@planwellmd.com</a> or watch <a href="https://www.youtube.com/@PlanWell_app">PlanWell on YouTube</a>.</p>
+            <div class="links">
+              <a class="chip" href="support.html">Support</a>
+              <a class="chip" href="privacy.html">Privacy</a>
+              <a class="chip" href="https://app.planwellmd.com">PlanWell Web</a>
+              <a class="chip" href="flash/">Flashcards</a>
+            </div>
+            <p class="fine" style="margin-top:16px">© 2026 Peter Bazylak. Mac and Mac App Store are trademarks of Apple Inc. Google Calendar is a trademark of Google LLC.</p>
+          </footer>
+          <label class="todo" style="grid-column:104/110"><input type="checkbox"><span>Enjoy the weekend</span></label>
         </section>
-      </main>
+      </div>
+    </main>
+  </div>
 
-      <footer>
-        Built by a teacher who got tired of planning twice.
-      </footer>
-    </div>
-  </body>
+  <script src="assets/js/site.js?v=20260927" defer></script>
+</body>
 </html>
