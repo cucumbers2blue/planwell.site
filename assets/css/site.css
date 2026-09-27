@@ -390,7 +390,7 @@ pre .d { color: var(--text-3); }
   .sec:first-child { padding-top: 6px; }
   .block { margin: 0; }
   .chip { margin: 0; align-self: flex-start; }
-  .chip.event { font-size: 12.5px; }
+  .chip.event { display: none; }
   .todos { margin: 0; align-self: stretch; }
   .shot img { width: 100%; }
   .shot img { height: auto; aspect-ratio: 1800 / 1165; }
