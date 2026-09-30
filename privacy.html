@@ -26,7 +26,7 @@
     <p class="eyebrow">Privacy</p>
     <h1>Privacy policy <span>in plain words.</span></h1>
     <p class="lead">Your planning data stays on your Mac, in your files, or in your own Google account. We never see it.</p>
-    <span class="chip stamp">Last updated September 27, 2026</span>
+    <span class="chip stamp">Last updated September 30, 2026</span>
     <div class="entries">
         <article class="entry">
           <h2>What we collect</h2>
@@ -45,6 +45,18 @@
           <h2>Google Calendar and Tasks</h2>
           <p>If you connect a Google account, PlanWell reads your calendar list, events in the calendars you select, and the task list you select. It displays them in your timeline and widgets and sends event and task edits directly to Google. PlanWell stores your Google sign-in token in macOS Keychain and keeps a local cache of displayed Google data on your Mac. It does not send Google account data to PlanWell servers or use it for advertising, analytics, or AI training.</p>
           <p>You can disconnect Google in PlanWell's settings. This removes PlanWell's locally stored token and calendar and task cache and requests revocation of the Google grant. Your items remain in your Google account. Google handles data in that account under its <a href="https://policies.google.com/privacy">privacy policy</a>.</p>
+        </article>
+        <article class="entry" id="google-sharing">
+          <h2>Sharing, transfer and disclosure of Google user data</h2>
+          <p><strong>PlanWell does not share, transfer, sell or disclose Google user data to anyone.</strong> The developer of PlanWell never receives it, and no person at PlanWell can read it.</p>
+          <ul><li>Google data moves only between your Mac and Google's own servers, when PlanWell loads your calendars, events and tasks or saves an edit you made.</li><li>It is not sent to PlanWell servers (there are none), advertisers, data brokers, analytics or AI providers, or any other third party.</li><li>It is not used for advertising, for training AI or machine learning models, or to determine credit-worthiness.</li><li>Inside your Mac, PlanWell shows it in its own widgets and in Shortcuts actions you choose to run. These stay on your device.</li><li>We would only ever disclose Google user data if required by law, and we cannot do so in practice because we never hold it.</li></ul>
+        </article>
+        <article class="entry" id="google-protection">
+          <h2>How Google user data is protected</h2>
+          <ul><li><strong>Encryption in transit:</strong> all requests to Google go directly from your Mac to Google over HTTPS (TLS).</li><li><strong>Secure sign-in:</strong> PlanWell signs in with Google's OAuth 2.0 using PKCE and never sees your Google password.</li><li><strong>Token storage:</strong> the Google sign-in token is stored in the macOS Keychain, encrypted by macOS, available only while your Mac is unlocked and never synced to other devices.</li><li><strong>Local storage only:</strong> the cache of displayed calendars, events and tasks is kept inside PlanWell's sandboxed app container on your Mac, protected by the App Sandbox, your macOS user account and FileVault disk encryption if you have it turned on.</li><li><strong>Least access:</strong> PlanWell requests only calendar events, your calendar list and Google Tasks, the minimum it needs for its features.</li><li><strong>Deletion:</strong> disconnecting Google in PlanWell's settings deletes the token and the local cache and asks Google to revoke access. You can also remove access at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li></ul>
+        </article>
+        <article class="entry">
+          <h2>Google API Services User Data Policy</h2>
           <p>PlanWell's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
         </article>
         <article class="entry">
