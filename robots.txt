@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /reporting/
 
-# This site is in private testing phase
-# Not ready for public indexing
+Sitemap: https://planwellmd.com/sitemap.xml
