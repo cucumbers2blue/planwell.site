@@ -259,6 +259,11 @@ h1 span { display: block; }
 .store svg { width: 22px; height: 22px; fill: currentColor; }
 .store small { display: block; font-size: 10.5px; font-weight: 500; opacity: 0.75; letter-spacing: 0.02em; }
 .store:hover { filter: brightness(1.15); }
+.copy .trial-pill {
+  display: block; width: fit-content; margin: 0 0 14px; padding: 5px 12px; border-radius: 999px;
+  background: var(--accent); color: var(--accent-ink);
+  font-size: 14px; font-weight: 600; letter-spacing: 0.01em;
+}
 .fine { font-size: 13px; color: var(--text-3); margin: 0; }
 .fine a { color: var(--text-2); }
 .copy .hint { display: inline-flex; align-items: center; gap: 8px; margin: 26px 0 0; font-size: 13px; color: var(--text-3); }
