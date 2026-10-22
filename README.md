@@ -1,6 +1,15 @@
 # PlanWell Website
 
-This repository hosts the static PlanWell marketing site at planwellmd.com.
+This public repository hosts the static PlanWell marketing site at planwellmd.com
+and the classroom flashcards under `/flash/`. It remains public so GitHub Pages
+continues working on the current GitHub Free plan.
+
+Web app code lives in [planwell](https://github.com/cucumbers2blue/planwell).
+Current marketing plans live in [business](https://github.com/cucumbers2blue/business).
+Native Apple app source lives in [PlanWellMac](https://github.com/cucumbers2blue/PlanWellMac),
+where development is paused. Edit this repo for public website content.
+
+Local checkout: `~/Documents/PlanWell/site`.
 
 ## Page Overview
 
